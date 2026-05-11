@@ -1,0 +1,347 @@
+{{ define "main" }}
+
+<!-- ─── Education ─────────────────────────────────────── -->
+
+<section>
+<h2>Education</h2>
+
+<div class="row">
+  <div class="when">2024 — present</div>
+  <div class="what">
+    <h3>Indian Institute of Technology, Kanpur</h3>
+    <div class="where">B.S., Statistics &amp; Data Science · CPI <strong>9.2 / 10.0</strong></div>
+    <p>
+      Academic Excellence Award (top 10% of cohort, 2025-26).
+      Perfect <strong>10.0 / 10.0 SPI</strong> in the 2024–25 even
+      semester.
+    </p>
+  </div>
+</div>
+</section>
+
+<!-- ─── Experience ────────────────────────────────────── -->
+
+<section>
+<h2>Experience</h2>
+
+<div class="row">
+  <div class="when">May ’25 — Sep ’25</div>
+  <div class="what">
+    <h3><a href="https://github.com/GraphiteEditor/Graphite/discussions/2655">Contributor — Graphite Editor</a></h3>
+    <div class="where">Rust 2D graphics editor (~25k★) · Rust, wgpu, Vello</div>
+    <ul>
+      <li>
+        Got into <a href="https://github.com/GraphiteEditor/Graphite/discussions/2655">Google
+        Summer of Code 2025</a>;
+        <strong><a href="https://github.com/GraphiteEditor/Graphite/issues?q=is%3Apr+is%3Amerged+author%3AmTvare6">45+
+        merged PRs</a></strong> across the editor and its rendering
+        stack.
+      </li>
+      <li>
+        Built a high-performance bitmap caching layer using the JS
+        <code>Reflect</code> API to offload pixel data to an
+        off-screen <code>HTMLCanvas</code> in place of base64-encoded
+        SVGs — severely reduced data transfer overhead, eliminated
+        UI stutter on bitmap-heavy scenes.
+      </li>
+      <li>
+        Redesigned the core masking architecture for arbitrary
+        vector data: heuristic-routed <code>&lt;clipPath&gt;</code>
+        vs <code>&lt;mask&gt;</code> emission supporting inverted
+        masking, dynamic stroke alignment, and custom paint ordering.
+      </li>
+      <li>
+        Upstreamed
+        <a href="https://github.com/linebender/vello/commit/0cb4afdc7b7796bbb1178eb09ec1470565a41ac8">luminance-based
+        clipping</a> directly into the
+        <strong><a href="https://github.com/linebender/vello">Vello</a></strong>
+        2D rendering engine; led the editor's pipeline migration to
+        <strong>Vello v0.5.0 + WGPU v25</strong> to maintain upstream
+        parity and unlock the new luminance capabilities.
+      </li>
+      <li>
+        Built a Blender-style transformation pivot system with
+        independent per-layer origin coordinates and
+        <em>Active Object</em> / <em>Average of Origins</em> modes
+        across Select and Path tooling.
+      </li>
+      <li>
+        Implemented hierarchical graph selection via
+        <a href="https://en.wikipedia.org/wiki/Lowest_common_ancestor">Least
+        Common Ancestor</a> traversals and parent-child layer
+        collapsing — shallow/deep click heuristics and tolerance-aware
+        lasso polygon boundary tracking.
+      </li>
+      <li>
+        Stabilised core editor state and interactive tooling: complex
+        transform-cage hit-testing, node deserialization lifecycles,
+        persistent isometric workspace grids, undo-stack correctness
+        on tool transitions.
+      </li>
+    </ul>
+  </div>
+</div>
+</section>
+
+<!-- ─── Selected projects ─────────────────────────────── -->
+
+<section>
+<h2>Selected projects</h2>
+
+<div class="row">
+  <div class="when">Mar — Apr ’26</div>
+  <div class="what">
+    <h3><a href="https://github.com/mTvare6/tjit">tjit</a> <span class="stack">Rust · Cranelift</span></h3>
+    <p>
+      JIT-compiled, statically typed systems language. Hand-rolled
+      lexer, recursive-descent parser, typed HIR, Cranelift IR
+      backend with <code>cranelift-jit</code> /
+      <code>cranelift-module</code>. ADTs (struct + payload-carrying
+      enums), pattern matching with ranges and destructuring,
+      fixed-size arrays, pipeline operator, libc FFI, primitive
+      casts, strings as fat pointers.
+      <strong>Arbitrary-width integers</strong>
+      (<code>u1</code>…<code>i42</code>) bit-packed in memory with
+      no-cross-64 word alignment, promoted to native widths at
+      compute time via shift/mask + sign-extension.
+    </p>
+  </div>
+</div>
+
+<div class="row">
+  <div class="when">Mar — Apr ’26</div>
+  <div class="what">
+    <h3><a href="https://github.com/mTvare6/ghfs">ghfs</a> <span class="stack">Rust · fuser · Tokio</span></h3>
+    <p>
+      Read-only FUSE filesystem exposing GitHub as a directory tree.
+      Async <code>fuser::AsyncFilesystem</code> over a Tokio runtime;
+      lock-free file-content cache via
+      <code>Arc&lt;OnceCell&lt;Vec&lt;u8&gt;&gt;&gt;</code>. Lazy
+      directory hydration via <code>git/trees?recursive=1</code>;
+      PAT-aware rate limiting (60 → 5k req/hr).
+    </p>
+  </div>
+</div>
+
+<div class="row">
+  <div class="when">Feb ’26</div>
+  <div class="what">
+    <h3><a href="https://github.com/mTvare6/loom">loom</a> <span class="stack">Rust · PipeWire · DSP</span></h3>
+    <p>
+      Real-time audio spatialiser exposed as a PipeWire virtual sink.
+      Three-band Linkwitz–Riley split; head-shadow crossfeed
+      (delay + −12 dB high-shelf at 700 Hz); pinna-notch EQ + mid/side
+      decorrelation with modulated all-passes; transient-aware width
+      via peak envelope follower (1 ms / 50 ms); 6-tap early
+      reflections with per-tap air-absorption LPFs; Schroeder-style
+      stereo room tail. Lock-free GUI ↔ audio via atomic
+      <code>f32::to_bits</code>; <code>RT_PROCESS</code> stream flag.
+    </p>
+  </div>
+</div>
+
+<div class="row">
+  <div class="when">Jan ’25 — Jan ’26</div>
+  <div class="what">
+    <h3><a href="https://github.com/mTvare6/griw">griw</a> <span class="stack">Rust · wgpu · Slang</span></h3>
+    <p>
+      Real-time GPU path tracer. Slang shaders compiled to SPIR-V at
+      build time via a <code>slangc</code>-driven
+      <code>build.rs</code>; up to 64 bounces per pixel,
+      Lambertian / Metal / Dielectric materials, frame-accumulated
+      sampling into an <code>Rgba32Float</code> radiance texture,
+      ACES filmic tonemap. WASD + mouse-look camera with
+      sample-counter reset on movement.
+    </p>
+  </div>
+</div>
+
+<div class="row">
+  <div class="when">Oct ’24 — Apr ’25</div>
+  <div class="what">
+    <h3><a href="https://github.com/mTvare6/nbody">nbody</a> <span class="stack">Rust · Barnes–Hut</span></h3>
+    <p>
+      O(N log N) gravitational simulator: arena-allocated quadtree,
+      Barnes–Hut θ=0.4, Plummer softening, leapfrog for symplectic
+      integration. Real-time velocity-coloured rendering at a stable
+      60 FPS via the <code>pixels</code> crate.
+    </p>
+  </div>
+</div>
+
+<div class="row">
+  <div class="when">2025</div>
+  <div class="what">
+    <h3><a href="https://github.com/mTvare6/enkiwm">enkiwm</a> <span class="stack">Rust · Smithay · Wayland</span></h3>
+    <p>
+      Experimental Wayland compositor with a vim-style modal mode.
+      <kbd>Alt_R</kbd> enters modal; <kbd>HJKL</kbd> moves the camera
+      grid, <kbd>UIOP</kbd> shifts cell focus, <kbd>Shift</kbd>
+      swaps windows or grows the camera span, <kbd>Alt_L</kbd> shrinks
+      it. BFS placement of new windows; custom integer-vector type
+      with full operator overloading.
+    </p>
+  </div>
+</div>
+
+<div class="row">
+  <div class="when">Aug ’21 — Dec ’24</div>
+  <div class="what">
+    <h3><a href="https://github.com/mTvare6/hello-world.rs">hello-world.rs</a> <span class="stack">Rust · satire · ~3.6k★</span></h3>
+    <p>
+      Satirical Rust hello-world with ~1,000 transitive crates,
+      Nix flakes, Docker, AUR PKGBUILD, Windows manifest, and
+      hundreds of community PRs. Listed for traction signal, not
+      technical credit.
+    </p>
+  </div>
+</div>
+</section>
+
+<!-- ─── Open source ───────────────────────────────────── -->
+
+<section>
+<h2><a href="https://github.com/pulls?q=is%3Apr+author%3AmTvare6">Other open-source</a></h2>
+
+<div class="row">
+  <div class="when">Jul — Sep ’25</div>
+  <div class="what">
+    <h3><a href="https://github.com/linebender/vello">linebender / Vello</a></h3>
+    <p>
+      Rendering-infrastructure work: implemented
+      <a href="https://github.com/linebender/vello/commit/0cb4afdc7b7796bbb1178eb09ec1470565a41ac8">luminance-based
+      clipping and masking</a> in the engine core — the upstream
+      side of the masking architecture rebuild in Graphite.
+    </p>
+  </div>
+</div>
+
+<div class="row">
+  <div class="when">Dec ’24 — Jan ’25</div>
+  <div class="what">
+    <h3>Vim, Neovim &amp; Slang</h3>
+    <p>
+      Upstreamed
+      <a href="https://github.com/clason/neovim/commit/eb9bf8d84ec9c05ad4d1fa69faf705aee999419d">native
+      language detection</a> into Vim and Neovim's core runtimes.
+      Contributed type-resolution overloads for
+      <code>Optional&lt;T&gt;</code> to the
+      <a href="https://shader-slang.com/">Slang</a> shading-language
+      compiler, improving symbol inference accuracy.
+    </p>
+  </div>
+</div>
+
+<div class="row">
+  <div class="when">Nov ’24 — Jan ’25</div>
+  <div class="what">
+    <h3><a href="https://swaywm.org/">SwayWM</a></h3>
+    <p>
+      Wayland layout fixes:
+      <a href="https://github.com/swaywm/sway/pull/8417">border
+      clamping</a>,
+      <a href="https://github.com/swaywm/sway/pull/8529">redundant
+      display-format checks</a>; engineered an
+      <a href="https://github.com/swaywm/sway/pull/8455">i3-compatibility
+      feature</a> that had been overlooked upstream.
+    </p>
+  </div>
+</div>
+
+<div class="row">
+  <div class="when">Apr — Aug ’21</div>
+  <div class="what">
+    <h3>Neovim ecosystem &amp; build tools</h3>
+    <p>
+      Cross-platform build-pipeline fixes for C++ starter templates
+      (Windows DLLs); macOS platform fixes to
+      <a href="https://github.com/NvChad/NvChad">NvChad</a>.
+    </p>
+  </div>
+</div>
+</section>
+
+<!-- ─── Position of Responsibility ────────────────────── -->
+
+<section>
+<h2>Position of responsibility</h2>
+
+<div class="row">
+  <div class="when">Jun ’25 — present</div>
+  <div class="what">
+    <h3><a href="https://pclub.in">Programming Club, IIT Kanpur</a> · Secretary</h3>
+    <ul>
+      <li>
+        Introduced the Graphics domain as sole secretary; authored
+        the
+        <a href="https://github.com/pclubiitk/pclub-website/pull/62">Graphics</a>
+        and
+        <a href="https://github.com/pclubiitk/pclub-website/pull/71">Systems</a>
+        roadmaps from scratch.
+      </li>
+      <li>
+        Led a 10-day Graphics Spring Camp as instructor — the
+        campers built a GPU path tracer modelled on
+        <code><a href="https://github.com/mTvare6/griw">griw</a></code>.
+      </li>
+      <li>
+        Contributed
+        <code><a href="https://github.com/mTvare6/tch">tch</a></code>
+        as the reference architecture for the 10-day Systems Spring
+        Camp.
+      </li>
+    </ul>
+  </div>
+</div>
+</section>
+
+<!-- ─── Skills ────────────────────────────────────────── -->
+
+<section>
+<h2>Skills</h2>
+
+<div class="skills-grid">
+  <div class="label">languages</div>
+  <div class="vals"><code>Rust</code>, <code>C</code>, <code>C++</code>, <code>Python</code>, <code>Lua</code>, <code>Vimscript</code>, <code>Java</code>, <code>R</code>, <code>WGSL/GLSL</code>, <code>Slang</code>, <code>JS/TS</code>, shell</div>
+
+  <div class="label">compilers</div>
+  <div class="vals">Cranelift (jit, module, codegen), hand-rolled lexers/parsers, typed HIR, ADT layout, pattern-match compilation, bit-packing arithmetic</div>
+
+  <div class="label">systems</div>
+  <div class="vals">Linux, FUSE (<code>fuser</code>, async), Tokio, Wayland (<code>smithay</code>), PipeWire, libspa-sys, libc FFI</div>
+
+  <div class="label">audio / DSP</div>
+  <div class="vals">Linkwitz–Riley crossovers, biquad EQ, Schroeder reverbs, head-shadow crossfeed, decorrelation, transient detection, mid/side</div>
+
+  <div class="label">graphics / GPU</div>
+  <div class="vals">wgpu / WebGPU, Vello, compute pipelines, path tracing, Slang→SPIR-V, OpenGL compute, ArrayFire</div>
+
+  <div class="label">tooling</div>
+  <div class="vals">git, GitHub Actions, Cargo, Make, CMake, Nix, Arch packaging, Docker, neovim</div>
+</div>
+</section>
+
+<!-- ─── Links ─────────────────────────────────────────── -->
+
+<section>
+<h2>Links</h2>
+
+<div class="row">
+  <div class="when">code</div>
+  <div class="what"><p><a href="{{ .Site.Params.github_url }}">github.com/{{ index .Site.Params.handles 1 }}</a></p></div>
+</div>
+<div class="row">
+  <div class="when">long-form</div>
+  <div class="what"><p><a href="{{ "/" | relURL }}">long</a> — every project, every detail.</p></div>
+</div>
+<div class="row">
+  <div class="when">blog</div>
+  <div class="what"><p><a href="{{ "/blog/" | relURL }}">blog</a></p></div>
+</div>
+<div class="row">
+  <div class="when">email</div>
+  <div class="what"><p><a href="mailto:{{ .Site.Params.email }}">{{ .Site.Params.email }}</a></p></div>
+</div>
+</section>
+
+{{ end }}

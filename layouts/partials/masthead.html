@@ -1,0 +1,27 @@
+{{- /*
+  Masthead partial.
+  Reads `masthead_current` from the page's front matter to highlight the active
+  nav link, and `blurb` for the tagline. Falls back gracefully when missing.
+*/ -}}
+{{- $current := .Params.masthead_current | default "" -}}
+
+<header class="masthead">
+  <nav class="nav">
+    <a href="{{ "/" | relURL }}"{{ if eq $current "long" }} class="current"{{ end }}>long</a>
+    <a href="{{ "/resume/" | relURL }}"{{ if eq $current "resume" }} class="current"{{ end }}>resume</a>
+    <a href="{{ "/blog/" | relURL }}"{{ if eq $current "blog" }} class="current"{{ end }}>blog</a>
+    <a href="{{ .Site.Params.github_url }}">github</a>
+  </nav>
+  <h1>{{ .Site.Params.author }}</h1>
+  <div class="handles">
+    {{ range .Site.Params.handles }}<span>{{ . }}</span>{{ end }}
+    {{- if .Params.show_email_in_header -}}
+      <span><a href="mailto:{{ .Site.Params.email }}">{{ .Site.Params.email }}</a></span>
+    {{- end }}
+  </div>
+  {{ with .Params.blurb }}
+  <p class="blurb">
+    {{ . | markdownify }}
+  </p>
+  {{ end }}
+</header>
