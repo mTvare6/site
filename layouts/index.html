@@ -1,0 +1,691 @@
+{{ define "main" }}
+
+<!-- ─── About ──────────────────────────────────────────── -->
+
+<section>
+<h2>About</h2>
+
+<p>
+I'm a sophomore at <a href="https://www.iitk.ac.in">IIT Kanpur</a>
+studying statistics, and a secretary at the
+<a href="https://pclub.in">Programming Club</a>. Online I'm
+<code>epestr</code> most places and <code>mTvare6</code> on GitHub.
+</p>
+
+<p>
+What I build, mostly: <strong>developer tools and desktop utilities
+for power users</strong> — window managers (<code>enki</code>),
+virtual filesystems (<code>ghfs</code>), terminal UIs
+(<code>ssr</code>, <code>coxide</code>), language tooling
+(<code>tjit</code>), real-time audio pipelines (<code>loom</code>).
+Things you'd reach for if you spent your day in a tiling WM and
+tmux. Plus a sustained <strong>graphics tilt</strong> — path
+tracers, GPU agent simulations, the tooling and rendering work on
+<a href="https://graphite.rs">Graphite</a>, which runs through the
+second half of this page.
+</p>
+
+<p>
+Most of what I write is in Rust, some C/C++, Python, Lua,
+GLSL/WGSL/Slang as the project demands. What follows is organised
+by domain, with the desktop / devtools stuff up front and the
+graphics work after. For the chronological one-pager, see
+<a href="{{ "/resume/" | relURL }}">the resume</a>. For things I've
+written, see <a href="{{ "/blog/" | relURL }}">the blog</a>.
+</p>
+</section>
+
+<!-- ─── Now ────────────────────────────────────────────── -->
+
+<section>
+<h2>Now</h2>
+<ul class="bare">
+  <li>
+    Adding an affine type system and a borrow checker onto
+    <code>tjit</code>, my Cranelift-backed JIT language. Current it
+    has no borrow checker, so I'm writing a separate MIR (with multipass steps)
+    rather than going straight from HIR to Cranelift.
+  </li>
+  <li>
+    Tinkering with <code>enki</code>, an experimental Wayland
+    compositor with a vim-style modal mode for window management.
+  </li>
+  <li>
+    Reading: Appel's <em>Modern Compiler Implementation</em>, the
+    <a href="https://rustc-dev-guide.rust-lang.org/">rustc dev
+    guide</a>, and the
+    <a href="https://wayland-book.com/">wayland protocol book
+    guide</a>, 
+  </li>
+</ul>
+</section>
+
+<!-- ─── Graphite contributor ───────────────────────────── -->
+
+<section>
+<h2>Graphite</h2>
+
+<div class="project">
+  <h3>Contributor — Graphite Editor <span class="stack">Rust · wgpu · Vello · ~25k★</span></h3>
+  <div class="meta">
+    <a href="https://github.com/GraphiteEditor/Graphite" class="repo">github.com/GraphiteEditor/Graphite</a>
+    <span> · May ’25 – Sep ’25</span>
+  </div>
+  <p>
+    Got into <a href="https://github.com/GraphiteEditor/Graphite/discussions/2655">Google
+    Summer of Code 2025</a> to work on
+    <a href="https://graphite.rs">Graphite</a>, the Rust 2D graphics
+    editor. <strong><a href="https://github.com/GraphiteEditor/Graphite/issues?q=is%3Apr+is%3Amerged+author%3AmTvare6">45+
+    merged PRs</a></strong> across the editor and its rendering stack.
+    The work covers a few different areas of the codebase:
+  </p>
+  <ul>
+    <li>
+      <strong>Bitmap caching layer.</strong> Replaced the editor's
+      base64-encoded SVG image-data path with one that uses the JS
+      <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Reflect"><code>Reflect</code>
+      API</a> to offload pixel data to an off-screen
+      <a href="https://developer.mozilla.org/en-US/docs/Web/API/HTMLCanvasElement"><code>HTMLCanvas</code></a>.
+      Severely cuts the editor↔preview transfer cost; the UI stutter
+      that came with large bitmaps went away.
+    </li>
+    <li>
+      <strong>Masking architecture.</strong> Redesigned how arbitrary
+      vector data gets masked. The new path routes between fast
+      <code>&lt;clipPath&gt;</code> and the more general
+      <code>&lt;mask&gt;</code> tag based on a performance heuristic,
+      and supports inverted masking, dynamic stroke alignment, and
+      custom paint ordering. The luminance-based clipping that powers
+      part of this got upstreamed into
+      <a href="https://github.com/linebender/vello">Vello</a> (the
+      2D renderer Graphite is migrating onto), and I led the editor's
+      core pipeline migration to <strong>Vello v0.5.0 + WGPU v25</strong>
+      to keep upstream parity and unlock the new luminance capability.
+    </li>
+    <li>
+      <strong>Transformation pivots.</strong> Built a Blender-style
+      pivot system: each layer carries an independent internal
+      origin coordinate, and the Select / Path tools support
+      <em>Active Object</em> and <em>Average of Origins</em> pivot
+      modes, switchable mid-edit.
+    </li>
+    <li>
+      <strong>Hierarchical selection.</strong> Selection now uses
+      <strong><a href="https://en.wikipedia.org/wiki/Lowest_common_ancestor">Least
+      Common Ancestor</a></strong> traversals over the layer tree to
+      implement shallow- and deep-click heuristics and parent-child
+      collapsing, with tolerance-aware lasso polygon boundary tracking.
+    </li>
+    <li>
+      <strong>The long tail.</strong> Transform-cage hit-testing,
+      node deserialization lifecycles, persistent isometric
+      workspace grids, undo-stack correctness on tool transitions —
+      the 30-odd smaller bugs you find when the surface is being
+      used.
+    </li>
+  </ul>
+</div>
+</section>
+
+<!-- ─── Desktop & window managers ─────────────────────── -->
+
+<section>
+<h2>Desktop &amp; window managers</h2>
+
+<div class="project">
+  <h3>enkiwm <span class="stack">Rust · Smithay · Wayland</span></h3>
+  <div class="meta">
+    <a href="https://github.com/mTvare6/enkiwm" class="repo">github.com/mTvare6/enkiwm</a>
+  </div>
+  <p>
+    An experimental Wayland window manager built on
+    <a href="https://github.com/Smithay/smithay">Smithay</a>. The
+    interesting bit is the input model: a <kbd>Alt_R</kbd> toggle drops
+    the compositor into a vim-style <strong>modal mode</strong>.
+    From there <kbd>HJKL</kbd> moves a virtual camera over an
+    integer grid, <kbd>UIOP</kbd> shifts focus between cells,
+    <kbd>Shift+UIOP</kbd> swaps the windows in two cells,
+    <kbd>Shift+HJKL</kbd> grows the camera span, and
+    <kbd>Alt_L+HJKL</kbd> shrinks it. New windows snap to the
+    nearest empty cell (BFS from the camera origin). The grid is a
+    <code>HashMap&lt;IVec2, Window&gt;</code>.
+  </p>
+</div>
+
+<div class="project">
+  <h3>picom-shaders <span class="stack">GLSL</span></h3>
+  <div class="meta">
+    <a href="https://github.com/mTvare6/picom-shaders" class="repo">github.com/mTvare6/picom-shaders</a>
+  </div>
+  <p>
+    Updated GLSL shaders for the
+    <a href="https://github.com/yshui/picom">picom</a> X11
+    compositor — the upstream community shader repos had bit-rotted
+    against newer picom versions, so this is a clean set that
+    actually compiles.
+  </p>
+</div>
+
+</section>
+
+<!-- ─── Filesystems ────────────────────────────────────── -->
+
+<section>
+<h2>Filesystems</h2>
+
+<div class="project">
+  <h3>ghfs <span class="stack">Rust · fuser · Tokio</span></h3>
+  <div class="meta">
+    <a href="https://github.com/mTvare6/ghfs" class="repo">github.com/mTvare6/ghfs</a>
+  </div>
+  <p>
+    A read-only <a href="https://www.kernel.org/doc/html/latest/filesystems/fuse.html">FUSE</a>
+    filesystem that exposes GitHub as a directory tree. Mount it,
+    <code>cd /tmp/github/torvalds/linux</code>, and
+    <code>cat fs/fuse/file.c</code> works. Built on the
+    <a href="https://crates.io/crates/fuser"><code>fuser</code></a>
+    crate's experimental <code>AsyncFilesystem</code> trait via the
+    <a href="https://tokio.rs/">Tokio</a> adapter, so the kernel
+    can sit on a FUSE syscall while we go round-trip to
+    api.github.com without blocking the runtime.
+  </p>
+  <p>
+    The inode table is a <code>HashMap&lt;u64, Node&gt;</code> behind
+    an <code>RwLock</code> with an <code>AtomicU64</code> for new
+    inode generation. Directories carry a <code>DirKind</code> tag
+    (<code>Root</code> / <code>User</code> / <code>Repo</code> /
+    <code>Standard</code>) and a <code>hydrated</code> flag —
+    <code>readdir</code> is what triggers the GitHub API call,
+    using <code>git/trees?recursive=1</code> so a whole repo arrives
+    in one shot. File contents live behind
+    <code>Arc&lt;OnceCell&lt;Vec&lt;u8&gt;&gt;&gt;</code> and the
+    <code>read</code> path drops the read-lock before the network
+    call, so a slow blob doesn't freeze the rest of the FS. A
+    <code>GITHUB_TOKEN</code> bumps the rate limit from 60/hr to 5k/hr.
+  </p>
+</div>
+</section>
+
+<!-- ─── Languages & Compilers ─────────────────────────── -->
+
+<section>
+<h2>Languages &amp; Compilers</h2>
+
+<div class="project">
+  <h3>tjit <span class="stack">Rust · Cranelift</span></h3>
+  <div class="meta">
+    <a href="https://github.com/mTvare6/tjit" class="repo">github.com/mTvare6/tjit</a>
+  </div>
+  <p>
+    A statically typed systems language with a JIT compiler. The
+    pipeline is hand-rolled lexer → recursive-descent parser → typed
+    HIR with an explicit type-checker pass →
+    <a href="https://cranelift.dev/">Cranelift</a> IR via
+    <code>cranelift-jit</code>. <code>cranelift-module</code> resolves
+    libc and host symbols (<code>print_i64</code>, <code>print_str</code>)
+    as <code>Linkage::Import</code>; the JIT writes machine code into
+    executable pages and I <code>transmute</code> the entry point to
+    <code>fn() -&gt; i64</code>.
+  </p>
+  <p>
+    The most novel bit is the <strong>arbitrary-width
+    integers</strong>. Types like <code>u1</code>, <code>u3</code>,
+    <code>i17</code>, <code>i42</code> are first-class. In a
+    <code>struct BitPack { is_active: u1, day_of_week: u3, count: i17 }</code>,
+    each field gets a bit-offset, fields are packed contiguously
+    without crossing 64-bit hardware boundaries, and the codegen
+    emits a load → unsigned right shift → mask, plus a sign-extending
+    <code>shl</code>/<code>sshr</code> pair for signed widths to
+    promote them to native register size for arithmetic. Storage-narrow,
+    compute-wide.
+  </p>
+  <p>
+    Supports algebraic data types (struct + payload-carrying enums
+    laid out as a 32-bit tag + bit-packed payload), pattern matching
+    with ranges (<code>0..10</code>, <code>10..=20</code>),
+    destructuring, and wildcards. Match compilation generates a
+    recursive decision tree of basic blocks: each arm has its own
+    fail-block that falls through to the next, with a final
+    <code>trap UnreachableCodeReached</code> at the end. Fixed-size
+    arrays, a pipeline operator (<code>x |&gt; f(args)</code>
+    desugars to <code>f(x, args)</code>), explicit primitive casts,
+    and string literals as 16-byte fat pointers (rodata pointer +
+    length) round it out. Heap FFI, an affine type system, RAII,
+    and a real borrow checker on a custom MIR are next.
+  </p>
+</div>
+</section>
+
+<!-- ─── Terminal tools & CLIs ─────────────────────────── -->
+
+<section>
+<h2>Terminal tools &amp; CLIs</h2>
+
+
+<div class="project">
+  <h3>coxide <span class="stack">C</span></h3>
+  <div class="meta">
+    <a href="https://github.com/mTvare6/coxide" class="repo">github.com/mTvare6/coxide</a>
+  </div>
+  <p>
+    A minimalist
+    <a href="https://github.com/ajeetdsouza/zoxide">zoxide</a>
+    in C: keep a frequency table of directories you've cd'd into at
+    <code>$XDG_DATA_HOME/coxide/main.csv</code>, pick the
+    most-used substring match. The binary itself is small —
+    <code>coxide shell &lt;name&gt;</code> emits the appropriate
+    <code>o()</code> wrapper for bash / zsh / fish / elvish /
+    xonsh / PowerShell. One of my older projects, from before
+    IITK.
+  </p>
+</div>
+
+
+<div class="project">
+  <h3>sscli &amp; ssr <span class="stack">C · Rust · ratatui</span></h3>
+  <div class="meta">
+    <a href="https://github.com/mTvare6/sscli" class="repo">sscli</a> ·
+    <a href="https://github.com/mTvare6/ssr" class="repo">ssr</a>
+  </div>
+  <p>
+    Two takes on student-search for IITK — one is a
+    pipe-friendly C CLI with grep-able output and an
+    <a href="https://github.com/junegunn/fzf">fzf</a> +
+    <a href="https://github.com/jstkdng/ueberzugpp">ueberzugpp</a>
+    wrapper that previews student photos in the terminal; the other
+    is a full <a href="https://github.com/ratatui-org/ratatui">ratatui</a>
+    TUI in Rust with regex-filterable form fields and inline image
+    rendering via Sixel/Kitty/iTerm protocols (with a chafa-style
+    fallback for Alacritty).
+  </p>
+</div>
+
+<div class="project">
+  <h3>kbdgen <span class="stack">Python · simulated annealing</span></h3>
+  <div class="meta">
+    <a href="https://github.com/mTvare6/kbdgen" class="repo">github.com/mTvare6/kbdgen</a>
+  </div>
+  <p>
+    Optimises keyboard layouts for a given corpus by
+    <strong>simulated annealing</strong>. Cost is a weighted sum of
+    finger-travel distance, same-finger bigram penalty,
+    same-hand bigram penalty, per-finger effort (calibrated by
+    finger CPM), and per-row effort. Adaptive swap count: the
+    perturbation strength scales with temperature, so it explores
+    aggressively when hot and tunes finely when cold.
+  </p>
+</div>
+
+<div class="project">
+  <h3>cypercine <span class="stack">C</span></h3>
+  <div class="meta">
+    <a href="https://github.com/mTvare6/cypercine" class="repo">github.com/mTvare6/cypercine</a>
+  </div>
+  <p>
+    A tiny hyperfine-style CLI microbenchmarker in C. Runs each
+    command <em>n</em> times, aggregates timing statistics, and
+    tells you which is fastest. Process control via raw
+    <code>fork</code>/<code>exec</code>, timing via
+    <code>clock_gettime</code>.
+  </p>
+</div>
+
+
+<div class="project">
+  <h3>tch <span class="stack">Rust · crossterm</span></h3>
+  <div class="meta">
+    <a href="https://github.com/mTvare6/tch" class="repo">github.com/mTvare6/tch</a>
+  </div>
+  <p>
+    A tiny CHIP-8 emulator that runs in your terminal — a parser
+    that decomposes opcodes (<code>x</code>, <code>y</code>,
+    <code>n</code>, <code>nn</code>, <code>nnn</code>) into a
+    <code>Message</code> enum, a state machine that interprets them,
+    and a <a href="https://crates.io/crates/crossterm">crossterm</a>-driven
+    64×32 display at ~500 Hz. The CHIP-8 keypad is mapped to the
+    standard QWERTY <code>1234/QWER/ASDF/ZXCV</code> block. Following
+    <a href="http://devernay.free.fr/hacks/chip8/C8TECH10.HTM">Cowgod's
+    reference</a>. Later got reused as the reference architecture
+    for PClub's Systems Spring Camp.
+  </p>
+</div>
+
+<div class="project">
+  <h3>htBrowser <span class="stack">Electron · JS · archived</span></h3>
+  <div class="meta">
+    <a href="https://github.com/mTvare6/htBrowser" class="repo">github.com/mTvare6/htBrowser</a>
+  </div>
+  <p>
+    A keybind-summoned mini browser for reading docs while you
+    code. The hotkey opens a different URL based on which window is
+    focused, via a per-<code>WM_CLASS</code> table in
+    <code>$XDG_CONFIG_HOME/htBrowser/config.json</code>. Archived
+    early ’25, the idea works, but I found them to be useless
+    once I started using a tiliing wm and Linux.
+  </p>
+</div>
+</section>
+
+<!-- ─── Audio DSP ──────────────────────────────────────── -->
+
+<section>
+<h2>Audio &amp; DSP</h2>
+
+<div class="project">
+  <h3>loom <span class="stack">Rust · PipeWire · DSP · egui</span></h3>
+  <div class="meta">
+    <a href="https://github.com/mTvare6/loom" class="repo">github.com/mTvare6/loom</a>
+  </div>
+  <p>
+    A real-time spatialiser for <a href="https://pipewire.org/">PipeWire</a>.
+    It exposes a <code>loom_virtual_sink</code> (the capture side of
+    a paired PipeWire stream); you wire your system mix into it
+    through <a href="https://github.com/rncbc/qpwgraph">qpwgraph</a>,
+    the playback side feeds the hardware out, and the
+    <a href="https://github.com/emilk/egui">egui</a> window has a
+    single intensity dial.</p>
+  <p>
+    The DSP path is the part that took the longest. From input to output:
+  </p>
+  <ul>
+    <li>
+      <strong>Three-band split</strong> via cascaded
+      <strong><a href="https://en.wikipedia.org/wiki/Linkwitz%E2%80%93Riley_filter">Linkwitz–Riley
+      4th-order</a></strong> crossovers — each LR4 is two LR2 /
+      Butterworth-Q biquads in series, giving the complementary phase
+      response that lets the bands sum back flat. Splits at 120 Hz
+      and 4 kHz.
+    </li>
+    <li>
+      <strong>Low band → mono.</strong> Below ~120 Hz, wavelengths are
+      longer than the head, so directional cues don't really exist
+      and summing avoids the cancellation you'd otherwise get when
+      the stereo image is widened later.
+    </li>
+    <li>
+      <strong>Mid band → head-shadow crossfeed.</strong> A short delay
+      line into a <strong>−12 dB high-shelf at 700 Hz</strong>
+      models the acoustic shadow of the head: the contralateral ear
+      hears a slightly delayed, treble-attenuated version of the
+      opposite channel.
+    </li>
+    <li>
+      <strong>High band → mid/side.</strong> The mid (M = L+R) gets a
+      <strong>pinna notch</strong> (a −6 dB peaking EQ at 7.5 kHz)
+      and a 0.15 ms <strong><a href="https://en.wikipedia.org/wiki/Sound_localization#Duplex_theory">microITD</a></strong>
+      on the centre channel. The side (S = L−R) goes through two
+      <strong>modulated all-pass decorrelators</strong> with
+      out-of-phase LFOs (2.5 ms ± 0.5 ms @ 0.15 Hz on one channel,
+      3.1 ms ± 0.7 ms @ 0.11 Hz on the other) — small fractional-delay
+      drift that breaks mono coherence without sounding chorused.
+    </li>
+    <li>
+      <strong>Transient-aware width.</strong> A peak envelope follower
+      (1 ms attack, 50 ms release) tracks the mono mid; on a
+      transient, the side gain is throttled down so a snare hit
+      doesn't smear stereo. The side is then waveshaped with
+      <code>x − x³/3</code> for soft saturation instead of hard clip.
+    </li>
+    <li>
+      <strong>Early reflections.</strong> A 6-tap delay per channel
+      with asymmetric prime delays (7, 13, 19, 23, 31, 41 ms left;
+      11, 17, 29, 37, 43, 47 ms right) and a per-tap one-pole low
+      pass for air absorption — later taps roll off harder.
+    </li>
+    <li>
+      <strong>Stereo room tail.</strong> A
+      <strong><a href="https://ccrma.stanford.edu/~jos/pasp/Schroeder_Reverberators.html">Schroeder-style
+      reverb</a></strong>: four parallel comb filters with asymmetric
+      prime delays (29.3 / 37.1 ms left, 31.7 / 41.9 ms right) and a
+      damped feedback path, then one static all-pass per channel for
+      late diffusion. The L and R sides are cross-mixed at 30% before
+      the combs so the energy circulates between channels rather than
+      developing as two independent reverbs.
+    </li>
+    <li>
+      <strong>Final mix.</strong> dry + 0.7 × ER + 0.15 × tail per
+      channel, all scaled by the intensity dial. Below
+      <code>intensity ≤ 0.01</code> the whole engine is bypassed so
+      the audio thread does no work.
+    </li>
+  </ul>
+</div>
+</section>
+
+<!-- ─── Graphics & GPU ────────────────────────────────── -->
+
+<section>
+<h2>Graphics &amp; GPU</h2>
+
+<div class="project">
+  <h3>griw <span class="stack">Rust · wgpu · Slang</span></h3>
+  <div class="meta">
+    <a href="https://github.com/mTvare6/griw" class="repo">github.com/mTvare6/griw</a>
+  </div>
+  <p>
+    A real-time path tracer. Shaders are written in
+    <a href="https://shader-slang.com/">Slang</a> and compiled to
+    SPIR-V at build time via a <code>build.rs</code> that shells out
+    to <a href="https://github.com/shader-slang/slang"><code>slangc</code></a>;
+    the runtime is <a href="https://wgpu.rs/">wgpu</a> over Vulkan. Up
+    to 64 bounces per pixel, Lambertian / Metal / Dielectric
+    materials, progressive accumulation across frames into an
+    <code>Rgba32Float</code> radiance texture, and
+    <a href="https://knarkowicz.wordpress.com/2016/01/06/aces-filmic-tone-mapping-curve/">ACES
+    filmic tonemapping</a> on output. WASD plus mouse-look for the
+    camera, with a sample-counter reset on movement. The Slang side
+    uses generics, <code>Optional&lt;T&gt;</code>, and methods —
+    much nicer than writing this in WGSL.
+  </p>
+</div>
+
+<div class="project">
+  <h3>wants <span class="stack">Rust · wgpu · WGSL compute</span></h3>
+  <div class="meta">
+    <a href="https://github.com/mTvare6/wants" class="repo">github.com/mTvare6/wants</a>
+  </div>
+  <p>
+    A 65,536-ant pheromone-trail simulation, all on the GPU. Three
+    pipelines per frame: a process pass that decays and blurs the
+    pheromone texture, a compute pass that updates each ant
+    (<code>workgroup_size(64)</code>, sensing left/forward/right with
+    a 3×3 kernel and steering by gradient), and a render pass that
+    samples the world. Two ping-pong <code>Rgba8Unorm</code> textures
+    swap roles each frame so reads and writes never collide; red
+    and blue channels carry the away-from-home and going-home
+    pheromones, green carries food. Inspired by
+    <a href="https://www.youtube.com/watch?v=X-iSQQgOd1A">Sebastian
+    Lague's video</a>, but the wgpu plumbing is mine.
+  </p>
+</div>
+
+<div class="project">
+  <h3>nbody <span class="stack">Rust · Barnes–Hut</span></h3>
+  <div class="meta">
+    <a href="https://github.com/mTvare6/nbody" class="repo">github.com/mTvare6/nbody</a>
+  </div>
+  <p>
+    5,000-body gravitational simulator with a quadtree-based
+    <strong><a href="https://en.wikipedia.org/wiki/Barnes%E2%80%93Hut_simulation">Barnes–Hut</a></strong>
+    O(N log N) approximation (<code>θ = 0.4</code>) and
+    <a href="https://en.wikipedia.org/wiki/Plummer_model">Plummer
+    softening</a> to keep the field finite at small radii. Tree
+    storage is an arena (<code>Vec&lt;QuadNode&gt;</code> + index
+    handles) so children are co-located in memory and there are no
+    <code>Rc</code> cycles. Integration is
+    <a href="https://en.wikipedia.org/wiki/Leapfrog_integration">leapfrog</a>
+    (<code>v += ½(a_prev + a)·dt</code>; <code>r += v·dt + ½·a·dt²</code>),
+    which is symplectic and so doesn't drift the orbits the way
+    Euler does. Renders to a velocity-coloured 2D grid via the
+    <a href="https://crates.io/crates/pixels"><code>pixels</code></a>
+    crate at a stable 60 FPS.
+  </p>
+</div>
+
+<div class="project">
+  <h3>lenia <span class="stack">C++ · ArrayFire</span></h3>
+  <div class="meta">
+    <a href="https://github.com/mTvare6/lenia" class="repo">github.com/mTvare6/lenia</a>
+  </div>
+  <p>
+    <a href="https://chakazul.github.io/lenia.html">Bert Chan's
+    original Lenia</a> rules in 80 lines of C++ on top of
+    <a href="https://arrayfire.com/">ArrayFire</a> — the
+    continuous-space, continuous-time generalisation of
+    <a href="https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life">Conway's
+    Game of Life</a>. A bell-shaped 2D kernel (R=13, scaled to
+    integrate to 1) is convolved with the world, the result is
+    mapped through another bell-curve growth function (μ=0.150,
+    σ=0.015), and the world steps with <code>A += G/T</code>,
+    clamped to [0, 1].
+  </p>
+</div>
+
+<div class="project">
+  <h3>physarum <span class="stack">C++ · OpenGL · GLSL compute</span></h3>
+  <div class="meta">
+    <a href="https://github.com/mTvare6/physarum" class="repo">github.com/mTvare6/physarum</a>
+  </div>
+  <p>
+    100,000-agent slime-mould simulation modelled on
+    <em><a href="https://en.wikipedia.org/wiki/Physarum_polycephalum">Physarum
+    polycephalum</a></em>. Two GLSL compute shaders alternate each
+    frame — agents sense pheromones at three angles, steer toward
+    the strongest, deposit their own; the trail map then decays and
+    box-blurs. Multiple parameter presets (<em>linear</em>,
+    <em>grainy</em>, <em>moldy</em>, <em>wormline</em>,
+    <em>solid_turbid_milky</em>) give very different aesthetics from
+    the same underlying model.
+  </p>
+</div>
+</section>
+
+<!-- ─── The viral one ──────────────────────────────────── -->
+
+<section>
+<h2>Famous-on-the-internet, qualified</h2>
+
+<div class="project">
+  <h3>hello-world.rs <span class="stack">Rust · satire · ~3.6k★</span></h3>
+  <div class="meta">
+    <a href="https://github.com/mTvare6/hello-world.rs" class="repo">github.com/mTvare6/hello-world.rs</a>
+  </div>
+  <blockquote>
+    🚀 Memory safe, blazing fast, configurable, minimal hello world
+    written in rust(🚀) in a few lines of code with few(1247🚀)
+    dependencies🚀.
+  </blockquote>
+  <p>
+    Generic types nested past comedy, CI, Docker, Nix flakes, AUR
+    PKGBUILD, a Windows manifest, ~1000 transitive crates, a few
+    hundred PRs of people gleefully adding more. It is the most
+    popular thing I've ever written and it should not be on a
+    serious resume.
+  </p>
+</div>
+</section>
+
+<!-- ─── Other open source ──────────────────────────────── -->
+
+<section>
+<h2>Other open source</h2>
+
+<ul class="bare">
+  <li>
+    <strong><a href="https://github.com/linebender/vello">Vello</a>.</strong>
+    Implemented <a href="https://github.com/linebender/vello/commit/0cb4afdc7b7796bbb1178eb09ec1470565a41ac8">luminance-based
+    clipping and masking</a> in the rendering core — the upstream
+    side of the masking work I was doing in Graphite.
+  </li>
+  <li>
+    <strong>Vim, Neovim &amp; Slang.</strong> Upstreamed
+    <a href="https://github.com/clason/neovim/commit/eb9bf8d84ec9c05ad4d1fa69faf705aee999419d">native
+    language detection</a> into the editors' core runtimes, and
+    contributed type-resolution overloads for
+    <code>Optional&lt;T&gt;</code> to the
+    <a href="https://shader-slang.com/">Slang</a> compiler — the
+    same compiler I now use in <code>griw</code>.
+  </li>
+  <li>
+    <strong><a href="https://swaywm.org/">SwayWM</a>.</strong> Resolved
+    Wayland layout bugs around
+    <a href="https://github.com/swaywm/sway/pull/8417">border
+    clamping</a> and
+    <a href="https://github.com/swaywm/sway/pull/8529">redundant
+    display-format checks</a>; engineered an
+    <a href="https://github.com/swaywm/sway/pull/8455">i3-compatibility
+    feature</a> that had been overlooked upstream.
+  </li>
+  <li>
+    <strong>Neovim ecosystem &amp; build tools.</strong> Cross-platform
+    build-pipeline fixes for C++ starter templates (Windows DLLs)
+    and macOS platform fixes to
+    <a href="https://github.com/NvChad/NvChad">NvChad</a>.
+  </li>
+</ul>
+</section>
+
+<!-- ─── Skills ─────────────────────────────────────────── -->
+
+<section>
+<h2>Tools I reach for</h2>
+
+<div class="skills-grid">
+  <div class="label">primary</div>
+  <div class="vals"><code>Rust</code></div>
+
+  <div class="label">also</div>
+  <div class="vals"><code>C/C++</code>, <code>Python</code>, <code>Lua</code>, <code>Vimscript</code>, <code>Java</code>, <code>R</code>, <code>GLSL</code>, <code>WGSL</code>, <code>Slang</code>, <code>JS/TS</code>, shell</div>
+
+  <div class="label">compilers</div>
+  <div class="vals">Cranelift (jit, module, codegen), hand-rolled lexers and parsers, typed HIR, ADT layout, pattern-match compilation, bit-packing arithmetic</div>
+
+  <div class="label">systems</div>
+  <div class="vals">FUSE (<code>fuser</code>) with Tokio async, libc FFI, X11, Wayland (<code>smithay</code>), Linux audio (PipeWire, <code>libspa-sys</code>)</div>
+
+  <div class="label">audio / DSP</div>
+  <div class="vals">Linkwitz–Riley crossovers, biquad EQ design, Schroeder reverbs, head-shadow crossfeed, decorrelating modulated all-passes, transient detection, mid/side</div>
+
+  <div class="label">graphics</div>
+  <div class="vals">wgpu / WebGPU, Vello, compute pipelines, ping-pong textures, path tracing, Slang→SPIR-V, OpenGL compute, ArrayFire, picom shaders</div>
+
+  <div class="label">tooling</div>
+  <div class="vals">git, GitHub Actions, Cargo, Make, CMake, Nix, Arch <code>makepkg</code>, Docker, neovim</div>
+</div>
+</section>
+
+<!-- ─── Education ──────────────────────────────────────── -->
+
+<section>
+<h2>Education</h2>
+<p>
+<strong>IIT Kanpur</strong> — B.S. in Statistics &amp; Data Science,
+2024–2028. CPI <strong>9.2 / 10.0</strong>; recipient of the
+<strong>IIT Kanpur Academic Excellence Award</strong> (top 10% of
+the cohort, 2025-26), and a perfect <strong>10.0 / 10.0 SPI</strong> in the
+2024–25 even semester. Programming Club secretary for the current
+year — introduced the Graphics domain, authored the
+<a href="https://github.com/pclubiitk/pclub-website/pull/62">Graphics</a>
+and <a href="https://github.com/pclubiitk/pclub-website/pull/71">Systems</a>
+roadmaps from scratch, led a 10-day Graphics Spring Camp as
+instructor (walked the campers through a GPU path tracer modelled
+on <code><a href="https://github.com/mTvare6/griw">griw</a></code>),
+and contributed
+<code><a href="https://github.com/mTvare6/tch">tch</a></code> as the
+reference architecture for the Systems Spring Camp.
+</p>
+</section>
+
+<!-- ─── Around the web ─────────────────────────────────── -->
+
+<section>
+<h2>Around the web</h2>
+<ul class="bare">
+  <li>GitHub — <a href="{{ .Site.Params.github_url }}">{{ index .Site.Params.handles 1 }}</a></li>
+  <li>PClub IITK — <a href="https://pclub.in">pclub.in</a></li>
+  <li>Email — <a href="mailto:{{ .Site.Params.email }}"><code>{{ .Site.Params.email }}</code></a></li>
+  <li>RSS — <a href="{{ "/blog/index.xml" | relURL }}">blog feed</a></li>
+</ul>
+</section>
+
+{{ end }}
