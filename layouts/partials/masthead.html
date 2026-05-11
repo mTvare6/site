@@ -7,9 +7,9 @@
 
 <header class="masthead">
   <nav class="nav">
-    <a href="{{ "/" | relURL }}"{{ if eq $current "long" }} class="current"{{ end }}>long</a>
-    <a href="{{ "/resume/" | relURL }}"{{ if eq $current "resume" }} class="current"{{ end }}>resume</a>
-    <a href="{{ "/blog/" | relURL }}"{{ if eq $current "blog" }} class="current"{{ end }}>blog</a>
+    <a href="{{ "" | relURL }}"{{ if eq $current "long" }} class="current"{{ end }}>long</a>
+    <a href="{{ "resume/" | relURL }}"{{ if eq $current "resume" }} class="current"{{ end }}>resume</a>
+    <a href="{{ "blog/" | relURL }}"{{ if eq $current "blog" }} class="current"{{ end }}>blog</a>
     <a href="{{ .Site.Params.github_url }}">github</a>
   </nav>
   <h1>{{ .Site.Params.author }}</h1>
