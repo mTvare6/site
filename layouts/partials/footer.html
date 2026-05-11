@@ -1,0 +1,8 @@
+<footer>
+  <span>© {{ .Site.Params.author }}</span>
+  {{ with .Params.footer_note }}
+    <span class="build">{{ . | safeHTML }}</span>
+  {{ else }}
+    <span class="build">last built · {{ now.Format "Jan 2006" }}</span>
+  {{ end }}
+</footer>

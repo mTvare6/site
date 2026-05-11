@@ -1,0 +1,34 @@
+baseURL = 'https://mTvare6.github.io/site/'
+title = 'Austin Shijo'
+enableRobotsTXT = true
+
+# Drop these in front matter or via taxonomies later if needed
+disableKinds = ['taxonomy', 'term']
+
+[params]
+  description = "Austin Shijo. Power-user desktop tools and devtools with a graphics tilt. Mostly Rust."
+  author = "Austin Shijo"
+  # Pieces shown in the masthead. Each becomes a <span>.
+  handles = ["epestr", "mTvare6", "iitk · statistics · ’24–’28"]
+  email = "austins24@iitk.ac.in"
+  github_url = "https://github.com/mTvare6"
+
+[markup]
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      # Allows raw HTML in markdown — used for the long-form content blocks.
+      unsafe = true
+  [markup.highlight]
+    style = "github-light"
+    noClasses = false
+    lineNos = false
+
+[outputs]
+  home = ["HTML", "RSS"]
+  section = ["HTML", "RSS"]
+
+[permalinks]
+  blog = "/blog/:slug/"
+
+[taxonomies]
+  tag = "tags"
