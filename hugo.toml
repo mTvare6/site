@@ -1,5 +1,5 @@
-baseURL = 'https://mTvare6.github.io/site/'
-title = 'Austin Shijo'
+baseURL = 'https://epestr.com'
+title = 'epestr'
 enableRobotsTXT = true
 
 # Drop these in front matter or via taxonomies later if needed
