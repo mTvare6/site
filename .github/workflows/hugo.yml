@@ -37,6 +37,20 @@ jobs:
           submodules: recursive
           fetch-depth: 0
 
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Build Koppen App
+        run: |
+          cd koppen
+          npm ci
+          npm run build
+          cd ..
+          mkdir -p static/koppen
+          cp -r koppen/dist/* static/koppen/
+
       - name: Setup Pages
         id: pages
         uses: actions/configure-pages@v5
