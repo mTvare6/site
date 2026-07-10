@@ -1,0 +1,1017 @@
+{
+  "A": {
+    "name": "Tropical",
+    "classifications": {
+      "Af": {
+        "name": "Tropical Rainforest",
+        "cities": [
+          {
+            "name": "Singapore, Singapore",
+            "lat": 1.28967,
+            "lon": 103.85007
+          },
+          {
+            "name": "Kuala Lumpur, Malaysia",
+            "lat": 3.1412,
+            "lon": 101.68653
+          },
+          {
+            "name": "Denpasar, Indonesia",
+            "lat": -8.65,
+            "lon": 115.21667
+          },
+          {
+            "name": "Batam, Indonesia",
+            "lat": 1.14937,
+            "lon": 104.02491
+          },
+          {
+            "name": "Johor Bahru, Malaysia",
+            "lat": 1.4655,
+            "lon": 103.7578
+          }
+        ]
+      },
+      "Am": {
+        "name": "Tropical Monsoon",
+        "cities": [
+          {
+            "name": "Miami, United States",
+            "lat": 25.77427,
+            "lon": -80.19366
+          },
+          {
+            "name": "Jakarta, Indonesia",
+            "lat": -6.21462,
+            "lon": 106.84513
+          },
+          {
+            "name": "Phuket, Thailand",
+            "lat": 7.89059,
+            "lon": 98.3981
+          },
+          {
+            "name": "Manila, Philippines",
+            "lat": 14.6042,
+            "lon": 120.9822
+          },
+          {
+            "name": "Cebu City, Philippines",
+            "lat": 10.31672,
+            "lon": 123.89071
+          },
+          {
+            "name": "Colombo, Sri Lanka",
+            "lat": 6.93548,
+            "lon": 79.84868
+          },
+          {
+            "name": "Krabi, Thailand",
+            "lat": 8.07257,
+            "lon": 98.91052
+          },
+          {
+            "name": "Da Nang, Vietnam",
+            "lat": 16.06778,
+            "lon": 108.22083
+          }
+        ]
+      },
+      "Aw": {
+        "name": "Tropical Savanna",
+        "cities": [
+          {
+            "name": "Bangkok, Thailand",
+            "lat": 13.75398,
+            "lon": 100.50144
+          },
+          {
+            "name": "Mumbai, India",
+            "lat": 19.07283,
+            "lon": 72.88261
+          },
+          {
+            "name": "Pattaya, Thailand",
+            "lat": 12.93333,
+            "lon": 100.88333
+          },
+          {
+            "name": "Ho Chi Minh City, Vietnam",
+            "lat": 10.82302,
+            "lon": 106.62965
+          },
+          {
+            "name": "Chennai, India",
+            "lat": 13.08784,
+            "lon": 80.27847
+          },
+          {
+            "name": "Canc\u00fan, Mexico",
+            "lat": 21.17429,
+            "lon": -86.84656
+          },
+          {
+            "name": "Rio de Janeiro, Brazil",
+            "lat": -22.90642,
+            "lon": -43.18223
+          },
+          {
+            "name": "Chiang Mai, Thailand",
+            "lat": 18.79038,
+            "lon": 98.98468
+          },
+          {
+            "name": "Kolkata, India",
+            "lat": 22.56263,
+            "lon": 88.36304
+          },
+          {
+            "name": "Punta Cana, Dominican Republic",
+            "lat": 18.58182,
+            "lon": -68.40431
+          },
+          {
+            "name": "Bangalore, India",
+            "lat": 24.8717,
+            "lon": 67.0839
+          },
+          {
+            "name": "Pune, India",
+            "lat": 18.51957,
+            "lon": 73.85535
+          },
+          {
+            "name": "Accra, Ghana",
+            "lat": 5.55602,
+            "lon": -0.1969
+          },
+          {
+            "name": "Lagos, Nigeria",
+            "lat": 6.45407,
+            "lon": 3.39467
+          }
+        ]
+      }
+    }
+  },
+  "B": {
+    "name": "Arid",
+    "classifications": {
+      "BWh": {
+        "name": "Hot Desert",
+        "cities": [
+          {
+            "name": "Dubai, United Arab Emirates",
+            "lat": 25.07725,
+            "lon": 55.30927
+          },
+          {
+            "name": "Mecca, Saudi Arabia",
+            "lat": 21.42664,
+            "lon": 39.82563
+          },
+          {
+            "name": "Medina, Saudi Arabia",
+            "lat": 24.46861,
+            "lon": 39.61417
+          },
+          {
+            "name": "Las Vegas, United States",
+            "lat": 36.17497,
+            "lon": -115.13722
+          },
+          {
+            "name": "Cairo, Egypt",
+            "lat": 30.06263,
+            "lon": 31.24967
+          },
+          {
+            "name": "Riyadh, Saudi Arabia",
+            "lat": 24.68773,
+            "lon": 46.72185
+          },
+          {
+            "name": "Dammam, Saudi Arabia",
+            "lat": 26.43442,
+            "lon": 50.10326
+          },
+          {
+            "name": "Hurghada, Egypt",
+            "lat": 27.25738,
+            "lon": 33.81291
+          },
+          {
+            "name": "Lima, Peru",
+            "lat": -12.04318,
+            "lon": -77.02824
+          },
+          {
+            "name": "Abu Dhabi, United Arab Emirates",
+            "lat": 24.45118,
+            "lon": 54.39696
+          }
+        ]
+      },
+      "BWk": {
+        "name": "Cold Desert",
+        "cities": [
+          {
+            "name": "Turpan, China",
+            "lat": 42.94769,
+            "lon": 89.17886
+          },
+          {
+            "name": "Ashgabat, Turkmenistan",
+            "lat": 37.95,
+            "lon": 58.38333
+          },
+          {
+            "name": "Neuqu\u00e9n, Argentina",
+            "lat": -38.95078,
+            "lon": -68.0592
+          },
+          {
+            "name": "Leh, India",
+            "lat": 49.49346,
+            "lon": 0.10785
+          },
+          {
+            "name": "Reno, United States",
+            "lat": 39.52963,
+            "lon": -119.8138
+          },
+          {
+            "name": "Baku, Azerbaijan",
+            "lat": 40.37767,
+            "lon": 49.89201
+          }
+        ]
+      },
+      "BSh": {
+        "name": "Hot Semi-Arid",
+        "cities": [
+          {
+            "name": "Jaipur, India",
+            "lat": 26.91962,
+            "lon": 75.78781
+          },
+          {
+            "name": "Marrakesh, Morocco",
+            "lat": 31.63416,
+            "lon": -7.99994
+          },
+          {
+            "name": "Amman, Jordan",
+            "lat": 31.95522,
+            "lon": 35.94503
+          },
+          {
+            "name": "Monterrey, Mexico",
+            "lat": 25.68435,
+            "lon": -100.31721
+          },
+          {
+            "name": "Karachi, Pakistan",
+            "lat": 24.8608,
+            "lon": 67.0104
+          },
+          {
+            "name": "Dakar, Senegal",
+            "lat": 14.6937,
+            "lon": -17.44406
+          },
+          {
+            "name": "Agra, India",
+            "lat": 27.18333,
+            "lon": 78.01667
+          }
+        ]
+      },
+      "BSk": {
+        "name": "Cold Semi-Arid",
+        "cities": [
+          {
+            "name": "Denver, United States",
+            "lat": 39.73915,
+            "lon": -104.9847
+          },
+          {
+            "name": "Zaragoza, Spain",
+            "lat": 41.65606,
+            "lon": -0.87734
+          },
+          {
+            "name": "Ulaanbaatar, Mongolia",
+            "lat": 47.90771,
+            "lon": 106.88324
+          },
+          {
+            "name": "Tehran, Iran",
+            "lat": 35.69439,
+            "lon": 51.42151
+          },
+          {
+            "name": "Xi'an, China",
+            "lat": 34.25833,
+            "lon": 108.92861
+          }
+        ]
+      }
+    }
+  },
+  "C": {
+    "name": "Temperate",
+    "classifications": {
+      "Csa": {
+        "name": "Hot-Summer Mediterranean",
+        "cities": [
+          {
+            "name": "Istanbul, Turkey",
+            "lat": 41.01384,
+            "lon": 28.94966
+          },
+          {
+            "name": "Antalya, Turkey",
+            "lat": 36.90812,
+            "lon": 30.69556
+          },
+          {
+            "name": "Rome, Italy",
+            "lat": 41.89193,
+            "lon": 12.51133
+          },
+          {
+            "name": "Barcelona, Spain",
+            "lat": 41.38879,
+            "lon": 2.15899
+          },
+          {
+            "name": "Athens, Greece",
+            "lat": 37.98376,
+            "lon": 23.72784
+          },
+          {
+            "name": "Madrid, Spain",
+            "lat": 40.4165,
+            "lon": -3.70256
+          },
+          {
+            "name": "Florence, Italy",
+            "lat": 43.77925,
+            "lon": 11.24626
+          },
+          {
+            "name": "Jerusalem, Israel Palestine",
+            "lat": 31.76904,
+            "lon": 35.21633
+          },
+          {
+            "name": "Lisbon, Portugal",
+            "lat": 38.72509,
+            "lon": -9.1498
+          },
+          {
+            "name": "Heraklion, Greece",
+            "lat": 35.32787,
+            "lon": 25.14341
+          },
+          {
+            "name": "Tel Aviv, Israel",
+            "lat": 32.08088,
+            "lon": 34.78057
+          },
+          {
+            "name": "Mu\u011fla, Turkey",
+            "lat": 37.21807,
+            "lon": 28.3665
+          },
+          {
+            "name": "Nice, France",
+            "lat": 43.70313,
+            "lon": 7.26608
+          },
+          {
+            "name": "Rhodes, Greece",
+            "lat": 36.43556,
+            "lon": 28.22199
+          },
+          {
+            "name": "Beirut, Lebanon",
+            "lat": 33.89332,
+            "lon": 35.50157
+          },
+          {
+            "name": "Casablanca, Morocco",
+            "lat": 33.58831,
+            "lon": -7.61138
+          },
+          {
+            "name": "Los Angeles, United States",
+            "lat": 34.05223,
+            "lon": -118.24368
+          }
+        ]
+      },
+      "Csb": {
+        "name": "Warm-Summer Mediterranean",
+        "cities": [
+          {
+            "name": "San Francisco, United States",
+            "lat": 37.77493,
+            "lon": -122.41942
+          },
+          {
+            "name": "Porto, Portugal",
+            "lat": 41.1485,
+            "lon": -8.61097
+          },
+          {
+            "name": "San Jose, United States",
+            "lat": 37.33939,
+            "lon": -121.89496
+          },
+          {
+            "name": "Cape Town, South Africa",
+            "lat": -33.92584,
+            "lon": 18.42322
+          },
+          {
+            "name": "Bogota, Colombia",
+            "lat": 4.60971,
+            "lon": -74.08175
+          }
+        ]
+      },
+      "Cfa": {
+        "name": "Humid Subtropical",
+        "cities": [
+          {
+            "name": "New York City, United States",
+            "lat": 40.71427,
+            "lon": -74.00597
+          },
+          {
+            "name": "Tokyo, Japan",
+            "lat": 35.6895,
+            "lon": 139.69171
+          },
+          {
+            "name": "Taipei, Taiwan",
+            "lat": 25.05306,
+            "lon": 121.52639
+          },
+          {
+            "name": "Osaka, Japan",
+            "lat": 34.69379,
+            "lon": 135.50107
+          },
+          {
+            "name": "Shanghai, China",
+            "lat": 31.22222,
+            "lon": 121.45806
+          },
+          {
+            "name": "Milan, Italy",
+            "lat": 45.46427,
+            "lon": 9.18951
+          },
+          {
+            "name": "Orlando, United States",
+            "lat": 28.53834,
+            "lon": -81.37924
+          },
+          {
+            "name": "Venice, Italy",
+            "lat": 39.75895,
+            "lon": -84.19161
+          },
+          {
+            "name": "Sydney, Australia",
+            "lat": -33.86785,
+            "lon": 151.20732
+          },
+          {
+            "name": "Guilin, China",
+            "lat": 25.28022,
+            "lon": 110.29639
+          },
+          {
+            "name": "Buenos Aires, Argentina",
+            "lat": -34.61315,
+            "lon": -58.37723
+          },
+          {
+            "name": "Chiba, Japan",
+            "lat": 35.6,
+            "lon": 140.11667
+          },
+          {
+            "name": "Fukuoka, Japan",
+            "lat": 33.6,
+            "lon": 130.41667
+          },
+          {
+            "name": "Jeju, South Korea",
+            "lat": 8.41667,
+            "lon": 39.63333
+          },
+          {
+            "name": "S\u00e3o Paulo, Brazil",
+            "lat": -23.5475,
+            "lon": -46.63611
+          },
+          {
+            "name": "Houston, United States",
+            "lat": 29.76328,
+            "lon": -95.36327
+          },
+          {
+            "name": "Xiamen, China",
+            "lat": 24.47979,
+            "lon": 118.08187
+          },
+          {
+            "name": "Atlanta, United States",
+            "lat": 33.749,
+            "lon": -84.38798
+          },
+          {
+            "name": "Montevideo, Uruguay",
+            "lat": -34.90328,
+            "lon": -56.18816
+          },
+          {
+            "name": "Hangzhou, China",
+            "lat": 30.29365,
+            "lon": 120.16142
+          },
+          {
+            "name": "Durban, South Africa",
+            "lat": -29.8579,
+            "lon": 31.0292
+          },
+          {
+            "name": "Philadelphia, United States",
+            "lat": 39.95238,
+            "lon": -75.16362
+          }
+        ]
+      },
+      "Cfb": {
+        "name": "Oceanic",
+        "cities": [
+          {
+            "name": "London, United Kingdom",
+            "lat": 51.50853,
+            "lon": -0.12574
+          },
+          {
+            "name": "Paris, France",
+            "lat": 48.85341,
+            "lon": 2.3488
+          },
+          {
+            "name": "Prague, Czech Republic",
+            "lat": 50.08804,
+            "lon": 14.42076
+          },
+          {
+            "name": "Amsterdam, Netherlands",
+            "lat": 52.37403,
+            "lon": 4.88969
+          },
+          {
+            "name": "Vienna, Austria",
+            "lat": 48.20849,
+            "lon": 16.37208
+          },
+          {
+            "name": "Berlin, Germany",
+            "lat": 52.52437,
+            "lon": 13.41053
+          },
+          {
+            "name": "Dublin, Ireland",
+            "lat": 53.33306,
+            "lon": -6.24889
+          },
+          {
+            "name": "Munich, Germany",
+            "lat": 48.13743,
+            "lon": 11.57549
+          },
+          {
+            "name": "Brussels, Belgium",
+            "lat": 50.85045,
+            "lon": 4.34878
+          },
+          {
+            "name": "Budapest, Hungary",
+            "lat": 47.49835,
+            "lon": 19.04045
+          },
+          {
+            "name": "Vancouver, Canada",
+            "lat": 49.24966,
+            "lon": -123.11934
+          },
+          {
+            "name": "Copenhagen, Denmark",
+            "lat": 55.67594,
+            "lon": 12.56553
+          },
+          {
+            "name": "Melbourne, Australia",
+            "lat": -37.814,
+            "lon": 144.96332
+          },
+          {
+            "name": "Krakow, Poland",
+            "lat": 50.06143,
+            "lon": 19.93658
+          },
+          {
+            "name": "Auckland, New Zealand",
+            "lat": -36.84853,
+            "lon": 174.76349
+          },
+          {
+            "name": "Warsaw, Poland",
+            "lat": 52.22977,
+            "lon": 21.01178
+          },
+          {
+            "name": "Frankfurt, Germany",
+            "lat": 50.11552,
+            "lon": 8.68417
+          },
+          {
+            "name": "Z\u00fcrich, Switzerland",
+            "lat": 47.36667,
+            "lon": 8.55
+          },
+          {
+            "name": "D\u00fcsseldorf, Germany",
+            "lat": 51.22319,
+            "lon": 6.77927
+          },
+          {
+            "name": "Edinburgh, United Kingdom",
+            "lat": 55.95206,
+            "lon": -3.19648
+          },
+          {
+            "name": "Hamburg, Germany",
+            "lat": 53.55073,
+            "lon": 9.99302
+          },
+          {
+            "name": "Geneva, Switzerland",
+            "lat": 46.20222,
+            "lon": 6.14569
+          },
+          {
+            "name": "Quito, Ecuador",
+            "lat": -0.22985,
+            "lon": -78.52495
+          }
+        ]
+      },
+      "Cwa": {
+        "name": "Dry-Winter Humid Subtropical",
+        "cities": [
+          {
+            "name": "Hong Kong, Hong Kong",
+            "lat": 22.27832,
+            "lon": 114.17469
+          },
+          {
+            "name": "Macau, Macau",
+            "lat": 22.20056,
+            "lon": 113.54611
+          },
+          {
+            "name": "Delhi, India",
+            "lat": 28.65195,
+            "lon": 77.23149
+          },
+          {
+            "name": "Shenzhen, China",
+            "lat": 22.54554,
+            "lon": 114.0683
+          },
+          {
+            "name": "Guangzhou, China",
+            "lat": 23.11667,
+            "lon": 113.25
+          },
+          {
+            "name": "Ha Long, Vietnam",
+            "lat": 20.95045,
+            "lon": 107.07336
+          },
+          {
+            "name": "Hanoi, Vietnam",
+            "lat": 21.0245,
+            "lon": 105.84117
+          },
+          {
+            "name": "Zhuhai, China",
+            "lat": 22.27694,
+            "lon": 113.56778
+          },
+          {
+            "name": "Chengdu, China",
+            "lat": 30.66667,
+            "lon": 104.06667
+          },
+          {
+            "name": "Qingdao, China",
+            "lat": 36.06488,
+            "lon": 120.38042
+          }
+        ]
+      },
+      "Cwb": {
+        "name": "Dry-Winter Subtropical Highland",
+        "cities": [
+          {
+            "name": "Mexico City, Mexico",
+            "lat": 19.42847,
+            "lon": -99.12766
+          },
+          {
+            "name": "Nairobi, Kenya",
+            "lat": -1.28333,
+            "lon": 36.81667
+          },
+          {
+            "name": "Addis Ababa, Ethiopia",
+            "lat": 9.02497,
+            "lon": 38.74689
+          },
+          {
+            "name": "Cusco, Peru",
+            "lat": -13.53188,
+            "lon": -71.96701
+          },
+          {
+            "name": "Kunming, China",
+            "lat": 25.03889,
+            "lon": 102.71833
+          },
+          {
+            "name": "Johannesburg, South Africa",
+            "lat": -26.20227,
+            "lon": 28.04363
+          }
+        ]
+      }
+    }
+  },
+  "D": {
+    "name": "Continental",
+    "classifications": {
+      "Dfa": {
+        "name": "Hot-Summer Humid Continental",
+        "cities": [
+          {
+            "name": "Chicago, United States",
+            "lat": 41.85003,
+            "lon": -87.65005
+          },
+          {
+            "name": "Boston, United States",
+            "lat": 42.35843,
+            "lon": -71.05977
+          },
+          {
+            "name": "Bucharest, Romania",
+            "lat": 44.43225,
+            "lon": 26.10626
+          },
+          {
+            "name": "Almaty, Kazakhstan",
+            "lat": 43.25249,
+            "lon": 76.9115
+          },
+          {
+            "name": "Sapporo, Japan",
+            "lat": 43.06667,
+            "lon": 141.35
+          }
+        ]
+      },
+      "Dfb": {
+        "name": "Warm-Summer Humid Continental",
+        "cities": [
+          {
+            "name": "Moscow, Russia",
+            "lat": 55.75204,
+            "lon": 37.61781
+          },
+          {
+            "name": "Toronto, Canada",
+            "lat": 43.70643,
+            "lon": -79.39864
+          },
+          {
+            "name": "Saint Petersburg, Russia",
+            "lat": 59.93863,
+            "lon": 30.31413
+          },
+          {
+            "name": "Stockholm, Sweden",
+            "lat": 59.32938,
+            "lon": 18.06871
+          },
+          {
+            "name": "Montreal, Canada",
+            "lat": 45.50884,
+            "lon": -73.58781
+          },
+          {
+            "name": "Sofia, Bulgaria",
+            "lat": 42.69751,
+            "lon": 23.32415
+          },
+          {
+            "name": "Kyiv, Ukraine",
+            "lat": 50.45466,
+            "lon": 30.5238
+          },
+          {
+            "name": "Helsinki, Finland",
+            "lat": 60.16952,
+            "lon": 24.93545
+          }
+        ]
+      },
+      "Dfc": {
+        "name": "Subarctic",
+        "cities": [
+          {
+            "name": "Anchorage, United States",
+            "lat": 61.21806,
+            "lon": -149.90028
+          },
+          {
+            "name": "Yellowknife, Canada",
+            "lat": 62.45411,
+            "lon": -114.37248
+          },
+          {
+            "name": "Troms\u00f8, Norway",
+            "lat": 69.6489,
+            "lon": 18.95508
+          },
+          {
+            "name": "Murmansk, Russia",
+            "lat": 68.96778,
+            "lon": 33.09922
+          },
+          {
+            "name": "Oulu, Finland",
+            "lat": 65.01236,
+            "lon": 25.46816
+          },
+          {
+            "name": "Whitehorse, Canada",
+            "lat": 60.71611,
+            "lon": -135.05376
+          }
+        ]
+      },
+      "Dwa": {
+        "name": "Monsoon-Influenced Hot-Summer",
+        "cities": [
+          {
+            "name": "Seoul, South Korea",
+            "lat": 37.566,
+            "lon": 126.9784
+          },
+          {
+            "name": "Beijing, China",
+            "lat": 39.9075,
+            "lon": 116.39723
+          },
+          {
+            "name": "Dalian, China",
+            "lat": 38.91222,
+            "lon": 121.60222
+          },
+          {
+            "name": "Tianjin, China",
+            "lat": 39.14222,
+            "lon": 117.17667
+          },
+          {
+            "name": "Harbin, China",
+            "lat": 45.75,
+            "lon": 126.65
+          },
+          {
+            "name": "Pyongyang, North Korea",
+            "lat": 39.03385,
+            "lon": 125.75432
+          }
+        ]
+      },
+      "Dwb": {
+        "name": "Monsoon-Influenced Warm-Summer",
+        "cities": [
+          {
+            "name": "Vladivostok, Russia",
+            "lat": 43.10562,
+            "lon": 131.87354
+          },
+          {
+            "name": "Irkutsk, Russia",
+            "lat": 52.29566,
+            "lon": 104.29076
+          },
+          {
+            "name": "Khabarovsk, Russia",
+            "lat": 48.46204,
+            "lon": 135.0971
+          },
+          {
+            "name": "Chita, Russia",
+            "lat": 52.04311,
+            "lon": 113.49171
+          },
+          {
+            "name": "Qiqihar, China",
+            "lat": 47.33922,
+            "lon": 123.96154
+          },
+          {
+            "name": "Ulan-Ude, Russia",
+            "lat": 51.82648,
+            "lon": 107.59979
+          }
+        ]
+      }
+    }
+  },
+  "E": {
+    "name": "Polar",
+    "classifications": {
+      "ET": {
+        "name": "Tundra",
+        "cities": [
+          {
+            "name": "Nuuk, Greenland",
+            "lat": 64.18347,
+            "lon": -51.72157
+          },
+          {
+            "name": "Iqaluit, Canada",
+            "lat": 63.74697,
+            "lon": -68.51727
+          },
+          {
+            "name": "Longyearbyen, Svalbard",
+            "lat": 78.22334,
+            "lon": 15.64689
+          },
+          {
+            "name": "Stanley, Falkland Islands",
+            "lat": 48.31724,
+            "lon": -102.39045
+          },
+          {
+            "name": "Tasiilaq, Greenland",
+            "lat": 65.61451,
+            "lon": -37.63676
+          }
+        ]
+      },
+      "EF": {
+        "name": "Ice Cap",
+        "cities": [
+          {
+            "name": "McMurdo Station, Antarctica",
+            "lat": -77.96306,
+            "lon": 166.50862
+          },
+          {
+            "name": "Vostok Station, Antarctica",
+            "lat": -78.46442,
+            "lon": 106.83733
+          },
+          {
+            "name": "Summit Camp, Greenland",
+            "lat": 72.57929,
+            "lon": -38.45301
+          },
+          {
+            "name": "Dome C, Antarctica",
+            "lat": 53.75,
+            "lon": -121.03333
+          }
+        ]
+      }
+    }
+  }
+}
