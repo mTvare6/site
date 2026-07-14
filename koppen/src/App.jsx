@@ -30,6 +30,55 @@ ChartJS.register(
   Filler
 );
 
+const tempRangeGradientPlugin = {
+  id: 'tempRangeGradient',
+  beforeDatasetDraw(chart, args) {
+    const dataset = chart.data.datasets[args.index];
+    if (dataset?.label !== 'Temp Range') return;
+
+    const { ctx } = chart;
+    const patternHeight = Math.max(1, Math.ceil(chart.height));
+
+    for (const element of args.meta.data) {
+      if (!Number.isFinite(element.y) || !Number.isFinite(element.base)) continue;
+
+      const top = Math.min(element.y, element.base);
+      const bottom = Math.max(element.y, element.base);
+      const barHeight = bottom - top;
+      if (barHeight <= 0) continue;
+
+      const patternCanvas = chart.canvas.ownerDocument.createElement('canvas');
+      patternCanvas.width = 1;
+      patternCanvas.height = patternHeight;
+      const patternContext = patternCanvas.getContext('2d');
+
+      const gradient = patternContext.createLinearGradient(0, bottom, 0, top);
+      gradient.addColorStop(0, '#83a598');
+      gradient.addColorStop(0.5, '#fabd2f');
+      gradient.addColorStop(1, '#fb4934');
+      patternContext.fillStyle = gradient;
+      patternContext.fillRect(0, top, 1, barHeight);
+
+      patternContext.globalCompositeOperation = 'destination-out';
+      const stripeHeight = 6;
+      const gap = 3;
+      for (let y = top; y < bottom; y += stripeHeight + gap) {
+        patternContext.fillRect(0, y + stripeHeight, 1, gap);
+      }
+
+      // This hook runs immediately before each dataset draw, including the
+      // first render and every data change, so the pattern never depends on a
+      // hover event to be recalculated.
+      element.options = {
+        ...element.options,
+        backgroundColor: ctx.createPattern(patternCanvas, 'repeat-x')
+      };
+    }
+  }
+};
+
+ChartJS.register(tempRangeGradientPlugin);
+
 const YEARS = Array.from({ length: 16 }, (_, i) => 2010 + i);
 
 const RetroMenu = ({ onSelect, currentGroup, currentClass }) => {
@@ -243,49 +292,7 @@ function App() {
         barPercentage: 0.35, 
         categoryPercentage: 0.8,
         data: weatherData ? weatherData.monthlyMax.map((max, i) => [weatherData.monthlyMin[i], max]) : [],
-        backgroundColor: (context) => {
-          if (context.type !== 'data') return 'transparent';
-          const chart = context.chart;
-          const { ctx, chartArea } = chart;
-          const element = context.element;
-          
-          if (!chartArea || !element || element.y === undefined || element.base === undefined) return 'transparent';
-          
-          let top = element.y;
-          let bottom = element.base;
-          if (top > bottom) {
-            const temp = top;
-            top = bottom;
-            bottom = temp;
-          }
-
-          const barHeight = bottom - top;
-          if (barHeight <= 0) return 'transparent';
-          
-          const patternCanvas = document.createElement('canvas');
-          patternCanvas.width = 1; 
-          patternCanvas.height = chart.height;
-          const pCtx = patternCanvas.getContext('2d');
-          
-          // Color continuum bounded perfectly to this bar's absolute Y coordinates!
-          // No repeating matrices needed.
-          const gradient = pCtx.createLinearGradient(0, bottom, 0, top);
-          gradient.addColorStop(0, '#83a598'); // Min (Blue) at bottom
-          gradient.addColorStop(0.5, '#fabd2f'); // Mean (Yellow)
-          gradient.addColorStop(1, '#fb4934'); // Max (Red) at top
-          pCtx.fillStyle = gradient;
-          pCtx.fillRect(0, top, 1, barHeight);
-
-          // Punch out gaps for the perforated look
-          pCtx.globalCompositeOperation = 'destination-out';
-          const sH = 6; 
-          const g = 3;
-          for (let y = top; y < bottom; y += sH + g) {
-            pCtx.fillRect(0, y + sH, 1, g);
-          }
-
-          return ctx.createPattern(patternCanvas, 'repeat-x');
-        },
+        backgroundColor: 'transparent',
         borderColor: 'transparent',
         borderWidth: 0,
         yAxisID: 'y',
