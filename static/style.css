@@ -382,6 +382,26 @@ ul.bare > li::before {
   color: var(--accent);
 }
 
+.contact-details {
+  display: grid;
+  grid-template-columns: 5.5rem minmax(0, 1fr);
+  gap: 0.5rem 1rem;
+  margin: 1rem 0 0;
+}
+
+.contact-details dt {
+  color: var(--muted);
+  font-size: 0.78rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.contact-details dd {
+  min-width: 0;
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+
 .project ul,
 section > ul:not(.bare) {
   list-style: none;

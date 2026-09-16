@@ -7,7 +7,7 @@
 
 <header class="masthead">
   <nav class="nav">
-    <a href="{{ "" | relURL }}"{{ if eq $current "long" }} class="current"{{ end }}>long</a>
+    <a href="{{ "" | relURL }}"{{ if eq $current "home" }} class="current"{{ end }}>home</a>
     <a href="{{ "resume/" | relURL }}"{{ if eq $current "resume" }} class="current"{{ end }}>resume</a>
     <a href="{{ "blog/" | relURL }}"{{ if eq $current "blog" }} class="current"{{ end }}>blog</a>
     <a href="{{ "koppen/" | relURL }}"{{ if eq $current "koppen" }} class="current"{{ end }}>koppen</a>
@@ -15,7 +15,7 @@
   </nav>
   <h1>{{ .Site.Params.author }}</h1>
   <div class="handles">
-    {{ range .Site.Params.handles }}<span>{{ . }}</span>{{ end }}
+    {{ with index .Site.Params.handles 2 }}<span>{{ . }}</span>{{ end }}
     {{- if .Params.show_email_in_header -}}
       <span><a href="mailto:{{ .Site.Params.email }}">{{ .Site.Params.email }}</a></span>
     {{- end }}
@@ -24,5 +24,8 @@
   <p class="blurb">
     {{ . | markdownify }}
   </p>
+  {{ end }}
+  {{ if .IsHome }}
+  <p class="blurb">Looking for SWE Internships in Summer 2027</p>
   {{ end }}
 </header>

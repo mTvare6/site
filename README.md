@@ -1,6 +1,6 @@
 # Personal site
 
-Built with [Hugo](https://gohugo.io/) using Claude.
+Built with [Hugo](https://gohugo.io/)
 
 ## Layout
 
@@ -52,6 +52,17 @@ hugo --gc --minify
 ```
 
 `./public/` is static site
+
+## Koppen
+  
+```sh
+cd koppen
+npm ci
+npm run build
+cd ..
+mkdir -p static/koppen
+cp -r koppen/dist/. static/koppen/
+```
 
 ## License
 

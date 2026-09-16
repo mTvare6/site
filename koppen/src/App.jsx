@@ -565,7 +565,7 @@ function App() {
       </div>
 
       <nav className="bottom-nav">
-        <a href="/">long</a>
+        <a href="/">home</a>
         <a href="/resume/">resume</a>
         <a href="/blog/">blog</a>
         <a href="/koppen/" className="current">koppen</a>
