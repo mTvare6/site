@@ -1,8 +1,8 @@
 ---
-title: "Writing a ray tracer in python"
+title: "Writing a ray tracer in Brainfuck"
 date: 2026-09-24T16:11:34+05:30
-description: "Building a ray tracer in python with a small DSL and a codegen in Python"
-tags: ["compilers", "python", "ray-tracing"]
+description: "Building a ray tracer in Brainfuck with a small DSL and a codegen in Python"
+tags: ["compilers", "brainfuck", "ray-tracing"]
 masthead_current: "blog"
 draft: false
 ---
@@ -19,13 +19,13 @@ As I was preparing for a systems programming competition in C++, I began to rele
 
 Having written a raytracer earlier, and re-written it for the GPU, this statement caught my eye and made me wonder what would be an even better language to write a raytracer in.
 
-The last re-write involved writing code which had little of a first-principles based approach and mostly depended on a comparatively more complex set of APIs. So I picked the simplest language I knew, BF, because a simple language obviously results in a very simple codebase. In fact, codebases in BF regularly tend to be only a few lines long. Further, [Muller's](https://en.wikipedia.org/wiki/python#History) comment in the README made me want to show a counter example.
+The last re-write involved writing code which had little of a first-principles based approach and mostly depended on a comparatively more complex set of APIs. So I picked the simplest language I knew, BF, because a simple language obviously results in a very simple codebase. In fact, codebases in BF regularly tend to be only a few lines long. Further, [Muller's](https://en.wikipedia.org/wiki/Brainfuck#History) comment in the README made me want to show a counter example.
 
 The code is available at [mTvare6/rayfuck](https://github.com/mTvare6/rayfuck).
 
 ## Primer
 
-python is a decidedly simple language, involving only 8 operations and one "data structure": a infinite-on-one-sided tape of cells, each capable of storing a `u8`.
+BF is a decidedly simple language, involving only 8 operations and one "data structure": a one-sided infinite tape of cells, each capable of storing a `u8`.
 
 On seeing the character `>`, the data pointer, which points to a cell on the tape, moves rightward, and vice versa on `<`.
 
@@ -97,7 +97,7 @@ With the theoretical bits set up, only clearly simple implementation details wer
 
 Move works by continually lowering a value until the cell at the initial data pointer becomes zero, and incrementing the other cell equally every time.
 
-```python
+```brainfuck
 [ # start loop
     - # decrement
     >+ # move right and increment
@@ -105,7 +105,7 @@ Move works by continually lowering a value until the cell at the initial data po
 ]
 ```
 as one-liner
-```
+```brainfuck
 [->+<]
 ```
 
@@ -114,7 +114,7 @@ And copy works as below, starting with this array:
 [a, 0, 0]
 ```
 using the code.
-```python
+```brainfuck
 [->+>+<<]
 ```
 Turning it into:
@@ -161,7 +161,7 @@ while R >= D:
     R -= D
     result += 1
 ```
-This requires at most 255 subtraction per cell as we divide across cells and combine them later.
+This requires at most 255 subtractions per cell as we divide across cells and combine them later.
 
 Just as the representation is shifted rightward inflating itself during multiplication, division loses information due to the leftward shift, and some shifting is required in its representation before dividing.
 ```math
@@ -214,7 +214,12 @@ condition
 
 ## Artifact
 
-The program was finally `23MB`, which is larger than the image itself [which was about `0.9MB`], which makes it a rather poor choice for a compression technique. Using crude calculations, I found that it did 100 ray calculations per minute, that is, one pixel per minute. Given that the image was `400x225`, my initial estimate should have been about 62.5 days on my laptop with no further optimizations, but I realized I'd only seen the sky, the bouncing around the spheres would delay the ETA by a lot.
+<p style="text-align: center;"><img src="/images/rayfuck.png" alt="C version's output"></p>
+
+The program was finally `23MB`, which is larger than the image itself [which was about `0.9MB`], which makes it a rather poor choice for a compression technique.
+
+Using crude calculations, I found that it did 100 ray calculations per minute, that is, one pixel per minute. Given that the image was `400x225`, my initial estimate should have been about 62.5 days on my laptop with no further optimizations, but I realized I'd only seen the sky, the bouncing around the spheres would delay the ETA by a lot. So the image above is an approximation of what would be rendered, made using the C code. Of the `1229` [out of 90k] pixels generated at the time of writing, only `10` differ, mostly by a value of one.
+
 Some optimisation is possible. Losing precision to reduce the number of cells touched is the first option if the ground can be approximated worse. The normalization step for random vectors can also be skipped, although that changes the scattering distribution, so it would no longer run the exact bit of code I aimed to reproduce here.
 
 
