@@ -1,5 +1,5 @@
 ---
-title: "A WiFi outage that traced back to a 2012 cryptography conf"
+title: "A WiFi outage and its relation to a DEF CON 20 talk"
 date: 2026-05-11T16:07:06+05:30
 description: "iwd refused to silently fall back when my campus WiFi broke. Chasing the certificate, MSCHAPv2, and the NT-hash dependency that probably caused it."
 tags: ["linux", "networking", "wifi", "iwd", "eap"]
@@ -114,7 +114,9 @@ are two one, and the device solves a challenge sending both the answer and
 password. And since this can't work with one-way passwords, the RADIUS server
 had to have stored plaintext or unsalted NT-hashed passwords. The CC probably
 tightened backend hashing, unsalted NT hashes are a well-known liability. This
-could have led to MSCHAPv2, and thus PEAP being disallowed.
+could have led to MSCHAPv2, and thus PEAP being disallowed. More details on how
+MSCHAPv2 was broken can be found in this
+[DEF CON 20 talk](https://www.youtube.com/watch?v=gkPvZDcrLFk).
 
 ## Resolve
 

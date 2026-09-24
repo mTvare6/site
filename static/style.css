@@ -478,11 +478,6 @@ blockquote {
   border-left: 3px solid var(--accent);
 }
 
-blockquote::before {
-  content: '┃ ';
-  color: var(--accent);
-}
-
 blockquote p { margin: 0.2rem 0; }
 
 /* ─── Resume row ──────────────────────────────────────── */
