@@ -13,13 +13,15 @@
     <a href="{{ "koppen/" | relURL }}"{{ if eq $current "koppen" }} class="current"{{ end }}>koppen</a>
     <a href="{{ .Site.Params.github_url }}">github</a>
   </nav>
-  <h1>{{ .Site.Params.author }}</h1>
-  <div class="handles">
-    {{ with index .Site.Params.handles 2 }}<span>{{ . }}</span>{{ end }}
-    {{- if .Params.show_email_in_header -}}
-      <span><a href="mailto:{{ .Site.Params.email }}">{{ .Site.Params.email }}</a></span>
-    {{- end }}
-  </div>
+  {{ if eq $current "resume" }}
+    <h1>{{ .Site.Params.author }}</h1>
+    <div class="handles">
+      {{ with index .Site.Params.handles 2 }}<span>{{ . }}</span>{{ end }}
+      {{- if .Params.show_email_in_header -}}
+        <span><a href="mailto:{{ .Site.Params.email }}">{{ .Site.Params.email }}</a></span>
+      {{- end }}
+    </div>
+  {{ end }}
   {{ with .Params.blurb }}
   <p class="blurb">
     {{ . | markdownify }}
