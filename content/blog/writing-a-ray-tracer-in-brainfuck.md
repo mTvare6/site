@@ -222,5 +222,8 @@ Using crude calculations, I found that it did 100 ray calculations per minute, t
 
 Some optimisation is possible. Losing precision to reduce the number of cells touched is the first option if the ground can be approximated worse. The normalization step for random vectors can also be skipped, although that changes the scattering distribution, so it would no longer run the exact bit of code I aimed to reproduce here.
 
+## Update
 
-[3]: https://www.anthropic.com/engineering/building-c-compiler
+A comment on my [Reddit thread](https://www.reddit.com/r/programming/comments/1wptfjd/) asked how I might improve it with fork/join primitives. Finding the challenge interesting, I got nerd-sniped into improving the JIT interpreter I used [helped by some earlier work] which led to a massive improvement in its performance. The actual render looks a bit like a Van Gogh painting, likely due to precision errors.
+
+<p style="text-align: center;"><img src="/images/vangogh.png" alt="BF version's output"></p>
