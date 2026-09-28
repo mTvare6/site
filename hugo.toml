@@ -6,7 +6,8 @@ enableRobotsTXT = true
 disableKinds = ['taxonomy', 'term']
 
 [params]
-  description = "Peut Mots: notes and projects about systems, simulations, graphics, and developer tools."
+  author = "Austin Shijo"
+  description = "The personal website of Austin Shijo: projects, writing, and ongoing explorations."
   email = "austins24@iitk.ac.in"
   github_url = "https://github.com/mTvare6"
 

@@ -5,9 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>{{ if .IsHome }}Peut Mots{{ else }}{{ .Title }} | Peut Mots{{ end }}</title>
   <meta property="og:site_name" content="Peut Mots">
+  <meta name="author" content="{{ .Site.Params.author }}">
   <meta name="description" content="{{ with .Description }}{{ . }}{{ else }}{{ .Site.Params.description }}{{ end }}">
   <link rel="stylesheet" href="{{ "style.css" | relURL }}">
-  <link rel="icon" type="image/png" sizes="128x128" href="{{ "favicon.png" | relURL }}?v=2">
+  <link rel="icon" type="image/png" sizes="256x256" href="{{ "favicon.png" | relURL }}?v=3">
   {{ range .AlternativeOutputFormats -}}
     <link rel="{{ .Rel }}" type="{{ .MediaType.Type }}" href="{{ .Permalink | safeURL }}">
   {{ end -}}
