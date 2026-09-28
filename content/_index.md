@@ -1,4 +1,4 @@
 ---
-title: "Austin Shijo"
+title: "Peut Mots"
 masthead_current: "home"
 ---

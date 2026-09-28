@@ -1,15 +1,12 @@
 baseURL = 'https://epestr.com'
-title = 'epestr'
+title = 'Peut Mots'
 enableRobotsTXT = true
 
 # Drop these in front matter or via taxonomies later if needed
 disableKinds = ['taxonomy', 'term']
 
 [params]
-  description = "Austin Shijo. Power-user desktop tools and devtools with a graphics tilt. Mostly Rust."
-  author = "Austin Shijo"
-  # Pieces shown in the masthead. Each becomes a <span>.
-  handles = ["epestr", "mTvare6", "iitk · statistics · ’24–’28"]
+  description = "Peut Mots: notes and projects about systems, simulations, graphics, and developer tools."
   email = "austins24@iitk.ac.in"
   github_url = "https://github.com/mTvare6"
 

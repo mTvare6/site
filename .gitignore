@@ -1,5 +1,2 @@
 .hugo_build.lock
 public
-node_modules/
-dist/
-static/koppen/

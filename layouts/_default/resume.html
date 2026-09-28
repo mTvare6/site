@@ -1,27 +1,12 @@
 {{ define "main" }}
 
-<!-- ─── Now ────────────────────────────────────────────── -->
-
-<section>
-<h2>Now</h2>
-<ul class="bare">
-  <li>
-    Working on <a href="https://github.com/mTvare6/saqol"><code>Śaq</code></a>, an easy to use audio enhancer for Linux.
-  </li>
-  <li>
-    Experimenting with <a href="https://github.com/mTvare6/enkiwm"><code>enki</code></a>, a 2D cell-based Wayland
-    compositor with a vim-style modal mode for window management.
-  </li>
-</ul>
-</section>
-
 <!-- ─── Graphite contributor ───────────────────────────── -->
 
 <section>
 <h2>Work Experience</h2>
 
 <div class="project">
-  <h3>Contributor — Graphite Editor <span class="stack">Rust · wgpu · Vello · ~25k★</span></h3>
+  <h3>Contributor at Graphite Editor <span class="stack">Rust · wgpu · Vello · ~25k★</span></h3>
   <div class="meta">
     <a href="https://github.com/GraphiteEditor/Graphite" class="repo">github.com/GraphiteEditor/Graphite</a>
     <span> · May ’25 – Sep ’25</span>
@@ -83,7 +68,35 @@
 </div>
 </section>
 
-<!-- ─── Desktop & window managers ─────────────────────── -->
+<!-- ─── Languages & Compilers ────────────────────────── -->
+
+<section>
+<h2>Languages &amp; Compilers</h2>
+
+<div class="project">
+  <h3>rayfuck <span class="stack">Python · C · Brainfuck</span></h3>
+  <div class="meta">
+    <a href="https://github.com/mTvare6/rayfuck" class="repo">github.com/mTvare6/rayfuck</a>
+  </div>
+  <p>
+    A ray tracer written in Brainfuck, made by compiling
+    <a href="https://raytracing.github.io/books/RayTracingInOneWeekend.html#metal/fuzzyreflection">Ray Tracing in One Weekend</a>'s
+    C code into Brainfuck using a simple IR.
+  </p>
+</div>
+
+<div class="project">
+  <h3>tjit <span class="stack">Rust · Cranelift</span></h3>
+  <div class="meta">
+    <a href="https://github.com/mTvare6/tjit" class="repo">github.com/mTvare6/tjit</a>
+  </div>
+  <p>
+    An experimental statically typed systems language with a JIT compiler. It supports algebraic data types (ADTs), arrays, pattern matching with ranges, destructuring, and wildcards, arbitrary-width integers such as <code>u13</code> and <code>i42</code> with bit-packing to maximize cache efficiency, a pipeline operator <code>(|>)</code> that provides a form of UFCS, and libc FFI for input/output.
+  </p>
+</div>
+</section>
+
+<!-- ─── Desktop & window managers ────────────────────── -->
 
 <section>
 <h2>Desktop &amp; window managers</h2>
@@ -97,18 +110,6 @@
     An experimental Wayland window manager built on
     <a href="https://github.com/Smithay/smithay">Smithay</a>, with intuitive
     grid-based navigation and a Vim-like modal input mode.
-  </p>
-</div>
-
-<div class="project">
-  <h3>picom-shaders <span class="stack">GLSL</span></h3>
-  <div class="meta">
-    <a href="https://github.com/mTvare6/picom-shaders" class="repo">github.com/mTvare6/picom-shaders</a>
-  </div>
-  <p>
-    Updated GLSL shaders for the
-    <a href="https://github.com/yshui/picom">picom</a> X11
-    compositor, as the older versions had stopped working.
   </p>
 </div>
 
@@ -129,34 +130,6 @@
     mount that makes GitHub look like folders under <code>/tmp/ghfs/</code>.
     As you browse, it fetches users, repositories, and files from the
     GitHub API only when they're needed.
-  </p>
-</div>
-</section>
-
-<!-- ─── Languages & Compilers ─────────────────────────── -->
-
-<section>
-<h2>Languages &amp; Compilers</h2>
-
-<div class="project">
-  <h3>rayfuck <span class="stack">Python · C · Brainfuck</span></h3>
-  <div class="meta">
-    <a href="https://github.com/mTvare6/rayfuck" class="repo">github.com/mTvare6/rayfuck</a>
-  </div>
-  <p>
-    A ray tracer written in Brainfuck, made by compiling 
-    <a href="https://raytracing.github.io/books/RayTracingInOneWeekend.html#metal/fuzzyreflection">Ray Tracing in One Weekend</a>'s
-    C code into Brainfuck using a simple IR.
-  </p>
-</div>
-
-<div class="project">
-  <h3>tjit <span class="stack">Rust · Cranelift</span></h3>
-  <div class="meta">
-    <a href="https://github.com/mTvare6/tjit" class="repo">github.com/mTvare6/tjit</a>
-  </div>
-  <p>
-    An experimental statically typed systems language with a JIT compiler. It supports algebraic data types (ADTs), arrays, pattern matching with ranges, destructuring, and wildcards, arbitrary-width integers such as <code>u13</code> and <code>i42</code> with bit-packing to maximize cache efficiency, a pipeline operator <code>(|>)</code> that provides a form of UFCS, and libc FFI for input/output.
   </p>
 </div>
 </section>
@@ -228,15 +201,6 @@
   </p>
 </div>
 
-<div class="project">
-  <h3>htBrowser <span class="stack">Electron · JS</span></h3>
-  <div class="meta">
-    <a href="https://github.com/mTvare6/htBrowser" class="repo">github.com/mTvare6/htBrowser</a>
-  </div>
-  <p>
-   A keybind summoned mini-browser for reading docs while you code. It is archived as I use a tiling WM now.
-  </p>
-</div>
 </section>
 
 
@@ -284,17 +248,6 @@
 </div>
 
 <div class="project">
-  <h3>lenia <span class="stack">C++</span></h3>
-  <div class="meta">
-    <a href="https://github.com/mTvare6/lenia" class="repo">github.com/mTvare6/lenia</a>
-  </div>
-  <p>
-    A C++ implementation of <a href="https://chakazul.github.io/lenia.html">Lenia</a>,
-    a continuous take on <a href="https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life">Conway's Game of Life</a>. The only project which uses ArrayFire to perform GPU operations.
-  </p>
-</div>
-
-<div class="project">
   <h3>physarum <span class="stack">C++</span></h3>
   <div class="meta">
     <a href="https://github.com/mTvare6/physarum" class="repo">github.com/mTvare6/physarum</a>
@@ -302,25 +255,6 @@
   <p>
    100,000-agent slime-mould simulation modelled on <a href="https://en.wikipedia.org/wiki/Physarum_polycephalum">Physarum polycephalum </a>
   with different parameters producing vastly different aesthetics from the same underlying model. My only project with OpenGL and C++.
-  </p>
-</div>
-</section>
-
-<!-- ─── The viral one ──────────────────────────────────── -->
-
-<section>
-<h2>Satirical work</h2>
-
-<div class="project">
-  <h3>hello-world.rs <span class="stack">Rust · satire</span></h3>
-  <div class="meta">
-    <a href="https://github.com/mTvare6/hello-world.rs" class="repo">github.com/mTvare6/hello-world.rs</a>
-  </div>
-  <p>
-    A satirical Rust "Hello, world!" that turns dependency bloat into a
-    compiler stress test. <a href="https://rustmagazine.org/issue-3/optimizing-compilation-for-databend/">Rust Magazine</a> cited it
-    while discussing unused dependencies and
-    <a href="https://github.com/bnjbvr/cargo-machete">cargo-machete</a>.
   </p>
 </div>
 </section>
@@ -384,19 +318,16 @@
 
 <div class="skills-grid">
   <div class="label">primary</div>
-  <div class="vals">Rust</div>
+  <div class="vals">Rust, C++</div>
 
   <div class="label">also</div>
-  <div class="vals">C/C++, Python, Lua, JavaScript, TypeScript, Java, R, shell</div>
+  <div class="vals">C, Python, Lua, JavaScript, TypeScript, R, shell</div>
 
   <div class="label">systems</div>
-  <div class="vals">FUSE, Tokio, FFI, X11, Wayland, PipeWire</div>
-
-  <div class="label">graphics</div>
-  <div class="vals"> WebGPU, Vello, OpenGL, ArrayFire</div>
+  <div class="vals">FUSE, FFI, X11, Wayland, PipeWire, WebGPU, OpenGL</div>
 
   <div class="label">tooling</div>
-  <div class="vals">git, GitHub, Cargo, Make, CMake, Nix, Arch makepkg, Docker, neovim, Linux</div>
+  <div class="vals">git, GitHub, Cargo, CMake, Nix, Docker, neovim, Linux</div>
 </div>
 </section>
 
@@ -429,11 +360,6 @@
   Contributed <code><a href="https://github.com/mTvare6/tch">tch</a></code>
   as the reference architecture for the Systems Spring Camp.
 </p>
-</section>
-
-<!-- ─── Around the web ─────────────────────────────────── -->
-
-
 </section>
 
 {{ end }}

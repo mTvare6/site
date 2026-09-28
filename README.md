@@ -15,15 +15,14 @@ Built with [Hugo](https://gohugo.io/)
 │       └── *.md                 individual posts
 ├── layouts/
 │   ├── _default/
-│   │   ├── baseof.html          shared <head>, wrap, footer
+│   │   ├── baseof.html          shared <head> and page wrapper
 │   │   └── resume.html          résumé layout
 │   ├── index.html               long-form home layout
 │   ├── blog/
 │   │   ├── list.html            blog index
 │   │   └── single.html          individual post
 │   └── partials/
-│       ├── masthead.html        nav + name + handles + blurb
-│       └── footer.html
+│       └── masthead.html        nav + blurb
 ├── static/
 │   └── style.css                the only stylesheet
 ├── archetypes/
@@ -52,17 +51,6 @@ hugo --gc --minify
 ```
 
 `./public/` is static site
-
-## Koppen
-  
-```sh
-cd koppen
-npm ci
-npm run build
-cd ..
-mkdir -p static/koppen
-cp -r koppen/dist/. static/koppen/
-```
 
 ## License
 
