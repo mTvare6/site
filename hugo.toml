@@ -17,8 +17,8 @@ disableKinds = ['taxonomy', 'term']
       # Allows raw HTML in markdown — used for the long-form content blocks.
       unsafe = true
   [markup.highlight]
-    style = "github-light"
-    noClasses = false
+    style = "gruvbox"
+    noClasses = true
     lineNos = false
 
 [outputs]

@@ -1,4 +1,5 @@
 {{ define "main" }}
+{{ $content := .Content }}
 
 <article class="post">
   <header class="post-header">
@@ -14,11 +15,38 @@
         <span class="reading-time">· {{ .ReadingTime }} min read</span>
       {{ end }}
     </div>
+    {{ with .TableOfContents }}
+    {{ $toc := . }}
+    {{ if $.Scratch.Get "bibliography" }}
+      {{ $toc = replaceRE `(?s)</ul>\s*</nav>\s*$` `<li><a href="#bibliography-heading">Bibliography</a></li></ul></nav>` $toc }}
+    {{ end }}
+    <details class="article-index">
+      <summary>Contents</summary>
+      <div class="index-content">
+        {{ $toc | safeHTML }}
+      </div>
+    </details>
+    {{ end }}
   </header>
 
   <div class="post-body">
-    {{ .Content }}
+    {{ $content }}
   </div>
+
+  {{ with .Scratch.Get "bibliography" }}
+  <section class="bibliography" aria-labelledby="bibliography-heading">
+    <h2 id="bibliography-heading">Bibliography</h2>
+    <ol>
+      {{ range $index, $reference := . }}
+      <li id="reference-{{ $index }}">
+        <span class="reference-index">[{{ $index }}]</span>
+        <a class="reference-link" href="{{ $reference.url | safeURL }}">{{ $reference.label }}</a>
+        <span class="reference-url">{{ $reference.url }}</span>
+      </li>
+      {{ end }}
+    </ol>
+  </section>
+  {{ end }}
 
   <nav class="post-nav">
     {{ with .PrevInSection }}

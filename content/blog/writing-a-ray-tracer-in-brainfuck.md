@@ -19,9 +19,9 @@ As I was preparing for a systems programming competition in C++, I began to rele
 
 Having written a raytracer earlier, and re-written it for the GPU, this statement caught my eye and made me wonder what would be an even better language to write a raytracer in.
 
-The last re-write involved writing code which had little of a first-principles based approach and mostly depended on a comparatively more complex set of APIs. So I picked the simplest language I knew, BF, because a simple language obviously results in a very simple codebase. In fact, codebases in BF regularly tend to be only a few lines long. Further, [Muller's](https://en.wikipedia.org/wiki/Brainfuck#History) comment in the README made me want to show a counter example.
+The last re-write involved writing code which had little of a first-principles based approach and mostly depended on a comparatively more complex set of APIs. So I picked the simplest language I knew, BF, because a simple language obviously results in a very simple codebase. In fact, codebases in BF regularly tend to be only a few lines long. Further, [Muller's comment](https://en.wikipedia.org/wiki/Brainfuck#History "Urban Müller's comment on Brainfuck's intentionally tiny compiler") in the README made me want to show a counter example.
 
-The code is available at [mTvare6/rayfuck](https://github.com/mTvare6/rayfuck).
+The code is available at [mTvare6/rayfuck](https://github.com/mTvare6/rayfuck "rayfuck — a ray tracer generated in Brainfuck").
 
 ## Primer
 
@@ -41,13 +41,13 @@ A quick exercise would be writing a `cat` program, try writing one with just 5 c
 
 ## Premeditation
 
-Having read about it before starting this, I decided to avoid looking up any result or implementation detail and to write down as much as possible from first principles. To keep the scope minimal, and the program an obvious raytracer, I decided to have it render the exact image rendered through the Metal section of [RIW](https://raytracing.github.io/books/RayTracingInOneWeekend.html#metal).
+Having read about it before starting this, I decided to avoid looking up any result or implementation detail and to write down as much as possible from first principles. To keep the scope minimal, and the program an obvious raytracer, I decided to have it render the exact image rendered through the Metal section of [RIW](https://raytracing.github.io/books/RayTracingInOneWeekend.html#metal "Ray Tracing in One Weekend — Metal chapter").
 
-The C code was a bit too complex regardless, and writing a C parser was clearly out of scope. Writing an unmaintained C parser is something better handled by [Anthropic](https://www.anthropic.com/engineering/building-c-compiler).
+The C code was a bit too complex regardless, and writing a C parser was clearly out of scope. Writing an unmaintained C parser is something better handled by [Anthropic's C compiler](https://www.anthropic.com/engineering/building-c-compiler "Anthropic — Building a C compiler with parallel agents").
 
-I decided that every double [and other datatype like bool] would be represented by combining cells, with half the bits representing the fractional part and the other half representing the integer part, effectively placing a fixed binary point between them. I later got to know that this is called a Q format. Going with the cheaper signed Q8.8 would give a resolution of `1/256` and a range of approximately `[-128, 128)`. But clearly, that wouldn't be enough, as the sphere used for the ground in the scene had to have `r=1000` to appear flat, so I went with the more expensive signed Q16.16 format. It has a resolution of `1/2^16` and a range of `[-2^15, 2^15)`, which is sufficient.
+I decided that every double would be represented by combining cells, with half the bits representing the fractional part and the other half representing the integer part, effectively placing a fixed binary point between them.<sup class="sidenote-number"><a href="#sidenote-1">[1]</a></sup><span class="sidenote" id="sidenote-1"><span class="sidenote-label">[1]</span> The same approach would cover the other datatypes I needed, such as <code>bool</code>, rather than only doubles.</span> I later got to know that this is called a Q format. Going with the cheaper signed Q8.8 would give a resolution of `1/256` and a range of approximately `[-128, 128)`. But clearly, that wouldn't be enough, as the sphere used for the ground in the scene had to have `r=1000` to appear flat, so I went with the more expensive signed Q16.16 format. It has a resolution of `1/2^16` and a range of `[-2^15, 2^15)`, which is sufficient.
 
-I decided to have the code converted to an SSA-like format [and decided this'll be the only job for an LLM], where recursive code is made iterative, and variables defined in functions are prefixed in a Hungarian-style notation to avoid name collisions during address lookup for a name.
+I decided to have the code converted to an SSA-like format, where recursive code is made iterative, and variables defined in functions are prefixed in a Hungarian-style notation to avoid name collisions during address lookup for a name.<sup class="sidenote-number"><a href="#sidenote-2">[2]</a></sup><span class="sidenote" id="sidenote-2"><span class="sidenote-label">[2]</span> I decided this conversion would be the only job for an LLM; the rest would follow the first-principles constraint I had set for the project.</span>
 
 Similarly, separating the parsing and codegen seemed necessary, dividing complexity into two code regions, with an intermediate "DSL" being used as an IR. The DSL contained simple operations such as `abs`, `add`, `and`, `call`, `copy`, `div`, `else`, `end`, `eq`, `func`, `ge`, `gt`, `if`, `int`, `le`, `lt`, `mul`, `neg`, `not`, `or`, `print2`, `print3`, `set`, `sqrt`, `sub`, `text`, `var`, and `while`.
 
@@ -64,9 +64,9 @@ A = (5*A + 1) % 256
 ```
 given that it is guaranteed to repeat only after a full sequence of 256 values, which isn't too bad for this use-case [that is, supersampling anti-aliasing].
 
-`sqrt` has one obvious candidate, Heron's formula [of which my memory was refreshed within the same CMake tutorial]. But it was pretty obvious it'd be bad, given it involved division. Repeated subtraction, while producing smaller generated code [which is better, as the interpreter moves less], was still relatively expensive to do.
+`sqrt` has one obvious candidate, Heron's formula.<sup class="sidenote-number"><a href="#sidenote-3">[3]</a></sup><span class="sidenote" id="sidenote-3"><span class="sidenote-label">[3]</span> The same CMake tutorial mentioned earlier had refreshed my memory of Heron's formula.</span> But it was pretty obvious it'd be bad, given it involved division. Repeated subtraction, while producing smaller generated code, was still relatively expensive to do.<sup class="sidenote-number"><a href="#sidenote-4">[4]</a></sup><span class="sidenote" id="sidenote-4"><span class="sidenote-label">[4]</span> Smaller generated code is preferable because it leaves the interpreter with less code to move through.</span>
 The other candidates were the Taylor series and the "School Method", which involves long-division.
-```math
+```python
 sqrt(1 + x) = 1 + x/2 - x^2/8
 y = 2^16*x
 sqrt(2^16 + y) / 2^8  = (1 + y/2^17 - y^2/2^35 )
@@ -74,14 +74,14 @@ sqrt(y) / 2^8  = (1 + (y - 2^16)/2^17 - (y - 2^16)^2/2^35 )
 ```
 Plotting this on Desmos revealed that the fit was poor below an encoded value of 20k, that is, below roughly `0.305`, which was a pretty important region.
 This left me with the long-division method, which was pretty simple. If the real value was `x`, then the represented value was:
-```math
+```python
 N = x * 2^16
 ```
 To represent `sqrt(x)`, we need:
-```math
-N' = sqrt(x) * 2^16
+```python
+N_0 = sqrt(x) * 2^16
 isqrt(N) = sqrt(x) * 2^8
-isqrt(2^16 * N) = sqrt(x) * 2^16 = N'
+isqrt(2^16 * N) = sqrt(x) * 2^16 = N_0
 ```
 
 `isqrt` is justified here, as a difference of one in the encoded result changes the decoded square root by less than `1/2^16`, or approximately `0.00001526`.
@@ -91,7 +91,7 @@ And finally, the whole variable map and corresponding BF addresses would be main
 ## Implementation
 
 With the theoretical bits set up, only clearly simple implementation details were left. Two important primitives were `move` and `copy`.
-```array
+```python
 [a, 0]
 ```
 
@@ -110,7 +110,7 @@ as one-liner
 ```
 
 And copy works as below, starting with this array:
-```array
+```python
 [a, 0, 0]
 ```
 using the code.
@@ -118,7 +118,7 @@ using the code.
 [->+>+<<]
 ```
 Turning it into:
-```array
+```python
 [0, a, a]
 ```
 And now, if needed, the terminal `a` can be moved inward.
@@ -127,13 +127,13 @@ Given that addition, and later division, would involve repeated use of temporary
 
 Multiplication was similarly straightforward, involving multiplying each cell, storing the results and adding them together later. The multiplication step is taken care of through repeated addition.
 For multiplying two cells, one of them is copied to a temporary place and used as the outer loop, and the other is copied once for every iteration to act as the inner loop. Every iteration of the inner loop increments the result once.
-```array
+```python
 [a, b, a->0, b->0, a + ... + a]
 ```
 Here `a` runs out every time and `b` is decremented when `a` is zeroed, producing `b` copies of `a`.
 
 For the four-cell values, every cell in one is paired with every cell in the other. A multiplication of the cells at `i` and `j` is added at `i+j` in an eight-cell result.
-```text
+```python
 [a0, a1, a2, a3] * [b0, b1, b2, b3]
 
 result[i+j] += a_i*b_j
@@ -141,7 +141,7 @@ result[i+j] += a_i*b_j
 
 
 Since both inputs already had `2^16` in their representation, the lowest 2 cells are discarded when copying back the result.
-```math
+```python
 N_1 = x_1 * 2^16
 N_2 = x_2 * 2^16
 
@@ -149,14 +149,14 @@ N_2 = x_2 * 2^16
 ```
 
 Division was slightly less direct but could still be done the way manual long-division is done, by having the dividend be read from its most significant cell and at every step, the old remainder is carried over a cell onto the next.
-```text
+```python
 R = R * 10 + A[next] # school
 R = R * 256 + A[next] # here
 ```
 
 The divisor then is subtracted from this remainder repeatedly, and one gets added to the result cell. When the remainder becomes negative, the step is reverted and we move to the next cell.
 
-```text
+```python
 while R >= D:
     R -= D
     result += 1
@@ -164,7 +164,7 @@ while R >= D:
 This requires at most 255 subtractions per cell as we divide across cells and combine them later.
 
 Just as the representation is shifted rightward inflating itself during multiplication, division loses information due to the leftward shift, and some shifting is required in its representation before dividing.
-```math
+```python
 N_1 = x_1 * 2^16
 N_2 = x_2 * 2^16
 
@@ -176,14 +176,14 @@ Throughout these operations, the signs are removed first, and the result is made
 
 Comparisons share the same smaller operation. Two cells are decremented together until at least one becomes zero, and this continues until there is a difference or the temporary copies are completely zeroed. There was some minor processing involving adding `2^7` to the most significant cell, as otherwise negative numbers technically have a higher value when viewed plainly as bytes.
 
-```text
+```python
 00 ... 7f  -> positive half
 80 ... ff  -> negative half
 ```
 
 after adding 128 and wrapping over
 
-```
+```python
 80 ... ff  -> positive half
 00 ... 7f  -> negative half
 ```
@@ -204,7 +204,7 @@ Given loops, `if` was straightforward.
 For an `else`, another flag starts at one and is cleared by the first body.
 
 And `while` likewise.
-```text
+```python
 condition
 [ 
     body
@@ -224,6 +224,6 @@ Some optimisation is possible. Losing precision to reduce the number of cells to
 
 ## Update
 
-A comment on my [Reddit thread](https://www.reddit.com/r/programming/comments/1wptfjd/) asked how I might improve it with fork/join primitives. Finding the challenge interesting, I got nerd-sniped into improving the JIT interpreter I used [helped by some earlier work] which led to a massive improvement in its performance. The actual render looks a bit like a Van Gogh painting, likely due to precision errors.
+A comment on my [Reddit thread](https://www.reddit.com/r/programming/comments/1wptfjd/ "Reddit discussion — parallelizing the Brainfuck ray tracer") asked how I might improve it with fork/join primitives. Finding the challenge interesting, I got nerd-sniped into improving the JIT interpreter I used [helped by some earlier work] which led to a massive improvement in its performance. The actual render looks a bit like a Van Gogh painting, likely due to precision errors.
 
 <p style="text-align: center;"><img src="/images/vangogh.png" alt="BF version's output"></p>

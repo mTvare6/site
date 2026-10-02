@@ -6,12 +6,17 @@
 {{- $current := .Params.masthead_current | default "" -}}
 
 <header class="masthead{{ if or .IsHome (eq $current "resume") }} compact{{ end }}">
-  <nav class="nav">
-    <a href="{{ "" | relURL }}"{{ if eq $current "home" }} class="current"{{ end }}>home</a>
-    <a href="{{ "resume/" | relURL }}"{{ if eq $current "resume" }} class="current"{{ end }}>resume</a>
-    <a href="{{ "blog/" | relURL }}"{{ if eq $current "blog" }} class="current"{{ end }}>blog</a>
-    <a href="{{ .Site.Params.github_url }}">github</a>
-  </nav>
+  <div class="nav-shell">
+    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav">
+      <span aria-hidden="true">☰</span> Menu
+    </button>
+    <nav class="nav" id="site-nav" aria-label="Primary navigation">
+      <a href="{{ "" | relURL }}"{{ if eq $current "home" }} class="current"{{ end }}>Home</a>
+      <a href="{{ "resume/" | relURL }}"{{ if eq $current "resume" }} class="current"{{ end }}>Resume</a>
+      <a href="{{ "blog/" | relURL }}"{{ if eq $current "blog" }} class="current"{{ end }}>Blog</a>
+      <a href="{{ .Site.Params.github_url }}">GitHub</a>
+    </nav>
+  </div>
   {{ with .Params.blurb }}
   <p class="blurb">
     {{ . | markdownify }}

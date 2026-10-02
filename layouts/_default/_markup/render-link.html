@@ -1,0 +1,21 @@
+{{- if eq .Page.Section "blog" -}}
+  {{- $references := .Page.Scratch.Get "bibliography" | default (slice) -}}
+  {{- $index := -1 -}}
+  {{- range $referenceIndex, $reference := $references -}}
+    {{- if eq $reference.url $.Destination -}}
+      {{- $index = $referenceIndex -}}
+    {{- end -}}
+  {{- end -}}
+  {{- if lt $index 0 -}}
+    {{- $index = len $references -}}
+    {{- $label := .Text | plainify -}}
+    {{- with .Title -}}
+      {{- $label = . | plainify -}}
+    {{- end -}}
+    {{- $reference := dict "url" .Destination "label" $label -}}
+    {{- .Page.Scratch.Set "bibliography" ($references | append $reference) -}}
+  {{- end -}}
+  <a class="citation-link" href="{{ .Destination | safeURL }}"{{ with .Title }} title="{{ . }}"{{ end }}>{{ .Text | safeHTML }}</a><sup class="citation-number"><a href="#reference-{{ $index }}" aria-label="Reference {{ $index }}">[{{ $index }}]</a></sup>
+{{- else -}}
+  <a href="{{ .Destination | safeURL }}"{{ with .Title }} title="{{ . }}"{{ end }}>{{ .Text | safeHTML }}</a>
+{{- end -}}
