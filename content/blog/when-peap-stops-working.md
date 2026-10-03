@@ -12,7 +12,7 @@ This was unexpected since I had switched from my older
 [`wpa_supplicant`](https://wiki.archlinux.org/title/Wpa_supplicant "ArchWiki: wpa_supplicant") setup to
 [`iwd`](https://wiki.archlinux.org/title/Iwd "ArchWiki: iwd") in the to avoid the frequent
 disconnection that happens. I live in a hostel with a lot of access points and
-the supplicant program decides when to switch as one moves around.
+the supplicant program decides when to switch as one moves around.<sup class="sidenote-number"><a href="#sidenote-1">[1]</a></sup><span class="sidenote" id="sidenote-1"><span class="sidenote-label">[1]</span> The access points belong to the same campus network; roaming is the client deciding which one to associate with as signal conditions change.</span>
 A supplicant like [`wpa_supplicant`](https://wiki.archlinux.org/title/Wpa_supplicant "ArchWiki: wpa_supplicant")
 oscillates between points on marginal signal differences and leaves me
 disconnected for some time . I migrated to
@@ -25,7 +25,7 @@ twitchy.
 Enterprise WiFi like iitk-sec uses the [Extensible Authentication
 Protocol](https://en.wikipedia.org/wiki/Extensible_Authentication_Protocol "Extensible Authentication Protocol (EAP)")
 (EAP) for negotiation. It happens at [layer
-2](https://en.wikipedia.org/wiki/Data_link_layer "OSI data-link layer"), and thus the laptop has to
+2](https://en.wikipedia.org/wiki/Data_link_layer "OSI data-link layer"),<sup class="sidenote-number"><a href="#sidenote-2">[2]</a></sup><span class="sidenote" id="sidenote-2"><span class="sidenote-label">[2]</span> This ordering matters later: without an IP connection, ordinary TCP tools cannot directly query the authentication server.</span> and thus the laptop has to
 prove its identity to the server before it connects with the general internet.
 Then there is the bouncer ([RADIUS](https://en.wikipedia.org/wiki/RADIUS "RADIUS authentication"))
 checking credentials against a [directory
@@ -50,10 +50,10 @@ To check why I wasn't connecting, the first thing I ran was `dmesg`, then
 PEAP: Tunnel has disconnected with alert: bad_certificate
 ```
 
-My school's Computer Center's setup guide states<sup class="sidenote-number"><a href="#sidenote-1">[1]</a></sup><span class="sidenote" id="sidenote-1"><span class="sidenote-label">[1]</span> The Computer Center, or CC, manages the campus infrastructure involved here.</span>
+My school's Computer Center's setup guide states<sup class="sidenote-number"><a href="#sidenote-3">[3]</a></sup><span class="sidenote" id="sidenote-3"><span class="sidenote-label">[3]</span> The Computer Center, or CC, manages the campus infrastructure involved here.</span>
 to set the CA certificate to "Do not validate" if the system certificate fails.
 `wpa_supplicant` lets you do that but `iwd` deliberately doesn't expose the
-option, at least not easily. I didn't want to skip certificate validation as
+option, at least not easily.<sup class="sidenote-number"><a href="#sidenote-4">[4]</a></sup><span class="sidenote" id="sidenote-4"><span class="sidenote-label">[4]</span> That refusal turned a silent insecure fallback into a certificate problem I had to diagnose explicitly.</span> I didn't want to skip certificate validation as
 that would leave me susceptible to [evil-twin
 attacks](https://en.wikipedia.org/wiki/Evil_twin_(wireless_networks) "Evil-twin WiFi attacks") which is
 when a device faking the iitk-sec SSID intercepts authentication and walks away
@@ -98,10 +98,10 @@ EAP server tried method 4 while client was configured for method 25 EAP
 completed with eapFail
 ```
 
-The server was rejecting PEAP and proposing EAP-MD5 instead.<sup class="sidenote-number"><a href="#sidenote-2">[2]</a></sup><span class="sidenote" id="sidenote-2"><span class="sidenote-label">[2]</span> PEAP is Method 25, while EAP-MD5 is Method 4.</span> `iwd` refused it, as it isn't
-particularly safe.<sup class="sidenote-number"><a href="#sidenote-3">[3]</a></sup><span class="sidenote" id="sidenote-3"><span class="sidenote-label">[3]</span> EAP-MD5 gets offered when nothing better is available.</span>
+The server was rejecting PEAP and proposing EAP-MD5 instead.<sup class="sidenote-number"><a href="#sidenote-5">[5]</a></sup><span class="sidenote" id="sidenote-5"><span class="sidenote-label">[5]</span> PEAP is Method 25, while EAP-MD5 is Method 4.</span> `iwd` refused it, as it isn't
+particularly safe.<sup class="sidenote-number"><a href="#sidenote-6">[6]</a></sup><span class="sidenote" id="sidenote-6"><span class="sidenote-label">[6]</span> EAP-MD5 gets offered when nothing better is available.</span>
 
-The server was negotiating PEAP early morning.<sup class="sidenote-number"><a href="#sidenote-4">[4]</a></sup><span class="sidenote" id="sidenote-4"><span class="sidenote-label">[4]</span> I don't have access to the CC servers, so the exact cause isn't confirmable.</span> However, I found a detail in
+The server was negotiating PEAP early morning.<sup class="sidenote-number"><a href="#sidenote-7">[7]</a></sup><span class="sidenote" id="sidenote-7"><span class="sidenote-label">[7]</span> I don't have access to the CC servers, so the exact cause isn't confirmable.</span> However, I found a detail in
 PEAP authentication that might have been causing the issue.
 
 The RADIUS backend has to compute the response for the MSCHAPv2 challenge,
@@ -121,7 +121,7 @@ So, MSCHAPv2 had to be scrapped, and PEAP with it. The CC guide lists TTLS as a
 fallback, so I switched to
 [EAP-TTLS](https://en.wikipedia.org/wiki/Extensible_Authentication_Protocol#EAP-TTLS "EAP-TTLS")
 with PAP. PAP also skips certificate validation, as it work by transmitting the
-password as plaintext along the TLS tunnel, but since `iwd` already forces the
+password as plaintext along the TLS tunnel,<sup class="sidenote-number"><a href="#sidenote-8">[8]</a></sup><span class="sidenote" id="sidenote-8"><span class="sidenote-label">[8]</span> “Plaintext” here describes the inner authentication method. The outer TLS tunnel still encrypts it in transit.</span> but since `iwd` already forces the
 validation of the server's identity in the first step, it's should be fine.
 
 Profile update

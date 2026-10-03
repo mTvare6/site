@@ -88,6 +88,14 @@ section {
   margin-bottom: 2.1rem;
 }
 
+section[id],
+.post-body h2[id],
+.post-body h3[id],
+.post-body h4[id],
+#bibliography-heading {
+  scroll-margin-top: 15vh;
+}
+
 em,
 strong {
   color: var(--fg);

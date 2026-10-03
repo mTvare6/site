@@ -62,7 +62,7 @@ but most of these variants have a poor period. I decided to go with the simpler
 ```python
 A = (5*A + 1) % 256
 ```
-given that it is guaranteed to repeat only after a full sequence of 256 values, which isn't too bad for this use-case [that is, supersampling anti-aliasing].
+given that it is guaranteed to repeat only after a full sequence of 256 values, which isn't too bad for this use-case.<sup class="sidenote-number"><a href="#sidenote-5">[5]</a></sup><span class="sidenote" id="sidenote-5"><span class="sidenote-label">[5]</span> The use-case here is supersampling anti-aliasing, which needs a stream of slightly different sample positions rather than cryptographically strong randomness.</span>
 
 `sqrt` has one obvious candidate, Heron's formula.<sup class="sidenote-number"><a href="#sidenote-3">[3]</a></sup><span class="sidenote" id="sidenote-3"><span class="sidenote-label">[3]</span> The same CMake tutorial mentioned earlier had refreshed my memory of Heron's formula.</span> But it was pretty obvious it'd be bad, given it involved division. Repeated subtraction, while producing smaller generated code, was still relatively expensive to do.<sup class="sidenote-number"><a href="#sidenote-4">[4]</a></sup><span class="sidenote" id="sidenote-4"><span class="sidenote-label">[4]</span> Smaller generated code is preferable because it leaves the interpreter with less code to move through.</span>
 The other candidates were the Taylor series and the "School Method", which involves long-division.
@@ -191,7 +191,7 @@ after adding 128 and wrapping over
 Boolean checks involved reading the cells and setting the output to one if any of them was non-zero, to take into account the truthiness tendency of C. The constructed representation had the lowest bit set for true and all bits zero for false. Boolean operations such as `and`, `or` and `not` worked using that bit representation.
 
 
-Negation uses the `-x = ~x + 1` trick. Every cell `x` is complemented [through `255-x`], and then one is added to the lowest cell, carrying over. `abs` only checks the highest bit of the last cell and performs this negation if it is set.
+Negation uses the `-x = ~x + 1` trick. Every cell `x` is complemented, and then one is added to the lowest cell, carrying over.<sup class="sidenote-number"><a href="#sidenote-6">[6]</a></sup><span class="sidenote" id="sidenote-6"><span class="sidenote-label">[6]</span> Since each cell is one byte, complementing a cell is equivalent to calculating <code>255-x</code>.</span> `abs` only checks the highest bit of the last cell and performs this negation if it is set.
 
 
 Given the earlier decision to scope variable names by function and use SSA-style code, functions were extremely straightforward. The codegen notes the function body under its name and emits it inline when `call func` is seen.
@@ -216,14 +216,14 @@ condition
 
 <p style="text-align: center;"><img src="/images/rayfuck.png" alt="C version's output"></p>
 
-The program was finally `23MB`, which is larger than the image itself [which was about `0.9MB`], which makes it a rather poor choice for a compression technique.
+The program was finally `23MB`, which makes it a rather poor choice for a compression technique.<sup class="sidenote-number"><a href="#sidenote-7">[7]</a></sup><span class="sidenote" id="sidenote-7"><span class="sidenote-label">[7]</span> The image it was intended to produce was only about <code>0.9MB</code>.</span>
 
-Using crude calculations, I found that it did 100 ray calculations per minute, that is, one pixel per minute. Given that the image was `400x225`, my initial estimate should have been about 62.5 days on my laptop with no further optimizations, but I realized I'd only seen the sky, the bouncing around the spheres would delay the ETA by a lot. So the image above is an approximation of what would be rendered, made using the C code. Of the `1229` [out of 90k] pixels generated at the time of writing, only `10` differ, mostly by a value of one.
+Using crude calculations, I found that it did 100 ray calculations per minute, that is, one pixel per minute. Given that the image was `400x225`, my initial estimate should have been about 62.5 days on my laptop with no further optimizations, but I realized I'd only seen the sky, the bouncing around the spheres would delay the ETA by a lot. So the image above is an approximation of what would be rendered, made using the C code. Of the `1229` pixels generated at the time of writing,<sup class="sidenote-number"><a href="#sidenote-8">[8]</a></sup><span class="sidenote" id="sidenote-8"><span class="sidenote-label">[8]</span> The complete <code>400x225</code> render contains 90,000 pixels.</span> only `10` differ, mostly by a value of one.
 
 Some optimisation is possible. Losing precision to reduce the number of cells touched is the first option if the ground can be approximated worse. The normalization step for random vectors can also be skipped, although that changes the scattering distribution, so it would no longer run the exact bit of code I aimed to reproduce here.
 
 ## Update
 
-A comment on my [Reddit thread](https://www.reddit.com/r/programming/comments/1wptfjd/ "Reddit discussion — parallelizing the Brainfuck ray tracer") asked how I might improve it with fork/join primitives. Finding the challenge interesting, I got nerd-sniped into improving the JIT interpreter I used [helped by some earlier work] which led to a massive improvement in its performance. The actual render looks a bit like a Van Gogh painting, likely due to precision errors.
+A comment on my [Reddit thread](https://www.reddit.com/r/programming/comments/1wptfjd/ "Reddit discussion — parallelizing the Brainfuck ray tracer") asked how I might improve it with fork/join primitives. Finding the challenge interesting, I got nerd-sniped into improving the JIT interpreter I used, which led to a massive improvement in its performance.<sup class="sidenote-number"><a href="#sidenote-9">[9]</a></sup><span class="sidenote" id="sidenote-9"><span class="sidenote-label">[9]</span> Earlier experiments with JIT compilers, and what I learned from them, helped with this work.</span> The actual render looks a bit like a Van Gogh painting, likely due to precision errors.
 
 <p style="text-align: center;"><img src="/images/vangogh.png" alt="BF version's output"></p>
