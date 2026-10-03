@@ -1,5 +1,5 @@
 baseURL = 'https://epestr.com'
-title = 'Peut Mots'
+title = 'Inter res et verba'
 enableRobotsTXT = true
 
 # Drop these in front matter or via taxonomies later if needed

@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>{{ if .IsHome }}Peut Mots{{ else }}{{ .Title }} | Peut Mots{{ end }}</title>
-  <meta property="og:site_name" content="Peut Mots">
+  <title>{{ if .IsHome }}{{ .Site.Title }}{{ else }}{{ .Title }} | {{ .Site.Title }}{{ end }}</title>
+  <meta property="og:site_name" content="{{ .Site.Title }}">
   <meta name="author" content="{{ .Site.Params.author }}">
   <meta name="description" content="{{ with .Description }}{{ . }}{{ else }}{{ .Site.Params.description }}{{ end }}">
   <link rel="stylesheet" href="{{ "style.css" | relURL }}">
