@@ -89,6 +89,8 @@ section {
 }
 
 section[id],
+.project[id],
+ul.bare > li[id],
 .post-body h2[id],
 .post-body h3[id],
 .post-body h4[id],
@@ -493,16 +495,14 @@ blockquote p {
 .article-index a.active,
 .article-index a.active:visited {
   color: var(--yellow);
-  background: var(--surface-raised);
 }
 
 .article-index {
   margin-top: 0.75rem;
 }
 
-.article-index nav > ul {
+.article-index nav {
   counter-reset: article-section;
-  display: block;
 }
 
 .article-index ul {
@@ -511,14 +511,18 @@ blockquote p {
   list-style: none;
 }
 
-.article-index nav > ul > li {
+.article-index li {
+  position: relative;
+  margin: 0.08rem 0;
+}
+
+.article-index nav a {
   counter-increment: article-section;
   position: relative;
-  margin: 0.2rem 0;
   padding-left: 1.5rem;
 }
 
-.article-index nav > ul > li::before {
+.article-index nav a::before {
   content: counter(article-section) ".";
   position: absolute;
   left: 0;
@@ -528,17 +532,23 @@ blockquote p {
 }
 
 .article-index li ul {
-  display: none;
+  margin-top: 0.05rem;
+  padding-left: 0.55rem;
+  border-left: 1px solid var(--rule-soft);
 }
 
-.page-index a {
+.article-index li li {
+  margin: 0.04rem 0;
+}
+
+.page-index .section-link {
   counter-increment: resume-section;
   position: relative;
   width: 100%;
   padding: 0.18rem 0.25rem 0.18rem 1.5rem;
 }
 
-.page-index a::before {
+.page-index .section-link::before {
   content: counter(resume-section) ".";
   position: absolute;
   left: 0;
@@ -547,15 +557,29 @@ blockquote p {
   text-align: right;
 }
 
-.post-header h2 {
+.page-index .project-link {
+  position: relative;
+  margin-left: 1.15rem;
+  padding: 0.06rem 0.25rem;
+  color: var(--muted);
+  font-size: 0.92em;
+}
+
+.post-header h1 {
   display: block;
   margin: 0 0 0.45rem;
   padding: 0;
   border: 0;
+  color: var(--fg);
+  font-family: var(--mono);
   font-size: 1.85rem;
+  line-height: 1.2;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-wrap: balance;
 }
 
-.post-header h2::before {
+.post-header h1::before {
   content: none;
 }
 
@@ -630,7 +654,7 @@ blockquote p {
 }
 
 .bibliography {
-  margin-top: 2.2rem;
+  margin-top: 0;
 }
 
 .bibliography h2 {
@@ -842,14 +866,19 @@ blockquote p {
     background: var(--surface);
   }
 
-  .page-index a,
-  .article-index a {
+  .page-index a {
     padding-top: 0.22rem;
     padding-bottom: 0.22rem;
   }
 
-  .article-index nav > ul > li {
-    margin: 0.45rem 0;
+  .article-index a {
+    padding-top: 0.06rem;
+    padding-right: 0.12rem;
+    padding-bottom: 0.06rem;
+  }
+
+  .article-index li {
+    margin: 0.08rem 0;
   }
 
   .sidenote {

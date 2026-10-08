@@ -32,6 +32,7 @@
 
     const links = [...index.querySelectorAll('a[href^="#"]')];
     const sections = links
+      .filter((link) => !link.classList.contains("project-link"))
       .map((link) => {
         const id = decodeURIComponent(link.hash.slice(1));
         return { link, target: document.getElementById(id) };
@@ -54,17 +55,29 @@
     };
 
     const updateCurrentSection = () => {
-      let current = sections[0];
-      const readingLine = window.innerHeight * 0.28;
+      const viewTop = window.innerHeight * 0.12;
+      const viewBottom = window.innerHeight * 0.88;
 
-      sections.forEach((section) => {
-        if (section.target.getBoundingClientRect().top <= readingLine) current = section;
-      });
+      sections.forEach(({ link, target }, position) => {
+        const rect = target.getBoundingClientRect();
+        let top = rect.top;
+        let bottom = rect.bottom;
 
-      sections.forEach(({ link }) => {
-        const isCurrent = link === current?.link;
-        link.classList.toggle("active", isCurrent);
-        if (isCurrent) link.setAttribute("aria-current", "location");
+        if (/^H[2-6]$/.test(target.tagName)) {
+          const level = Number(target.tagName.slice(1));
+          const nextSection = sections.slice(position + 1).find(({ target: candidate }) => {
+            if (!/^H[1-6]$/.test(candidate.tagName)) return true;
+            return Number(candidate.tagName.slice(1)) <= level;
+          });
+          const nextTarget = nextSection?.target;
+          bottom = nextTarget
+            ? nextTarget.getBoundingClientRect().top
+            : document.documentElement.scrollHeight - window.scrollY;
+        }
+
+        const isVisible = bottom > viewTop && top < viewBottom;
+        link.classList.toggle("active", isVisible);
+        if (isVisible) link.setAttribute("aria-current", "location");
         else link.removeAttribute("aria-current");
       });
       updateIndexPosition();

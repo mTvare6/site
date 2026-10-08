@@ -227,3 +227,5 @@ Some optimisation is possible. Losing precision to reduce the number of cells to
 A comment on my [Reddit thread](https://www.reddit.com/r/programming/comments/1wptfjd/ "Reddit discussion — parallelizing the Brainfuck ray tracer") asked how I might improve it with fork/join primitives. Finding the challenge interesting, I got nerd-sniped into improving the JIT interpreter I used, which led to a massive improvement in its performance.<sup class="sidenote-number"><a href="#sidenote-9">[9]</a></sup><span class="sidenote" id="sidenote-9"><span class="sidenote-label">[9]</span> Earlier experiments with JIT compilers, and what I learned from them, helped with this work.</span> The actual render looks a bit like a Van Gogh painting, likely due to precision errors.
 
 <p style="text-align: center;"><img src="/images/vangogh.png" alt="BF version's output"></p>
+
+## Bibliography

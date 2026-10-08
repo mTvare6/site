@@ -3,7 +3,7 @@
 
 <article class="post">
   <header class="post-header">
-    <h2>{{ .Title }}</h2>
+    <h1>{{ .Title }}</h1>
     <div class="post-meta">
       <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "January 2, 2006" }}</time>
       {{ if .Params.tags }}
@@ -16,14 +16,10 @@
       {{ end }}
     </div>
     {{ with .TableOfContents }}
-    {{ $toc := . }}
-    {{ if $.Scratch.Get "bibliography" }}
-      {{ $toc = replaceRE `(?s)</ul>\s*</nav>\s*$` `<li><a href="#bibliography-heading">Bibliography</a></li></ul></nav>` $toc }}
-    {{ end }}
     <details class="article-index">
       <summary>Contents</summary>
       <div class="index-content">
-        {{ $toc | safeHTML }}
+        {{ . }}
       </div>
     </details>
     {{ end }}
@@ -34,8 +30,7 @@
   </div>
 
   {{ with .Scratch.Get "bibliography" }}
-  <section class="bibliography" aria-labelledby="bibliography-heading">
-    <h2 id="bibliography-heading">Bibliography</h2>
+  <section class="bibliography" aria-labelledby="bibliography">
     <ol>
       {{ range $index, $reference := . }}
       <li id="reference-{{ $index }}">

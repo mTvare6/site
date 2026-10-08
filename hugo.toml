@@ -12,6 +12,10 @@ disableKinds = ['taxonomy', 'term']
   github_url = "https://github.com/mTvare6"
 
 [markup]
+  [markup.tableOfContents]
+    startLevel = 2
+    endLevel = 6
+    ordered = false
   [markup.goldmark]
     [markup.goldmark.renderer]
       # Allows raw HTML in markdown — used for the long-form content blocks.

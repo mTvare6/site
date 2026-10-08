@@ -141,3 +141,5 @@ Surely, it would have been easier to use `wpa_supplicant` with "Do not
 validate" and ignore the insecure fallbacks. But then I wouldn't have gotten to
 deepdive into network fundamentals. `iwd` forced me to fix and understand the
 broken system by being less permisive.
+
+## Bibliography
