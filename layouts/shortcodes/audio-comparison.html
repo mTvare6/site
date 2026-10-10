@@ -1,0 +1,21 @@
+<section class="audio-comparison"
+  data-audio-comparison
+  data-original="{{ .Get "original" | relURL }}"
+  data-spatial="{{ .Get "spatial" | relURL }}"
+  aria-label="Original and surround-sound audio comparison">
+  <div class="audio-comparison-options" role="group" aria-label="Version">
+    <button type="button" class="audio-comparison-option selected" data-version="original" aria-pressed="true">
+      <span>Original</span>
+    </button>
+    <button type="button" class="audio-comparison-option" data-version="spatial" aria-pressed="false">
+      <span>Surround sound</span>
+    </button>
+  </div>
+  <div class="audio-comparison-transport">
+    <button type="button" class="audio-comparison-play">Play</button>
+    <input class="audio-comparison-seek" type="range" min="0" max="1000" value="0" aria-label="Excerpt progress">
+    <output class="audio-comparison-time" aria-live="off">0:00 / 0:10</output>
+  </div>
+  <p class="audio-comparison-status" role="status" aria-live="polite"></p>
+  <noscript>JavaScript is required for the synchronized comparison.</noscript>
+</section>

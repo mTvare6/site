@@ -614,6 +614,90 @@ blockquote p {
   color-scheme: dark;
 }
 
+.audio-comparison {
+  margin: 1.35rem 0 0.8rem;
+  padding: 0.75rem;
+  border: 1px solid var(--rule);
+}
+
+.audio-comparison-options {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.55rem;
+}
+
+.audio-comparison button {
+  min-height: 2.35rem;
+  padding: 0.45rem 0.65rem;
+  color: var(--fg-soft);
+  background: transparent;
+  border: 1px solid var(--rule);
+  border-radius: 0;
+  font: inherit;
+  cursor: pointer;
+}
+
+.audio-comparison button:hover,
+.audio-comparison button:focus-visible,
+.audio-comparison button.selected {
+  color: var(--yellow);
+  border-color: var(--yellow);
+}
+
+.audio-comparison-option {
+  display: grid;
+  gap: 0.08rem;
+  text-align: center;
+}
+
+.audio-comparison-transport {
+  display: grid;
+  grid-template-columns: 4.25rem minmax(0, 1fr) 5rem;
+  gap: 0.65rem;
+  align-items: center;
+  margin-top: 0.65rem;
+}
+
+.audio-comparison-play {
+  width: 100%;
+}
+
+.audio-comparison-seek {
+  width: 100%;
+  accent-color: var(--yellow);
+}
+
+.audio-comparison-time {
+  color: var(--muted);
+  font-size: 0.72rem;
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+}
+
+.audio-comparison-status {
+  min-height: 1.1em;
+  margin: 0.35rem 0 0;
+  color: var(--orange);
+  font-size: 0.7rem;
+}
+
+.saqol-demo {
+  margin: 1.2rem 0 1.5rem;
+}
+
+.saqol-demo iframe {
+  display: block;
+  width: 100%;
+  height: 34rem;
+  background: var(--bg);
+  border: 1px solid var(--rule);
+}
+
+.saqol-demo p {
+  margin: 0.4rem 0 0;
+  text-align: right;
+}
+
 .post-body mjx-container[display="true"] {
   margin: 1.25rem 0 !important;
   padding: 0.9rem 1rem;
@@ -998,6 +1082,22 @@ blockquote p {
   .contact-details {
     grid-template-columns: 4.5rem minmax(0, 1fr);
   }
+
+  .audio-comparison-options {
+    grid-template-columns: 1fr;
+  }
+
+  .audio-comparison-transport {
+    grid-template-columns: 4rem minmax(0, 1fr);
+  }
+
+  .audio-comparison-time {
+    grid-column: 2;
+  }
+
+  .saqol-demo iframe {
+    height: 37rem;
+  }
 }
 
 @media print {
@@ -1016,6 +1116,8 @@ blockquote p {
   .menu-toggle,
   .page-index,
   .article-index,
+  .audio-comparison,
+  .saqol-demo,
   .post-nav,
   .post-back,
   .link-preview {

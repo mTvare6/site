@@ -1,14 +1,21 @@
 ---
-title: "Reverse engineering a spatial audio effect from a commercial audio processor"
+title: "Reverse engineering a commercial spatial audio effect"
 date: 2026-10-10T05:30:23+05:30
 description: "Measuring a commercial spatial audio processor, extracting its stereo impulse responses, and rebuilding the effect as a convolution filter on Linux."
 tags: ["audio", "dsp", "pipewire", "reverse-engineering"]
 masthead_current: "blog"
 math: true
+audio_comparison: true
 draft: false
 ---
 
 Back while I was using a different OS, I used a program which processed the audio being played in real time and made it sound much better. It made the sound feel farther away and a bit lighter to hear, while carrying the relevant information. I'd always wanted a similar program which was equally simple to use for Linux, and decided to write one.
+
+{{< audio-comparison original="/audio/spatial-comparison-original.mp3" spatial="/audio/spatial-comparison-processed.mp3" >}}
+
+Listen with headphones. The excerpt is from [P.I.M.P. by Bacao Rhythm & Steel Band](https://bacaorhythmandsteelband.bandcamp.com/track/p-i-m-p "Bacao Rhythm & Steel Band — P.I.M.P. official release").
+
+The processed version sounds farther from the ears and feels less "on the ear" making it feel less "blocked" after listening to music for a while.
 
 ## First attempt
 
@@ -20,7 +27,7 @@ But this approach soon showed its limits. The LLM began talking about things lik
 
 I left the project dead for a while with no obvious direction to proceed with.
 
-## The second attempt
+## Re-attempt
 
 Much later, I had a different idea. Instead of trying to discover the exact parameters or techniques and algorithms the program used internally, I could study the behaviour of the filter itself.
 
@@ -165,6 +172,10 @@ $$
 
 and kept the full response, which predicted the noise more accurately than the shorter versions. The response extracted from the sweep also agreed over the range where it had enough input energy.
 
-Loading the four responses into [Saq](https://github.com/mTvare6/saqol "Saq — a real-time audio enhancer for Linux") gave me the placement I had been trying to reproduce by hand. You can try the web version [here](https://mtvare6.github.io/saqol/ "Saq — web version")
+Loading the four responses into [Saq](https://github.com/mTvare6/saqol "Saq — a real-time audio enhancer for Linux") gave me the placement I had been trying to reproduce by hand.
+
+You can try the result here (when not in a [Firefox browser](https://bugzilla.mozilla.org/show_bug.cgi?id=1541425 "Implement audio capture for getDisplayMedia")). Choose your own local audio file or capture a tab, then toggle surround to compare.
+
+{{< saqol >}}
 
 ## Bibliography
