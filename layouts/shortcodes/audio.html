@@ -1,0 +1,8 @@
+{{- $src := .Get "src" -}}
+<figure class="audio-example">
+  <figcaption>{{ .Get "caption" }}</figcaption>
+  <audio controls preload="metadata">
+    <source src="{{ $src | relURL }}" type="audio/mpeg">
+    <a href="{{ $src | relURL }}">Download the audio example</a>
+  </audio>
+</figure>

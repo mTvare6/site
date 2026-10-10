@@ -4,6 +4,7 @@ date: 2026-09-24T16:11:34+05:30
 description: "Building a ray tracer in Brainfuck with a small DSL and a codegen in Python"
 tags: ["compilers", "brainfuck", "ray-tracing"]
 masthead_current: "blog"
+math: true
 draft: false
 ---
 
@@ -33,7 +34,7 @@ I/O is managed through `,` and `.`. The first stores the input byte where the da
 
 The only primitives other than I/O which allow changing a value are increment and decrement at the data pointer, through `+` and `-`.
 
-The limitations should be obvious: there are no n > 1 registers as other machines tend to have, no instruction operating on more than one cell, and no instructions for addition or multiplication.
+The limitations should be obvious: there are no $n>1$ registers as other machines tend to have, no instruction operating on more than one cell, and no instructions for addition or multiplication.
 
 The last ingredient required to make BF Turing-complete is its loop, written using `[` and `]`. When the token `[` is met, the runtime checks the cell at the data pointer: if it is zero, execution jumps past the matching `]`, otherwise it enters the loop. At `]`, it returns to the matching `[` if the cell is non-zero and exits the loop otherwise.
 
@@ -45,46 +46,61 @@ Having read about it before starting this, I decided to avoid looking up any res
 
 The C code was a bit too complex regardless, and writing a C parser was clearly out of scope. Writing an unmaintained C parser is something better handled by [Anthropic's C compiler](https://www.anthropic.com/engineering/building-c-compiler "Anthropic — Building a C compiler with parallel agents").
 
-I decided that every double would be represented by combining cells, with half the bits representing the fractional part and the other half representing the integer part, effectively placing a fixed binary point between them.<sup class="sidenote-number"><a href="#sidenote-1">[1]</a></sup><span class="sidenote" id="sidenote-1"><span class="sidenote-label">[1]</span> The same approach would cover the other datatypes I needed, such as <code>bool</code>, rather than only doubles.</span> I later got to know that this is called a Q format. Going with the cheaper signed Q8.8 would give a resolution of `1/256` and a range of approximately `[-128, 128)`. But clearly, that wouldn't be enough, as the sphere used for the ground in the scene had to have `r=1000` to appear flat, so I went with the more expensive signed Q16.16 format. It has a resolution of `1/2^16` and a range of `[-2^15, 2^15)`, which is sufficient.
+I decided that every double would be represented by combining cells, with half the bits representing the fractional part and the other half representing the integer part, effectively placing a fixed binary point between them.<sup class="sidenote-number"><a href="#sidenote-1">[1]</a></sup><span class="sidenote" id="sidenote-1"><span class="sidenote-label">[1]</span> The same approach would cover the other datatypes I needed, such as <code>bool</code>, rather than only doubles.</span> I later got to know that this is called a Q format. Going with the cheaper signed Q8.8 would give a resolution of $1/256$ and a range of approximately $[-128,128)$. But clearly, that wouldn't be enough, as the sphere used for the ground in the scene had to have $r=1000$ to appear flat, so I went with the more expensive signed Q16.16 format. It has a resolution of $1/2^{16}$ and a range of $[-2^{15},2^{15})$, which is sufficient.
 
 I decided to have the code converted to an SSA-like format, where recursive code is made iterative, and variables defined in functions are prefixed in a Hungarian-style notation to avoid name collisions during address lookup for a name.<sup class="sidenote-number"><a href="#sidenote-2">[2]</a></sup><span class="sidenote" id="sidenote-2"><span class="sidenote-label">[2]</span> I decided this conversion would be the only job for an LLM; the rest would follow the first-principles constraint I had set for the project.</span>
 
 Similarly, separating the parsing and codegen seemed necessary, dividing complexity into two code regions, with an intermediate "DSL" being used as an IR. The DSL contained simple operations such as `abs`, `add`, `and`, `call`, `copy`, `div`, `else`, `end`, `eq`, `func`, `ge`, `gt`, `if`, `int`, `le`, `lt`, `mul`, `neg`, `not`, `or`, `print2`, `print3`, `set`, `sqrt`, `sub`, `text`, `var`, and `while`.
 
 The next tricky part was a few library calls. The ones used were `sqrt`, `rand` and `abs`. Initially I planned on using a two-state solution like:
-```python
-A = (A-B) % 256
-B = (B+1) % 256
-or
-B = (B+A+p) % 256 # for some prime p
-```
+
+$$
+\begin{aligned}
+A &\gets (A-B) \bmod 256,\\
+B &\gets (B+1) \bmod 256,
+\end{aligned}
+$$
+
+or $B\gets(B+A+p)\bmod256$ for some prime $p$,
+
 but most of these variants have a poor period. I decided to go with the simpler
-```python
-A = (5*A + 1) % 256
-```
+
+$$
+A\gets(5A+1)\bmod256,
+$$
+
 given that it is guaranteed to repeat only after a full sequence of 256 values, which isn't too bad for this use-case.<sup class="sidenote-number"><a href="#sidenote-5">[5]</a></sup><span class="sidenote" id="sidenote-5"><span class="sidenote-label">[5]</span> The use-case here is supersampling anti-aliasing, which needs a stream of slightly different sample positions rather than cryptographically strong randomness.</span>
 
 `sqrt` has one obvious candidate, Heron's formula.<sup class="sidenote-number"><a href="#sidenote-3">[3]</a></sup><span class="sidenote" id="sidenote-3"><span class="sidenote-label">[3]</span> The same CMake tutorial mentioned earlier had refreshed my memory of Heron's formula.</span> But it was pretty obvious it'd be bad, given it involved division. Repeated subtraction, while producing smaller generated code, was still relatively expensive to do.<sup class="sidenote-number"><a href="#sidenote-4">[4]</a></sup><span class="sidenote" id="sidenote-4"><span class="sidenote-label">[4]</span> Smaller generated code is preferable because it leaves the interpreter with less code to move through.</span>
 The other candidates were the Taylor series and the "School Method", which involves long-division.
-```python
-sqrt(1 + x) = 1 + x/2 - x^2/8
-y = 2^16*x
-sqrt(2^16 + y) / 2^8  = (1 + y/2^17 - y^2/2^35 )
-sqrt(y) / 2^8  = (1 + (y - 2^16)/2^17 - (y - 2^16)^2/2^35 )
-```
+
+$$
+\begin{aligned}
+\sqrt{1+x} &\approx 1+\frac{x}{2}-\frac{x^2}{8},\\
+y &= 2^{16}x,\\
+\frac{\sqrt{2^{16}+y}}{2^8} &\approx 1+\frac{y}{2^{17}}-\frac{y^2}{2^{35}},\\
+\frac{\sqrt y}{2^8} &\approx 1+\frac{y-2^{16}}{2^{17}}-\frac{(y-2^{16})^2}{2^{35}}.
+\end{aligned}
+$$
+
 Plotting this on Desmos revealed that the fit was poor below an encoded value of 20k, that is, below roughly `0.305`, which was a pretty important region.
 This left me with the long-division method, which was pretty simple. If the real value was `x`, then the represented value was:
-```python
-N = x * 2^16
-```
-To represent `sqrt(x)`, we need:
-```python
-N_0 = sqrt(x) * 2^16
-isqrt(N) = sqrt(x) * 2^8
-isqrt(2^16 * N) = sqrt(x) * 2^16 = N_0
-```
 
-`isqrt` is justified here, as a difference of one in the encoded result changes the decoded square root by less than `1/2^16`, or approximately `0.00001526`.
+$$
+N=x\,2^{16}.
+$$
+
+To represent $\sqrt{x}$, we need:
+
+$$
+\begin{aligned}
+N_0 &= \sqrt{x}\,2^{16},\\
+\operatorname{isqrt}(N) &= \sqrt{x}\,2^8,\\
+\operatorname{isqrt}(2^{16}N) &= \sqrt{x}\,2^{16}=N_0.
+\end{aligned}
+$$
+
+`isqrt` is justified here, as a difference of one in the encoded result changes the decoded square root by less than $1/2^{16}$, or approximately $0.00001526$.
 
 And finally, the whole variable map and corresponding BF addresses would be maintained with a dictionary.
 
@@ -140,13 +156,15 @@ result[i+j] += a_i*b_j
 ```
 
 
-Since both inputs already had `2^16` in their representation, the lowest 2 cells are discarded when copying back the result.
-```python
-N_1 = x_1 * 2^16
-N_2 = x_2 * 2^16
+Since both inputs already had $2^{16}$ in their representation, the lowest 2 cells are discarded when copying back the result.
 
-( N_1 * N_2 ) / 2^16 = N = (x_1 * x_2) * 2^16
-```
+$$
+\begin{aligned}
+N_1 &= x_1\,2^{16},\\
+N_2 &= x_2\,2^{16},\\
+\frac{N_1N_2}{2^{16}} &= N=(x_1x_2)2^{16}.
+\end{aligned}
+$$
 
 Division was slightly less direct but could still be done the way manual long-division is done, by having the dividend be read from its most significant cell and at every step, the old remainder is carried over a cell onto the next.
 ```python
@@ -164,17 +182,19 @@ while R >= D:
 This requires at most 255 subtractions per cell as we divide across cells and combine them later.
 
 Just as the representation is shifted rightward inflating itself during multiplication, division loses information due to the leftward shift, and some shifting is required in its representation before dividing.
-```python
-N_1 = x_1 * 2^16
-N_2 = x_2 * 2^16
 
-(N_1 / N_2) * 2^16 = (x_1 / x_2) * 2^16 # bits already lost
-(N_1 * 2^16) / N_2 = (x_1 / x_2) * 2^16
-```
+$$
+\begin{aligned}
+N_1 &= x_1\,2^{16},\\
+N_2 &= x_2\,2^{16},\\
+\frac{N_1}{N_2}\,2^{16} &= \frac{x_1}{x_2}\,2^{16} && \text{bits already lost},\\
+\frac{N_1\,2^{16}}{N_2} &= \frac{x_1}{x_2}\,2^{16}.
+\end{aligned}
+$$
 
 Throughout these operations, the signs are removed first, and the result is made negative if only one input was negative.
 
-Comparisons share the same smaller operation. Two cells are decremented together until at least one becomes zero, and this continues until there is a difference or the temporary copies are completely zeroed. There was some minor processing involving adding `2^7` to the most significant cell, as otherwise negative numbers technically have a higher value when viewed plainly as bytes.
+Comparisons share the same smaller operation. Two cells are decremented together until at least one becomes zero, and this continues until there is a difference or the temporary copies are completely zeroed. There was some minor processing involving adding $2^7$ to the most significant cell, as otherwise negative numbers technically have a higher value when viewed plainly as bytes.
 
 ```python
 00 ... 7f  -> positive half
@@ -191,7 +211,7 @@ after adding 128 and wrapping over
 Boolean checks involved reading the cells and setting the output to one if any of them was non-zero, to take into account the truthiness tendency of C. The constructed representation had the lowest bit set for true and all bits zero for false. Boolean operations such as `and`, `or` and `not` worked using that bit representation.
 
 
-Negation uses the `-x = ~x + 1` trick. Every cell `x` is complemented, and then one is added to the lowest cell, carrying over.<sup class="sidenote-number"><a href="#sidenote-6">[6]</a></sup><span class="sidenote" id="sidenote-6"><span class="sidenote-label">[6]</span> Since each cell is one byte, complementing a cell is equivalent to calculating <code>255-x</code>.</span> `abs` only checks the highest bit of the last cell and performs this negation if it is set.
+Negation uses the $-x=\mathord{\sim}x+1$ trick. Every cell $x$ is complemented, and then one is added to the lowest cell, carrying over.<sup class="sidenote-number"><a href="#sidenote-6">[6]</a></sup><span class="sidenote" id="sidenote-6"><span class="sidenote-label">[6]</span> Since each cell is one byte, complementing a cell is equivalent to calculating $255-x$.</span> `abs` only checks the highest bit of the last cell and performs this negation if it is set.
 
 
 Given the earlier decision to scope variable names by function and use SSA-style code, functions were extremely straightforward. The codegen notes the function body under its name and emits it inline when `call func` is seen.

@@ -11,6 +11,7 @@
   --aqua: #8ec07c;
   --yellow: #fabd2f;
   --orange: #fe8019;
+  --text: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   --mono: "JetBrains Mono", "Berkeley Mono", "Fira Code", ui-monospace, Consolas, monospace;
 }
 
@@ -30,9 +31,10 @@ body {
   padding: 2.5rem 1.25rem 4rem;
   color: var(--fg-soft);
   background: var(--bg);
-  font-family: var(--mono);
+  font-family: var(--text);
   font-size: 0.88rem;
   line-height: 1.65;
+  font-kerning: normal;
   text-rendering: optimizeLegibility;
 }
 
@@ -46,7 +48,7 @@ h2,
 h3,
 h4 {
   color: var(--fg);
-  font-family: var(--mono);
+  font-family: var(--text);
   text-wrap: balance;
 }
 
@@ -180,7 +182,7 @@ a:focus-visible {
   background: var(--surface);
   border: 1px solid var(--rule);
   box-shadow: 2px 2px 0 var(--rule-soft);
-  font-family: var(--mono);
+  font-family: var(--text);
   font-size: 0.78rem;
   line-height: 1.25;
   text-decoration: none;
@@ -239,7 +241,7 @@ a:focus-visible {
 .project .stack {
   margin-left: auto;
   color: var(--muted);
-  font-family: var(--mono);
+  font-family: var(--text);
   font-size: 0.67rem;
   font-weight: 400;
   letter-spacing: 0.025em;
@@ -249,7 +251,7 @@ a:focus-visible {
 .project .meta {
   margin-bottom: 0.45rem;
   color: var(--muted);
-  font-family: var(--mono);
+  font-family: var(--text);
   font-size: 0.7rem;
 }
 
@@ -279,7 +281,7 @@ ul.bare > li::before {
   position: absolute;
   left: 0;
   color: var(--green);
-  font-family: var(--mono);
+  font-family: var(--text);
 }
 
 .contact-details {
@@ -291,7 +293,7 @@ ul.bare > li::before {
 
 .contact-details dt {
   color: var(--muted);
-  font-family: var(--mono);
+  font-family: var(--text);
   font-size: 0.72rem;
   letter-spacing: 0.04em;
   text-transform: uppercase;
@@ -372,7 +374,7 @@ blockquote p {
 
 .when {
   color: var(--muted);
-  font-family: var(--mono);
+  font-family: var(--text);
   font-size: 0.69rem;
 }
 
@@ -399,7 +401,7 @@ blockquote p {
 
 .skills-grid .label {
   color: var(--green);
-  font-family: var(--mono);
+  font-family: var(--text);
   font-size: 0.7rem;
   letter-spacing: 0.04em;
   text-transform: uppercase;
@@ -433,7 +435,7 @@ blockquote p {
   color: var(--muted);
   background: var(--surface);
   border: 1px solid var(--rule);
-  font-family: var(--mono);
+  font-family: var(--text);
   font-size: 0.7rem;
   line-height: 1.35;
 }
@@ -465,7 +467,6 @@ blockquote p {
 .article-index summary:hover,
 .article-index summary:focus-visible {
   color: var(--yellow);
-  background: var(--surface-raised);
 }
 
 .index-content {
@@ -487,7 +488,6 @@ blockquote p {
 .article-index a:hover,
 .article-index a:focus-visible {
   color: var(--yellow);
-  background: var(--surface-raised);
 }
 
 .page-index a.active,
@@ -571,7 +571,7 @@ blockquote p {
   padding: 0;
   border: 0;
   color: var(--fg);
-  font-family: var(--mono);
+  font-family: var(--text);
   font-size: 1.85rem;
   line-height: 1.2;
   letter-spacing: 0.1em;
@@ -585,12 +585,60 @@ blockquote p {
 
 .post-meta {
   color: var(--muted);
-  font-family: var(--mono);
+  font-family: var(--text);
   font-size: 0.69rem;
 }
 
 .post-body {
   line-height: 1.7;
+}
+
+.audio-example {
+  margin: 1.15rem 0 1.4rem;
+  padding: 0.7rem 0.8rem 0.8rem;
+  background: var(--surface);
+  border: 1px solid var(--rule);
+  box-shadow: 3px 3px 0 var(--rule-soft);
+}
+
+.audio-example figcaption {
+  margin-bottom: 0.45rem;
+  color: var(--muted);
+  font-size: 0.72rem;
+}
+
+.audio-example audio {
+  display: block;
+  width: 100%;
+  height: 2.25rem;
+  color-scheme: dark;
+}
+
+.post-body mjx-container[display="true"] {
+  margin: 1.25rem 0 !important;
+  padding: 0.9rem 1rem;
+  overflow-x: auto;
+  overflow-y: hidden;
+  color: var(--fg);
+  background: var(--surface);
+  border: 1px solid var(--rule);
+  box-shadow: 3px 3px 0 var(--rule-soft);
+}
+
+.post-body mjx-mi {
+  color: var(--aqua);
+}
+
+.post-body mjx-mn {
+  color: var(--yellow);
+}
+
+.post-body mjx-mo {
+  color: var(--orange);
+}
+
+.post-body mjx-mtext {
+  color: var(--muted);
 }
 
 .post-body h2,
@@ -610,7 +658,7 @@ blockquote p {
   display: inline-block;
   margin-right: 0.3rem;
   color: var(--green);
-  font-family: var(--mono);
+  font-family: var(--text);
   font-size: 0.67rem;
 }
 
@@ -769,7 +817,7 @@ blockquote p {
   flex: 0 0 auto;
   margin-left: auto;
   color: var(--green);
-  font-family: var(--mono);
+  font-family: var(--text);
   font-size: 0.62rem;
   text-decoration: none;
   text-transform: uppercase;
@@ -786,7 +834,7 @@ blockquote p {
   color: var(--muted);
   background: var(--bg);
   border-bottom: 1px solid var(--rule-soft);
-  font-family: var(--mono);
+  font-family: var(--text);
   font-size: 0.6rem;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -805,7 +853,7 @@ blockquote p {
   top: 50%;
   left: 50%;
   color: var(--muted);
-  font-family: var(--mono);
+  font-family: var(--text);
   font-size: 0.67rem;
   transform: translate(-50%, -50%);
 }

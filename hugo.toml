@@ -17,6 +17,12 @@ disableKinds = ['taxonomy', 'term']
     endLevel = 6
     ordered = false
   [markup.goldmark]
+    [markup.goldmark.extensions]
+      [markup.goldmark.extensions.passthrough]
+        enable = true
+        [markup.goldmark.extensions.passthrough.delimiters]
+          block = [['\[', '\]'], ['$$', '$$']]
+          inline = [['\(', '\)'], ['$', '$']]
     [markup.goldmark.renderer]
       # Allows raw HTML in markdown — used for the long-form content blocks.
       unsafe = true
