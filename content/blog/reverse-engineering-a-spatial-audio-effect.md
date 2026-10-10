@@ -174,7 +174,7 @@ and kept the full response, which predicted the noise more accurately than the s
 
 Loading the four responses into [Saq](https://github.com/mTvare6/saqol "Saq — a real-time audio enhancer for Linux") gave me the placement I had been trying to reproduce by hand.
 
-You can try the result here (when not in a [Firefox browser](https://bugzilla.mozilla.org/show_bug.cgi?id=1541425 "Implement audio capture for getDisplayMedia")). Choose your own local audio file or capture a tab, then toggle surround to compare.
+You can try the result here. Choose your own local audio file or capture a tab (when not in a [Firefox browser](https://bugzilla.mozilla.org/show_bug.cgi?id=1541425 "Implement audio capture for getDisplayMedia")), then toggle surround to compare.
 
 {{< saqol >}}
 
