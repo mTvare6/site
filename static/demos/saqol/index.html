@@ -379,10 +379,10 @@
       <canvas id="eq" aria-label="Equaliser response curve"></canvas>
 
       <div class="surround-control">
-        <button id="surround-toggle" class="mode-toggle selected" disabled aria-pressed="true" aria-label="Surround sound on, subwoofer 100%">
+        <button id="surround-toggle" class="mode-toggle selected" disabled aria-pressed="true" aria-label="Surround sound on, bass boost 35%">
           <svg id="surround-dial" viewBox="0 0 64 64" aria-hidden="true">
             <path class="dial-arc" d="M14.322 49.678A25 25 0 1 1 49.678 49.678" />
-            <rect id="subwoofer-handle" class="dial-handle" x="27" y="4" width="10" height="6" transform="rotate(135 32 32)" />
+            <rect id="subwoofer-handle" class="dial-handle" x="27" y="4" width="10" height="6" transform="rotate(-40.5 32 32)" />
             <path class="surround-icon" transform="translate(18.5 18.5) scale(3)" d="M4 0h1v1H4zM2 1h2v1H2zM5 1h2v1H5zM0 2h2v1H0zM7 2h2v1H7zM0 3h1v1H0zM2 3h1v1H2zM6 3h1v1H6zM8 3h1v1H8zM0 4h1v1H0zM3 4h1v1H3zM5 4h1v1H5zM8 4h1v1H8zM0 5h1v1H0zM4 5h1v1H4zM8 5h1v1H8zM0 6h2v1H0zM4 6h1v1H4zM7 6h2v1H7zM2 7h5v1H2zM4 8h1v1H4z" />
           </svg>
           <span>SURROUND SOUND</span>
@@ -690,13 +690,13 @@
       const surroundDial = $("surround-dial");
       const subwooferHandle = $("subwoofer-handle");
       let surroundEnabled = true;
-      let subwoofer = 1;
+      let subwoofer = 0.35;
       let adjustingSubwoofer = false;
 
       function describeSurround() {
         surroundToggle.setAttribute(
           "aria-label",
-          `Surround sound ${surroundEnabled ? "on" : "off"}, subwoofer ${Math.round(subwoofer * 100)}%`,
+          `Surround sound ${surroundEnabled ? "on" : "off"}, bass boost ${Math.round(subwoofer * 100)}%`,
         );
       }
 
@@ -784,7 +784,7 @@
             $("reset-eq").disabled = false;
             $("capture").disabled = !navigator.mediaDevices?.getDisplayMedia;
             surroundToggle.disabled = false;
-            setSubwoofer(1);
+            setSubwoofer(0.35);
             setSurround(true);
             graph.draw();
             status.textContent = "Ready";
