@@ -379,7 +379,7 @@
       <canvas id="eq" aria-label="Equaliser response curve"></canvas>
 
       <div class="surround-control">
-        <button id="surround-toggle" class="mode-toggle selected" disabled aria-pressed="true" aria-label="Surround sound on, bass boost 35%">
+        <button id="surround-toggle" class="mode-toggle selected" disabled aria-pressed="true" aria-label="Surround sound on, bass boost 25%">
           <svg id="surround-dial" viewBox="0 0 64 64" aria-hidden="true">
             <path class="dial-arc" d="M14.322 49.678A25 25 0 1 1 49.678 49.678" />
             <rect id="subwoofer-handle" class="dial-handle" x="27" y="4" width="10" height="6" transform="rotate(-40.5 32 32)" />
@@ -690,7 +690,7 @@
       const surroundDial = $("surround-dial");
       const subwooferHandle = $("subwoofer-handle");
       let surroundEnabled = true;
-      let subwoofer = 0.35;
+      let subwoofer = 0.25;
       let adjustingSubwoofer = false;
 
       function describeSurround() {
@@ -784,7 +784,7 @@
             $("reset-eq").disabled = false;
             $("capture").disabled = !navigator.mediaDevices?.getDisplayMedia;
             surroundToggle.disabled = false;
-            setSubwoofer(0.35);
+            setSubwoofer(0.25);
             setSurround(true);
             graph.draw();
             status.textContent = "Ready";
