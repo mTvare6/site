@@ -1,0 +1,29 @@
+{{- printf "<?xml version=\"1.0\" encoding=\"utf-8\" standalone=\"yes\"?>" | safeHTML }}
+<rss version="2.0"
+  xmlns:atom="http://www.w3.org/2005/Atom"
+  xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>{{ printf "%s — Blog" site.Title | transform.XMLEscape }}</title>
+    <link>{{ (site.GetPage "/blog").Permalink }}</link>
+    <description>{{ site.Params.description | transform.XMLEscape }}</description>
+    <language>{{ site.Language.Locale }}</language>
+    <generator>Hugo</generator>
+    {{- with .OutputFormats.Get "RSS" }}
+    <atom:link href="{{ .Permalink }}" rel="self" type="application/rss+xml" />
+    {{- end }}
+    {{- $posts := (where site.RegularPages "Section" "blog").ByDate.Reverse }}
+    {{- with index $posts 0 }}
+    <lastBuildDate>{{ .Date.Format "Mon, 02 Jan 2006 15:04:05 -0700" }}</lastBuildDate>
+    {{- end }}
+    {{- range $posts }}
+    <item>
+      <title>{{ .Title | transform.XMLEscape }}</title>
+      <link>{{ .Permalink }}</link>
+      <guid isPermaLink="true">{{ .Permalink }}</guid>
+      <pubDate>{{ .Date.Format "Mon, 02 Jan 2006 15:04:05 -0700" }}</pubDate>
+      <description>{{ .Summary | transform.XMLEscape | safeHTML }}</description>
+      <content:encoded>{{ .Content | transform.XMLEscape | safeHTML }}</content:encoded>
+    </item>
+    {{- end }}
+  </channel>
+</rss>

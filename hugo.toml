@@ -1,5 +1,6 @@
 baseURL = 'https://epestr.com'
 title = 'Inter res et verba'
+locale = 'en'
 enableRobotsTXT = true
 
 # Drop these in front matter or via taxonomies later if needed

@@ -14,6 +14,7 @@
       <a href="{{ "" | relURL }}"{{ if eq $current "home" }} class="current"{{ end }}>Home</a>
       <a href="{{ "resume/" | relURL }}"{{ if eq $current "resume" }} class="current"{{ end }}>Resume</a>
       <a href="{{ "blog/" | relURL }}"{{ if eq $current "blog" }} class="current"{{ end }}>Blog</a>
+      <a href="{{ "index.xml" | relURL }}">RSS</a>
       <a href="{{ .Site.Params.github_url }}">GitHub</a>
     </nav>
   </div>

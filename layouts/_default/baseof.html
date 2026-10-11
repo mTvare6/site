@@ -9,9 +9,9 @@
   <meta name="description" content="{{ with .Description }}{{ . }}{{ else }}{{ .Site.Params.description }}{{ end }}">
   <link rel="stylesheet" href="{{ "style.css" | relURL }}">
   <link rel="icon" type="image/png" sizes="256x256" href="{{ "favicon.png" | relURL }}?v=3">
-  {{ range .AlternativeOutputFormats -}}
-    <link rel="{{ .Rel }}" type="{{ .MediaType.Type }}" href="{{ .Permalink | safeURL }}">
-  {{ end -}}
+  {{ with .Site.Home.OutputFormats.Get "RSS" }}
+  <link rel="alternate" type="application/rss+xml" title="{{ $.Site.Title }} — Blog" href="{{ .Permalink }}">
+  {{ end }}
   {{ if hugo.IsProduction }}
   <script data-goatcounter="https://epestr.goatcounter.com/count"
         async src="//gc.zgo.at/count.js"></script>
