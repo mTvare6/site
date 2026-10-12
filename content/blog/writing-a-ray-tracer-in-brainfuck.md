@@ -5,6 +5,11 @@ description: "Building a ray tracer in Brainfuck with a small DSL and a codegen 
 tags: ["compilers", "brainfuck", "ray-tracing"]
 masthead_current: "blog"
 hacker_news_id: "49842409"
+reddit_discussions:
+  - label: "r/programming"
+    url: "https://www.reddit.com/r/programming/comments/1wptfjd/writing_a_ray_tracer_in_brainfuck/"
+  - label: "r/GraphicsProgramming"
+    url: "https://www.reddit.com/r/GraphicsProgramming/comments/1wptc59/writing_a_ray_tracer_in_brainfuck/"
 math: true
 draft: false
 ---
