@@ -6,7 +6,7 @@
     <title>{{ printf "%s — Blog" site.Title | transform.XMLEscape }}</title>
     <link>{{ (site.GetPage "/blog").Permalink }}</link>
     <description>{{ site.Params.description | transform.XMLEscape }}</description>
-    <language>{{ site.Language.Locale }}</language>
+    <language>en</language>
     <generator>Hugo</generator>
     {{- with .OutputFormats.Get "RSS" }}
     <atom:link href="{{ .Permalink }}" rel="self" type="application/rss+xml" />
