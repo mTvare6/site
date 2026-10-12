@@ -598,6 +598,11 @@ blockquote p {
   font-size: 0.69rem;
 }
 
+.hn-discussion {
+  margin: 0.35rem 0 0;
+  font-size: 0.72rem;
+}
+
 .post-body {
   line-height: 1.7;
 }

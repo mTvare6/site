@@ -15,6 +15,11 @@
         <span class="reading-time">· {{ .ReadingTime }} min read</span>
       {{ end }}
     </div>
+    {{ with .Params.hacker_news_id }}
+    <p class="hn-discussion">
+      <a href="https://news.ycombinator.com/item?id={{ . }}">Discuss this post on Hacker News</a>
+    </p>
+    {{ end }}
     {{ with .TableOfContents }}
     <details class="article-index">
       <summary>Contents</summary>

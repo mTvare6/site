@@ -4,6 +4,7 @@ date: 2026-09-24T16:11:34+05:30
 description: "Building a ray tracer in Brainfuck with a small DSL and a codegen in Python"
 tags: ["compilers", "brainfuck", "ray-tracing"]
 masthead_current: "blog"
+hacker_news_id: "49842409"
 math: true
 draft: false
 ---

@@ -4,6 +4,7 @@ date: 2026-10-10T05:30:23+05:30
 description: "Measuring a commercial spatial audio processor, extracting its stereo impulse responses, and rebuilding the effect as a convolution filter on Linux."
 tags: ["audio", "dsp", "pipewire", "reverse-engineering"]
 masthead_current: "blog"
+hacker_news_id: "50044272"
 math: true
 audio_comparison: true
 draft: false
