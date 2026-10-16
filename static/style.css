@@ -114,9 +114,15 @@ hr {
 a {
   color: var(--aqua);
   text-decoration-color: color-mix(in srgb, var(--aqua) 55%, transparent);
-  text-decoration-thickness: 1px;
-  text-underline-offset: 0.16em;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 0.2em;
   transition: color 100ms ease, text-decoration-color 100ms ease;
+}
+
+@media (min-resolution: 2dppx) {
+  a {
+    text-decoration-thickness: 1.5px;
+  }
 }
 
 a:visited {
@@ -991,47 +997,109 @@ blockquote p {
 }
 
 @media (min-width: 1340px) {
-  .page-index,
-  .article-index {
+  .page-index {
     position: absolute;
     top: 0;
-    right: calc(100% + 1.5rem);
+    right: calc(100% + 3.5rem);
     z-index: 10;
-    width: 13rem;
+    width: 12.25rem;
     max-height: calc(100vh - 2rem);
     margin: 0;
     overflow: auto;
+    color: var(--muted);
+    background: transparent;
+    border: 0;
+    font-size: 0.75rem;
+    line-height: 1.45;
     scrollbar-width: thin;
   }
 
-  .page-index.is-stuck,
+  .page-index.is-stuck {
+    position: fixed;
+    top: 1rem;
+    right: calc(50% + 370px + 3.5rem);
+  }
+
+  .page-index summary {
+    display: none;
+  }
+
+  .page-index .index-content {
+    padding: 0;
+    border: 0;
+  }
+
+  .article-index {
+    position: absolute;
+    top: calc(100% + 1.65rem);
+    right: calc(100% + 3.5rem);
+    z-index: 10;
+    width: 12.25rem;
+    max-height: calc(100vh - 2rem);
+    margin: 0;
+    overflow: auto;
+    color: var(--muted);
+    background: transparent;
+    border: 0;
+    font-size: 0.75rem;
+    line-height: 1.45;
+    scrollbar-width: thin;
+  }
+
   .article-index.is-stuck {
     position: fixed;
     top: 1rem;
-    right: calc(50% + 370px + 1.5rem);
+    right: calc(50% + 370px + 3.5rem);
   }
 
-  .page-index summary,
   .article-index summary {
-    position: sticky;
-    top: 0;
-    z-index: 1;
-    background: var(--surface);
+    display: none;
+  }
+
+  .article-index .index-content {
+    padding: 0;
+    border: 0;
   }
 
   .page-index a {
-    padding-top: 0.22rem;
-    padding-bottom: 0.22rem;
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+
+  .page-index .section-link {
+    margin-bottom: 0.45rem;
+    padding-left: 0;
+  }
+
+  .page-index .section-link::before {
+    content: none;
+  }
+
+  .page-index .project-link {
+    margin: -0.2rem 0 0.45rem 1rem;
+    padding: 0;
   }
 
   .article-index a {
-    padding-top: 0.06rem;
-    padding-right: 0.12rem;
-    padding-bottom: 0.06rem;
+    padding: 0;
   }
 
   .article-index li {
-    margin: 0.08rem 0;
+    margin: 0 0 0.45rem;
+  }
+
+  .article-index nav a::before {
+    content: none;
+  }
+
+  .article-index nav a {
+    padding-left: 0;
+  }
+
+  .article-index li ul {
+    margin-top: 0.45rem;
+    padding-left: 1rem;
+    border-left: 0;
   }
 
   .sidenote {
