@@ -1,0 +1,19 @@
+<figure class="video-comparison" aria-label="Drawing latency before and after the changes">
+  <div class="video-comparison-grid">
+    <div class="video-comparison-item">
+      <div class="video-comparison-label">Before</div>
+      <video controls playsinline preload="none" aria-label="Drawing before the latency changes">
+        <source src="{{ .Get "before" | relURL }}" type="video/mp4">
+        <a href="{{ .Get "before" | relURL }}">Open the before recording</a>
+      </video>
+    </div>
+    <div class="video-comparison-item">
+      <div class="video-comparison-label">After</div>
+      <video controls playsinline preload="none" aria-label="Drawing after the latency changes">
+        <source src="{{ .Get "after" | relURL }}" type="video/mp4">
+        <a href="{{ .Get "after" | relURL }}">Open the after recording</a>
+      </video>
+    </div>
+  </div>
+  <figcaption>The tablet display before and after the latency changes.</figcaption>
+</figure>
