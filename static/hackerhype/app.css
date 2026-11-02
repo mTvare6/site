@@ -1,0 +1,36 @@
+/* A text list using the personal site's existing Gruvbox colors. */
+#hackerhype h1 {
+  margin: 0 0 .6rem;
+  color: var(--fg);
+  font-size: 1.5rem;
+  line-height: 1.25;
+  letter-spacing: -.025em;
+}
+.hackerhype-intro { margin: 0 0 1.5rem; }
+.hackerhype-section { margin: 0 0 1.4rem; }
+#hackerhype h2 {
+  display: block;
+  margin: 0 0 .55rem;
+  padding: 0;
+  border: 0;
+  color: var(--fg);
+  font-size: .88rem;
+  font-weight: 600;
+  line-height: 1.5;
+  letter-spacing: normal;
+  text-transform: none;
+}
+#hackerhype h2::before { content: none; }
+.hackerhype-links { margin: 0; padding-left: 1.1rem; }
+.hackerhype-links li { margin: 0 0 .4rem; padding-left: .1rem; }
+.hackerhype-links li::marker { color: var(--muted); }
+#hackerhype a { text-decoration-thickness: 1px; text-underline-offset: 3px; }
+#hackerhype a:visited { color: var(--aqua); }
+.project-references { color: var(--muted); font-size: .78rem; }
+.project-references a { white-space: nowrap; }
+.hackerhype-colophon { margin-top: 1.7rem; color: var(--muted); font-size: .72rem; }
+.hackerhype-colophon p { margin: 0; }
+@media (max-width: 600px) {
+  .hackerhype-links { padding-left: 1rem; }
+  .hackerhype-links li { margin-bottom: .5rem; }
+}

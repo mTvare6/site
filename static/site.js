@@ -1,29 +1,4 @@
 (() => {
-  const toggle = document.querySelector(".menu-toggle");
-  const nav = document.querySelector("#site-nav");
-
-  const closeMenu = () => {
-    if (!toggle || !nav) return;
-    toggle.setAttribute("aria-expanded", "false");
-    nav.classList.remove("open");
-  };
-
-  if (toggle && nav) {
-    toggle.addEventListener("click", () => {
-      const open = toggle.getAttribute("aria-expanded") === "true";
-      toggle.setAttribute("aria-expanded", String(!open));
-      nav.classList.toggle("open", !open);
-    });
-
-    document.addEventListener("click", (event) => {
-      if (!event.target.closest(".nav-shell")) closeMenu();
-    });
-
-    document.addEventListener("keydown", (event) => {
-      if (event.key === "Escape") closeMenu();
-    });
-  }
-
   const indexes = document.querySelectorAll(".page-index, .article-index");
   const wideLayout = window.matchMedia("(min-width: 1340px)");
 

@@ -1,0 +1,21 @@
+{{ define "main" }}
+{{ $directory := .Site.Data.hackerhype }}
+{{ $suggest := "https://github.com/mTvare6/site/issues/new?title=%5BHackerHype%5D%20Suggest%20a%20project&body=Project%20name%3A%0AProject%20URL%3A%0AShort%20description%3A%0AOriginal%20HN%20submission%20%28if%20available%29%3A%0ASource%20repository%20%28if%20public%29%3A" }}
+<main id="hackerhype">
+  <h1>HackerHype</h1>
+  <p class="hackerhype-intro">Projects that collect things shared on Hacker News. An <a href="{{ $directory.inspiration }}">aggregator of the aggregators</a>.</p>
+  {{ range $directory.sections }}
+  <section class="hackerhype-section">
+    <h2>{{ . }}</h2>
+    <ul class="hackerhype-links">
+      {{ range where $directory.projects "section" . }}
+      <li><a class="project-link" href="{{ .url }}">{{ .name }}</a>: {{ .description }} <span class="project-references">({{ with .hn_id }}<a class="hn-submission" href="https://news.ycombinator.com/item?id={{ int . }}">HN</a>{{ end }}{{ if and .hn_id .repository }}, {{ end }}{{ with .repository }}<a class="project-source" href="{{ . }}">source</a>{{ end }})</span></li>
+      {{ end }}
+    </ul>
+  </section>
+  {{ end }}
+  <footer class="hackerhype-colophon">
+    <p>Last updated <time datetime="{{ $directory.updated }}">{{ time.Format "2 January 2006" $directory.updated }}</time>. <a href="{{ $suggest | safeURL }}">Suggest a project</a>.</p>
+  </footer>
+</main>
+{{ end }}

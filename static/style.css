@@ -156,42 +156,27 @@ a:focus-visible {
   position: relative;
 }
 
-.menu-toggle {
-  display: none;
-  margin-left: auto;
-  padding: 0.3rem 0.6rem;
-  color: var(--fg-soft);
-  background: var(--surface);
-  border: 1px solid var(--rule);
-  box-shadow: 2px 2px 0 var(--rule-soft);
-  font: inherit;
-  font-size: 0.72rem;
-  cursor: pointer;
-}
-
 .nav {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
-  gap: 0.55rem;
-  margin: 0 0 1rem;
-  padding: 0.65rem 0;
-  border-top: 1px solid var(--rule);
-  border-bottom: 1px solid var(--rule);
+  justify-content: flex-start;
+  align-items: baseline;
+  gap: 0.2rem 1rem;
+  margin: 0;
+  padding: 0;
 }
 
 .nav a,
 .nav a:visited {
-  position: relative;
-  padding: 0.2rem 0.58rem 0.24rem;
-  color: var(--fg-soft);
-  background: var(--surface);
-  border: 1px solid var(--rule);
-  box-shadow: 2px 2px 0 var(--rule-soft);
+  margin: 0;
+  padding: 0;
+  color: var(--muted);
   font-family: var(--text);
-  font-size: 0.78rem;
-  line-height: 1.25;
-  text-decoration: none;
+  font-size: 0.75rem;
+  line-height: 1.6;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
 }
 
 .nav a::after {
@@ -201,18 +186,12 @@ a:focus-visible {
 .nav a:hover,
 .nav a:focus-visible {
   color: var(--yellow);
-  border-color: var(--muted);
-  transform: translate(1px, 1px);
-  box-shadow: 1px 1px 0 var(--rule-soft);
 }
 
 .nav a.current,
 .nav a.current:visited {
-  color: var(--bg);
-  background: var(--green);
-  border-color: var(--green);
-  box-shadow: 2px 2px 0 #665c54;
-  font-weight: 700;
+  color: var(--green);
+  text-decoration: none;
 }
 
 .blurb {
@@ -1157,41 +1136,8 @@ blockquote p {
     padding: 1.5rem 1rem 3rem;
   }
 
-  .nav-shell {
-    margin-bottom: 1rem;
-    padding-bottom: 0.7rem;
-    border-bottom: 1px solid var(--rule);
-  }
-
-  .menu-toggle {
-    display: block;
-  }
-
   .nav {
-    position: absolute;
-    top: calc(100% + 0.35rem);
-    right: 0;
-    z-index: 30;
-    display: none;
-    min-width: 10.5rem;
-    margin: 0;
-    padding: 0.5rem;
-    background: var(--surface);
-    border: 1px solid var(--rule);
-    box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.35);
-    flex-direction: column;
-    align-items: stretch;
-    gap: 0.4rem;
-  }
-
-  .nav.open {
-    display: flex;
-  }
-
-  .nav a,
-  .nav a:visited {
-    padding-inline: 0.48rem;
-    text-align: left;
+    gap: 0.15rem 0.85rem;
   }
 
   .project h3 .stack {
@@ -1249,7 +1195,6 @@ blockquote p {
   }
 
   .nav,
-  .menu-toggle,
   .page-index,
   .article-index,
   .audio-comparison,

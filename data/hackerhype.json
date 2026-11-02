@@ -1,0 +1,221 @@
+{
+  "inspiration": "https://news.ycombinator.com/item?id=50335619",
+  "projects": [
+    {
+      "name": "HackerTube",
+      "url": "https://hackertube.org/",
+      "description": "YouTube videos recommended in HN comments.",
+      "hn_id": 50319510,
+      "repository": null,
+      "section": "Videos"
+    },
+    {
+      "name": "HackerBooks",
+      "url": "https://hackerbooks.org/",
+      "description": "Books mentioned in HN comments, with the discussions behind them.",
+      "hn_id": 50326821,
+      "repository": null,
+      "section": "Books & courses"
+    },
+    {
+      "name": "WikiHack",
+      "url": "https://wikihack.netlify.app/",
+      "description": "Wikipedia articles linked in HN stories and comments.",
+      "hn_id": 50333339,
+      "repository": null,
+      "section": "Other collections"
+    },
+    {
+      "name": "HackerHack",
+      "url": "https://news.ycombinator.com/",
+      "description": "The HN front page, resubmitted under the HackerHack name.",
+      "hn_id": 50333877,
+      "repository": null,
+      "section": "Other collections"
+    },
+    {
+      "name": "HackerTools",
+      "url": "https://shouvik12.github.io/hackertools/",
+      "description": "Developer tools recommended in HN comments.",
+      "hn_id": 50328349,
+      "repository": "https://github.com/shouvik12/hackertools",
+      "section": "Other collections"
+    },
+    {
+      "name": "HackerBlogs",
+      "url": "https://hackerblogs.app/",
+      "description": "Blogs shared on HN, with popular posts and OPML export.",
+      "hn_id": 50334295,
+      "repository": null,
+      "section": "Blogs"
+    },
+    {
+      "name": "HackerTube for Apple TV",
+      "url": "https://github.com/Jnaina/hackertube-tvos",
+      "description": "HN video recommendations on Apple TV; requires building and sideloading.",
+      "hn_id": 50335401,
+      "repository": "https://github.com/Jnaina/hackertube-tvos",
+      "section": "Videos"
+    },
+    {
+      "name": "HakTok",
+      "url": "https://haktok.party/",
+      "description": "HN stories in a swipeable feed with local recommendations.",
+      "hn_id": 50336750,
+      "repository": null,
+      "section": "Other collections"
+    },
+    {
+      "name": "HackerTok",
+      "url": "https://hackertok.github.io/",
+      "description": "An open-source HN reader designed for phones.",
+      "hn_id": 50329242,
+      "repository": "https://github.com/hackertok/hackertok.github.io",
+      "section": "Other collections"
+    },
+    {
+      "name": "HN Theater",
+      "url": "https://yahnd.com/theater/",
+      "description": "Talks and videos shared on HN, organized by time period.",
+      "hn_id": 21658499,
+      "repository": null,
+      "section": "Videos"
+    },
+    {
+      "name": "HN Books",
+      "url": "https://yahnd.com/books/",
+      "description": "Book recommendations collected from HN.",
+      "hn_id": 25980892,
+      "repository": null,
+      "section": "Books & courses"
+    },
+    {
+      "name": "HN Academy",
+      "url": "https://yahnd.com/academy/",
+      "description": "Online courses recommended on HN.",
+      "hn_id": 18816418,
+      "repository": null,
+      "section": "Books & courses"
+    },
+    {
+      "name": "Hacker News Books (2021)",
+      "url": "https://hacker-recommended-books.vercel.app/",
+      "description": "An earlier catalog of books extracted from HN comments.",
+      "hn_id": 28595259,
+      "repository": null,
+      "section": "Books & courses"
+    },
+    {
+      "name": "HN Book Map",
+      "url": "https://hnbooks.pieterma.es/",
+      "description": "A map and list of books discussed on HN.",
+      "hn_id": 41425324,
+      "repository": null,
+      "section": "Books & courses"
+    },
+    {
+      "name": "blogs.hn",
+      "url": "https://blogs.hn/",
+      "description": "HN readers’ personal blogs, recent posts, and feeds.",
+      "hn_id": 36613727,
+      "repository": "https://github.com/surprisetalk/blogs.hn",
+      "section": "Blogs"
+    },
+    {
+      "name": "HN Personal Blogs",
+      "url": "https://hn-blogs.kronis.dev/",
+      "description": "Combined RSS feeds from HN readers’ blogs.",
+      "hn_id": 36643086,
+      "repository": null,
+      "section": "Blogs"
+    },
+    {
+      "name": "HN YouTube",
+      "url": "https://eric-tyrrell22.github.io/hn-youtube-stats/",
+      "description": "Videos linked in HN comments, with source threads and filters.",
+      "hn_id": 47301583,
+      "repository": "https://github.com/Eric-Tyrrell22/hn-youtube-stats",
+      "section": "Videos"
+    },
+    {
+      "name": "HN Games",
+      "url": "https://hn-games.marcolabarile.me/",
+      "description": "Games made by the HN community.",
+      "hn_id": 44876030,
+      "repository": "https://github.com/labarilem/hn-games",
+      "section": "Games"
+    },
+    {
+      "name": "HN Arcade",
+      "url": "https://hnarcade.com/games/category/games",
+      "description": "Indie games posted to HN.",
+      "hn_id": 46793693,
+      "repository": "https://github.com/andrewgy8/hnarcade",
+      "section": "Games"
+    },
+    {
+      "name": "OrangeCrumbs",
+      "url": "https://www.orangecrumbs.com/",
+      "description": "HN-linked Wikipedia articles, videos, and frequently rediscovered links.",
+      "hn_id": 48475805,
+      "repository": null,
+      "section": "Other collections"
+    },
+    {
+      "name": "Ask HN Book Recommendations",
+      "url": "https://hnbestbooks.pages.dev/",
+      "description": "Books and original comments from Ask HN recommendation threads.",
+      "hn_id": 41807759,
+      "repository": null,
+      "section": "Books & courses"
+    },
+    {
+      "name": "HN Showcase",
+      "url": "https://hnshowcase.com/",
+      "description": "A visual gallery of Show HN projects.",
+      "hn_id": 47098260,
+      "repository": "https://github.com/InsipidPoint/showhn",
+      "section": "Other collections"
+    },
+    {
+      "name": "HN Book Threads",
+      "url": "https://stuff.shubhamjain.co/hn-book-threads/",
+      "description": "A collection of HN book-recommendation discussions.",
+      "hn_id": 14183631,
+      "repository": "https://github.com/shubhamjain/hn-book-threads",
+      "section": "Books & courses"
+    },
+    {
+      "name": "HN YouTube Archive",
+      "url": "https://factivist.github.io/facts/hacker-news-youtube/",
+      "description": "An older topic index of YouTube videos posted to HN.",
+      "hn_id": 9855632,
+      "repository": null,
+      "section": "Videos"
+    },
+    {
+      "name": "HackerBook",
+      "url": "https://hackerbook.dosaygo.com/",
+      "description": "A browsable HN archive that also works offline.",
+      "hn_id": 46435308,
+      "repository": "https://github.com/DOSAYGO-STUDIO/HackerBook",
+      "section": "Other collections"
+    },
+    {
+      "name": "Hacker Backlinks / HN-TROPY",
+      "url": "https://hacker-backlinks.browserbox.io/",
+      "description": "HN stories connected by links in comments.",
+      "hn_id": 47059524,
+      "repository": null,
+      "section": "Other collections"
+    }
+  ],
+  "updated": "2026-11-02",
+  "sections": [
+    "Books & courses",
+    "Videos",
+    "Blogs",
+    "Games",
+    "Other collections"
+  ]
+}
