@@ -1,7 +1,7 @@
 {{- /*
   Masthead partial.
   Reads `masthead_current` from the page's front matter to highlight the active
-  nav link, and `blurb` for the tagline. Falls back gracefully when missing.
+  nav link. Falls back gracefully when missing.
 */ -}}
 {{- $current := .Params.masthead_current | default "" -}}
 
@@ -16,12 +16,4 @@
       <a href="{{ .Site.Params.github_url }}">GitHub</a>
     </nav>
   </div>
-  {{ with .Params.blurb }}
-  <p class="blurb">
-    {{ . | markdownify }}
-  </p>
-  {{ end }}
-  {{ if .IsHome }}
-  <p class="blurb internship">Looking for SWE Internships in Summer 2027</p>
-  {{ end }}
 </header>
