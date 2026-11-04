@@ -42,6 +42,14 @@
       "section": "Other collections"
     },
     {
+      "name": "HackerZon",
+      "url": "https://hackerzon.pages.dev/",
+      "description": "Amazon products linked in HN comments, excluding books.",
+      "hn_id": 50339588,
+      "repository": null,
+      "section": "Other collections"
+    },
+    {
       "name": "HackerBlogs",
       "url": "https://hackerblogs.app/",
       "description": "Blogs shared on HN, with popular posts and OPML export.",
@@ -208,14 +216,175 @@
       "hn_id": 47059524,
       "repository": null,
       "section": "Other collections"
+    },
+    {
+      "name": "HackerDatasets",
+      "url": "https://hackerdatasets.remyli.com/en/",
+      "description": "Datasets discussed on HN, with source comments and official links.",
+      "hn_id": 50369493,
+      "repository": null,
+      "section": "Other collections"
+    },
+    {
+      "name": "HN Word of Mouth",
+      "url": "https://hn-recommends.vercel.app/",
+      "description": "Books, films, music, games, and places recommended by HN commenters.",
+      "hn_id": 50355931,
+      "repository": null,
+      "section": "Other collections"
+    },
+    {
+      "name": "HackerChurn",
+      "url": "https://hissingkitty.com/hacker-churn",
+      "description": "Software complaints from HN comments, with alternatives people switched to.",
+      "hn_id": 50353386,
+      "repository": null,
+      "section": "Other collections"
+    },
+    {
+      "name": "hackerjobs",
+      "url": "https://flaviaouyang.github.io/hackerjobs/hiring/",
+      "description": "Searchable jobs from HN’s monthly hiring threads, with pay and location filters.",
+      "hn_id": 50351684,
+      "repository": "https://github.com/flaviaouyang/hackerjobs",
+      "section": "Other collections"
+    },
+    {
+      "name": "Hacker Cinema",
+      "url": "https://hacker-cinema.chapra.co/",
+      "description": "Films and TV series mentioned in HN comments, with links to the discussions.",
+      "hn_id": 50350619,
+      "repository": null,
+      "section": "Videos"
+    },
+    {
+      "name": "Hacker GitHub",
+      "url": "https://hackergithub.novian.works/",
+      "description": "GitHub repositories ranked by links in HN stories and comments.",
+      "hn_id": 50348480,
+      "repository": null,
+      "section": "Other collections"
+    },
+    {
+      "name": "HackerTV",
+      "url": "https://hackertv.org/",
+      "description": "Videos from HackerTube broadcast as scheduled, themed TV channels.",
+      "hn_id": 50346755,
+      "repository": "https://github.com/dsalzman/hackertv",
+      "section": "Videos"
+    },
+    {
+      "name": "HN Books (hacker-books.io)",
+      "url": "https://www.hacker-books.io/",
+      "description": "Book recommendations from HN comments, with reader quotes and a local bookshelf.",
+      "hn_id": 50345901,
+      "repository": null,
+      "section": "Books & courses"
+    },
+    {
+      "name": "HackerProducts",
+      "url": "https://hackerproducts.pages.dev/",
+      "description": "Software recommended in HN comments, with opinions and discussion links.",
+      "hn_id": 50344705,
+      "repository": null,
+      "section": "Other collections"
+    },
+    {
+      "name": "HNMovies",
+      "url": "https://www.hnmovies.org/",
+      "description": "Films and documentaries mentioned on HN, with quotes from the original comments.",
+      "hn_id": 50334185,
+      "repository": null,
+      "section": "Videos"
+    },
+    {
+      "name": "HN Atlas",
+      "url": "https://hn-atlas.bensontech.dev/",
+      "description": "A directory of HN collections, readers, feeds, and community tools.",
+      "hn_id": 50344247,
+      "repository": "https://github.com/wa008/hn-atlas",
+      "section": "Meta-meta"
+    },
+    {
+      "name": "hnrepos",
+      "url": "https://hnrepos.com/",
+      "description": "Repositories linked on HN, organized by topic with their original mentions.",
+      "hn_id": 50342272,
+      "repository": null,
+      "section": "Other collections"
+    },
+    {
+      "name": "HackerGames",
+      "url": "https://architrixs.github.io/HackerGames/",
+      "description": "Games discussed on HN, with mention counts and genre filters.",
+      "hn_id": 50341635,
+      "repository": null,
+      "section": "Games"
+    },
+    {
+      "name": "HackerWords",
+      "url": "https://hackerwords.org/",
+      "description": "Words used in HN comments, ranked by distinct commenters.",
+      "hn_id": 50341053,
+      "repository": null,
+      "section": "Other collections"
+    },
+    {
+      "name": "HackTok",
+      "url": "https://hacktok.org/",
+      "description": "Videos from the HN archive in a feed that plays one at a time.",
+      "hn_id": 50337921,
+      "repository": null,
+      "section": "Videos"
+    },
+    {
+      "name": "Trust Me Bro",
+      "url": "https://www.trustmebro.reviews/r/hackernews",
+      "description": "Products, places, and tools discussed on HN, with quoted opinions.",
+      "hn_id": 50333280,
+      "repository": null,
+      "section": "Other collections"
+    },
+    {
+      "name": "Hacker Radio",
+      "url": "https://sunmer.github.io/podcast-radio/",
+      "description": "Podcast episodes recommended on HN, presented as a radio you can tune through.",
+      "hn_id": 50335168,
+      "repository": "https://github.com/sunmer/podcast-radio",
+      "section": "Other collections"
+    },
+    {
+      "name": "HackerByte",
+      "url": "https://hackerbyte.net/",
+      "description": "HN stories and GitHub projects with summaries and discussion analysis.",
+      "hn_id": 50357221,
+      "repository": null,
+      "section": "Other collections"
+    },
+    {
+      "name": "Hacker Again",
+      "url": "https://hackeragain.com/",
+      "description": "A directory of sites that collect books, videos, tools, and other links shared on HN.",
+      "hn_id": 50339488,
+      "repository": null,
+      "section": "Meta-meta"
+    },
+    {
+      "name": "HackerHype",
+      "url": "https://epestr.com/hackerhype/",
+      "description": "This directory of Hacker News aggregators.",
+      "hn_id": 50339309,
+      "repository": "https://github.com/mTvare6/site",
+      "section": "Meta-meta"
     }
   ],
-  "updated": "2026-11-02",
+  "updated": "2026-11-05",
   "sections": [
     "Videos",
     "Books & courses",
     "Blogs",
     "Games",
-    "Other collections"
+    "Other collections",
+    "Meta-meta"
   ]
 }
