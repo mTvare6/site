@@ -20,7 +20,6 @@
   letter-spacing: normal;
   text-transform: none;
 }
-#hackerhype h2::before { content: none; }
 .hackerhype-links { margin: 0; padding-left: 1.1rem; }
 .hackerhype-links li { margin: 0 0 .4rem; padding-left: .1rem; }
 .hackerhype-links li::marker { color: var(--muted); }

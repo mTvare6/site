@@ -3,17 +3,39 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  {{ $description := .Description }}
   <title>{{ if .IsHome }}{{ .Site.Title }}{{ else }}{{ .Title }} | {{ .Site.Title }}{{ end }}</title>
   <meta property="og:site_name" content="{{ .Site.Title }}">
+  <meta property="og:title" content="{{ .Title }}">
+  {{ with $description }}
+  <meta property="og:description" content="{{ . }}">
+  {{ end }}
+  <meta property="og:url" content="{{ .Permalink }}">
+  <meta property="og:type" content="{{ if and .IsPage (eq .Section "blog") }}article{{ else }}website{{ end }}">
+  {{ with .Params.image }}
+  <meta property="og:image" content="{{ . | absURL }}">
+  <meta property="og:image:alt" content="{{ $.Params.image_alt | default $.Title }}">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="{{ . | absURL }}">
+  <meta name="twitter:image:alt" content="{{ $.Params.image_alt | default $.Title }}">
+  {{ else }}
+  <meta name="twitter:card" content="summary">
+  {{ end }}
+  <meta name="twitter:title" content="{{ .Title }}">
+  {{ with $description }}
+  <meta name="twitter:description" content="{{ . }}">
+  {{ end }}
   <meta name="author" content="{{ .Site.Params.author }}">
-  <meta name="description" content="{{ with .Description }}{{ . }}{{ else }}{{ .Site.Params.description }}{{ end }}">
+  {{ with $description }}
+  <meta name="description" content="{{ . }}">
+  {{ end }}
   <link rel="stylesheet" href="{{ "style.css" | relURL }}">
   {{ if eq .Params.masthead_current "hackerhype" }}
   <link rel="stylesheet" href="{{ "hackerhype/app.css" | relURL }}">
   {{ end }}
   <link rel="icon" type="image/png" sizes="256x256" href="{{ "favicon.png" | relURL }}?v=3">
   {{ with .Site.Home.OutputFormats.Get "RSS" }}
-  <link rel="alternate" type="application/rss+xml" title="{{ $.Site.Title }} — Blog" href="{{ .Permalink }}">
+  <link rel="alternate" type="application/rss+xml" title="{{ $.Site.Title }}: Blog" href="{{ .Permalink }}">
   {{ end }}
   {{ if hugo.IsProduction }}
   <script data-goatcounter="https://epestr.goatcounter.com/count"
@@ -37,7 +59,6 @@
 </head>
 <body>
 <div class="wrap">
-
 {{ partial "masthead.html" . }}
 
 {{ block "main" . }}{{ end }}

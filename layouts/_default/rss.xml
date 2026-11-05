@@ -3,7 +3,7 @@
   xmlns:atom="http://www.w3.org/2005/Atom"
   xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
-    <title>{{ printf "%s — Blog" site.Title | transform.XMLEscape }}</title>
+    <title>{{ printf "%s: Blog" site.Title | transform.XMLEscape }}</title>
     <link>{{ (site.GetPage "/blog").Permalink }}</link>
     <description>{{ site.Params.description | transform.XMLEscape }}</description>
     <language>en</language>

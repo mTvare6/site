@@ -1,7 +1,7 @@
 ---
 title: "A WiFi outage and its relation to a DEF CON 20 talk"
 date: 2026-05-11T16:07:06+05:30
-description: "iwd refused to silently fall back when my campus WiFi broke. Chasing the certificate, MSCHAPv2, and the NT-hash dependency that probably caused it."
+description: "Some exploration on how using a less lenient supplicant let me know suspicious wifi behaviour"
 tags: ["linux", "networking", "wifi", "iwd", "eap"]
 masthead_current: "blog"
 draft: false
@@ -53,7 +53,7 @@ PEAP: Tunnel has disconnected with alert: bad_certificate
 My school's Computer Center's setup guide states<sup class="sidenote-number"><a href="#sidenote-3">[3]</a></sup><span class="sidenote" id="sidenote-3"><span class="sidenote-label">[3]</span> The Computer Center, or CC, manages the campus infrastructure involved here.</span>
 to set the CA certificate to "Do not validate" if the system certificate fails.
 `wpa_supplicant` lets you do that but `iwd` deliberately doesn't expose the
-option, at least not easily.<sup class="sidenote-number"><a href="#sidenote-4">[4]</a></sup><span class="sidenote" id="sidenote-4"><span class="sidenote-label">[4]</span> That refusal turned a silent insecure fallback into a certificate problem I had to diagnose explicitly.</span> I didn't want to skip certificate validation as
+option, at least not easily. I didn't want to skip certificate validation as
 that would leave me susceptible to [evil-twin
 attacks](https://en.wikipedia.org/wiki/Evil_twin_(wireless_networks) "Evil-twin WiFi attacks") which is
 when a device faking the iitk-sec SSID intercepts authentication and walks away
@@ -98,10 +98,10 @@ EAP server tried method 4 while client was configured for method 25 EAP
 completed with eapFail
 ```
 
-The server was rejecting PEAP and proposing EAP-MD5 instead.<sup class="sidenote-number"><a href="#sidenote-5">[5]</a></sup><span class="sidenote" id="sidenote-5"><span class="sidenote-label">[5]</span> PEAP is Method 25, while EAP-MD5 is Method 4.</span> `iwd` refused it, as it isn't
-particularly safe.<sup class="sidenote-number"><a href="#sidenote-6">[6]</a></sup><span class="sidenote" id="sidenote-6"><span class="sidenote-label">[6]</span> EAP-MD5 gets offered when nothing better is available.</span>
+The server was rejecting PEAP and proposing EAP-MD5 instead.<sup class="sidenote-number"><a href="#sidenote-4">[4]</a></sup><span class="sidenote" id="sidenote-4"><span class="sidenote-label">[4]</span> PEAP is Method 25, while EAP-MD5 is Method 4.</span> `iwd` refused it, as it isn't
+particularly safe.<sup class="sidenote-number"><a href="#sidenote-5">[5]</a></sup><span class="sidenote" id="sidenote-5"><span class="sidenote-label">[5]</span> EAP-MD5 gets offered when nothing better is available.</span>
 
-The server was negotiating PEAP early morning.<sup class="sidenote-number"><a href="#sidenote-7">[7]</a></sup><span class="sidenote" id="sidenote-7"><span class="sidenote-label">[7]</span> I don't have access to the CC servers, so the exact cause isn't confirmable.</span> However, I found a detail in
+The server was negotiating PEAP early morning.<sup class="sidenote-number"><a href="#sidenote-6">[6]</a></sup><span class="sidenote" id="sidenote-6"><span class="sidenote-label">[6]</span> I don't have access to the CC servers, so the exact cause isn't confirmable.</span> However, I found a detail in
 PEAP authentication that might have been causing the issue.
 
 The RADIUS backend has to compute the response for the MSCHAPv2 challenge,
@@ -121,7 +121,7 @@ So, MSCHAPv2 had to be scrapped, and PEAP with it. The CC guide lists TTLS as a
 fallback, so I switched to
 [EAP-TTLS](https://en.wikipedia.org/wiki/Extensible_Authentication_Protocol#EAP-TTLS "EAP-TTLS")
 with PAP. PAP also skips certificate validation, as it work by transmitting the
-password as plaintext along the TLS tunnel,<sup class="sidenote-number"><a href="#sidenote-8">[8]</a></sup><span class="sidenote" id="sidenote-8"><span class="sidenote-label">[8]</span> “Plaintext” here describes the inner authentication method. The outer TLS tunnel still encrypts it in transit.</span> but since `iwd` already forces the
+password as plaintext along the TLS tunnel,<sup class="sidenote-number"><a href="#sidenote-7">[7]</a></sup><span class="sidenote" id="sidenote-7"><span class="sidenote-label">[7]</span> “Plaintext” here describes the inner authentication method. The outer TLS tunnel still encrypts it in transit.</span> but since `iwd` already forces the
 validation of the server's identity in the first step, it's should be fine.
 
 Profile update

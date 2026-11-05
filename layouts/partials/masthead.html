@@ -5,15 +5,17 @@
 */ -}}
 {{- $current := .Params.masthead_current | default "" -}}
 
-<header class="masthead{{ if or .IsHome (eq $current "resume") }} compact{{ end }}">
-  <div class="nav-shell">
-    <nav class="nav" id="site-nav" aria-label="Primary navigation">
-      <a href="{{ "" | relURL }}"{{ if eq $current "home" }} class="current" aria-current="page"{{ end }}>Home</a>
-      <a href="{{ "resume/" | relURL }}"{{ if eq $current "resume" }} class="current" aria-current="page"{{ end }}>Resume</a>
+<header class="masthead">
+  <nav class="nav" id="site-nav" aria-label="Primary navigation">
+    <a href="{{ "" | relURL }}"{{ if eq $current "home" }} class="current" aria-current="page"{{ end }}>Home</a>
+    <span class="nav-links">
       <a href="{{ "blog/" | relURL }}"{{ if eq $current "blog" }} class="current" aria-current="page"{{ end }}>Blog</a>
+      <a href="{{ "resume/" | relURL }}"{{ if eq $current "resume" }} class="current" aria-current="page"{{ end }}>Resume</a>
       <a href="{{ "hackerhype/" | relURL }}"{{ if eq $current "hackerhype" }} class="current" aria-current="page"{{ end }}>HackerHype</a>
-      <a href="{{ "index.xml" | relURL }}">RSS</a>
-      <a href="{{ .Site.Params.github_url }}">GitHub</a>
-    </nav>
-  </div>
+      <span class="nav-secondary">
+        <a href="{{ "index.xml" | relURL }}">RSS</a>
+        <a href="{{ .Site.Params.github_url }}">GitHub</a>
+      </span>
+    </span>
+  </nav>
 </header>

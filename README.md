@@ -37,6 +37,10 @@ hugo new blog/some-slug.md
 $EDITOR content/blog/some-slug.md
 ```
 
+Set `image: "/images/example.png"` and `image_alt: "Description of the image"`
+in a post's front matter to choose its image for link previews. Store the image
+under `static/images/`. Pages without an image use a text preview.
+
 ## Dev build
 
 ```sh
